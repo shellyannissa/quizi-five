@@ -1,17 +1,24 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const { client } = require("./database/db");
+require("dotenv").config();
+const { client, initializeDatabase } = require("./database/db");
 
 //middleware
 app.use(cors());
 app.use(express.json());
+initializeDatabase();
 
 app.get("/", async (req, res) => {
   try {
-    res.json("hello world");
+    // Select all rows from the Users table
+    const result = await client.query("SELECT * FROM Users");
+    console.log(result.rows);
+    // Send the result as JSON response
+    res.json(result.rows);
   } catch (err) {
     console.error(err.message);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
