@@ -1,26 +1,14 @@
-const { Client } = require("pg");
+// db.js
 
-const config = {
+const { Pool } = require("pg");
+
+const pool = new Pool({
   connectionString: process.env.POSTGRES_URL + "?sslmode=require",
-  user: process.env.POSTGRES_USER,
-  password: process.env.POSTGRES_PASSWORD,
-  host: process.env.POSTGRES_HOST,
-  port: process.env.POSTGRES_PORT,
-  database: process.env.POSTGRES_NAME,
-};
+  user: process.env.PG_USER,
+  host: process.env.PG_HOST,
+  database: process.env.PG_DATABASE,
+  password: process.env.PG_PASSWORD,
+  port: process.env.PG_PORT,
+});
 
-const client = new Client(config);
-
-const initializeDatabase = async () => {
-  try {
-    await client.connect();
-    console.log("Connected to PostgreSQL database");
-  } catch (err) {
-    console.error("Error connecting to PostgreSQL database", err);
-  }
-};
-
-module.exports = {
-  client,
-  initializeDatabase,
-};
+module.exports = pool;

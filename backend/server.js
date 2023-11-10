@@ -1,48 +1,41 @@
 const express = require("express");
 const app = express();
-const cors = require("cors");
 require("dotenv").config();
-const { client, initializeDatabase } = require("./database/db");
 
-//middleware
-app.use(cors());
+const { createUsersTable } = require("./database/tableCreation");
+
+const registerUser = require("./controllers/userController");
+
+// Middleware setup
+
 app.use(express.json());
-const call = async () => {
-  await client.query("drop table users;");
-  await client.query(
-    "create table users(id serial primary key, email varchar(255), password varchar(255) not null);"
-  );
-};
-call();
 
-app.post("/register", async (req, res) => {
+// Create the "User" table
+createUsersTable();
+
+// Register user
+app.post("/register2", async (req, res) => {
   try {
-    const { email, password } = req.body;
-    const user = await client.query(
-      "insert into users(email,password) values($1,$2) returning *;",
-      [email, password]
-    );
-    res.json(user.rows[0]);
+    const user = await registerUser(req, res);
+    console.log(user);
+    res.json(user);
   } catch (err) {
-    console.log(err);
+    res.status(500).send("Internal Server Error");
   }
 });
 
 app.get("/allrecords", async (req, res) => {
   try {
-    const allrecords = await client.query("select * from users;");
+    const pool = require("./database/db");
+    const client = await pool.connect();
+    const allrecords = await client.query('SELECT * FROM "User"');
+    console.log(allrecords.rows);
     res.json(allrecords.rows);
   } catch (err) {
-    console.log(err);
+    res.status(500).send("Internal Server Error");
   }
 });
 
-try {
-  initializeDatabase();
-} catch (error) {
-  console.log(error);
-}
-
 app.listen(8000, () => {
-  console.log("server is running on port 8000");
+  console.log("Server is running on port 8000");
 });
