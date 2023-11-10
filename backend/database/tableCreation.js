@@ -1,32 +1,26 @@
-// initializeDatabase.js
+const pool = require("./db");
 
-const { Client } = require("pg");
-const { initializeDatabase } = require("./database/db"); // Import your database connection function
-
-const client = new Client();
-initializeDatabase(client);
-
-const createTables = async () => {
+const createUsersTable = async () => {
   try {
-    await client.connect();
+    const client = await pool.connect();
 
-    // Your table creation SQL statements
-    const createUsersTable = `
-      CREATE TABLE IF NOT EXISTS Users (
-        id SERIAL PRIMARY KEY,
-        username VARCHAR(255) NOT NULL,
-        email VARCHAR(255) NOT NULL
-      );
+    const createTableQuery = `
+    CREATE TABLE IF NOT EXISTS "User" (
+      uid UUID PRIMARY KEY,
+      name VARCHAR(25),
+      password VARCHAR(40),
+      email VARCHAR(30),
+      image VARCHAR(30));
     `;
 
-    await client.query(createUsersTable);
+    await client.query(createTableQuery);
 
-    console.log("Tables created successfully");
+    client.release();
+
+    console.log("User table created successfully");
   } catch (err) {
-    console.error("Error creating tables:", err);
-  } finally {
-    await client.end();
+    console.error("Error creating User table:", err);
   }
 };
 
-createTables();
+module.exports = { createUsersTable };
