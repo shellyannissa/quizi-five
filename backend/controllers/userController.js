@@ -7,6 +7,18 @@ function generateUUID() {
   return uuidv4();
 }
 
+const allUsers = asyncHandler(async (req, res) => {
+  try {
+    const client = await pool.connect();
+    const allrecords = await client.query('SELECT * FROM "User"');
+    console.log(allrecords.rows);
+    res.json(allrecords.rows);
+  } catch (err) {
+    res.status(500).send("Internal Server Error");
+    throw new Error("Internal Server Error");
+  }
+});
+
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password, pic } = req.body;
 
@@ -62,4 +74,4 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = registerUser;
+module.exports = { allUsers, registerUser };
