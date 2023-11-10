@@ -4,7 +4,7 @@ require("dotenv").config();
 
 const { createUsersTable } = require("./database/tableCreation");
 const userRoutes = require("./routes/userRoutes");
-const { registerUser } = require("./controllers/userController");
+const adminRoutes = require("./routes/adminRoutes");
 
 // !Middleware setup
 app.use(express.json());
@@ -13,6 +13,7 @@ app.use(express.json());
 // createUsersTable();
 
 app.use("/api/user", userRoutes);
+app.use("/api/admin", adminRoutes);
 
 app.listen(8000, () => {
   console.log("Server is running on port 8000");

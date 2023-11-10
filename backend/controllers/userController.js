@@ -35,7 +35,7 @@ const authUser = asyncHandler(async (req, res) => {
           _id: user.rows[0].uid,
           name: user.rows[0].name,
           email: user.rows[0].email,
-          pic: user.rows[0].image,
+          image: user.rows[0].image,
           token: generateToken(user.rows[0].uid),
         });
       } else {
@@ -55,7 +55,7 @@ const authUser = asyncHandler(async (req, res) => {
 });
 
 const updateUser = asyncHandler(async (req, res) => {
-  const { name, email, password, pic } = req.body;
+  const { name, email, password, image } = req.body;
   if (!email) {
     res.status(400);
     throw new Error("Please Enter all the Fields");
@@ -69,13 +69,13 @@ const updateUser = asyncHandler(async (req, res) => {
       if (user.rows[0].password === password) {
         const updatedUser = await client.query(
           'UPDATE "User" SET name = $1, email = $2, password = $3, image = $4 WHERE uid = $5 RETURNING *',
-          [name, email, password, pic, user.rows[0].uid]
+          [name, email, password, image, user.rows[0].uid]
         );
         res.json({
           _id: updatedUser.rows[0].uid,
           name: updatedUser.rows[0].name,
           email: updatedUser.rows[0].email,
-          pic: updatedUser.rows[0].image,
+          image: updatedUser.rows[0].image,
           token: generateToken(updatedUser.rows[0].uid),
         });
       } else {
@@ -93,7 +93,7 @@ const updateUser = asyncHandler(async (req, res) => {
 });
 
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password, pic } = req.body;
+  const { name, email, password, image } = req.body;
 
   if (!name || !email || !password) {
     res.status(400);
@@ -122,7 +122,7 @@ const registerUser = asyncHandler(async (req, res) => {
     // Insert the new user into the database
     const newUser = await client.query(
       'INSERT INTO "User"(uid, name, email, password, image) VALUES($1, $2, $3, $4, $5) RETURNING uid;',
-      [uid, name, email, password, pic]
+      [uid, name, email, password, image]
     );
 
     if (newUser.rows.length > 0) {
@@ -131,7 +131,7 @@ const registerUser = asyncHandler(async (req, res) => {
         _id: newUser.rows[0].uid,
         name,
         email,
-        pic,
+        image,
         token: generateToken(newUser.rows[0].uid), // Use the actual ID
       });
     } else {
