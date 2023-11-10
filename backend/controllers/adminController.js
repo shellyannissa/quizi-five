@@ -7,10 +7,10 @@ function generateUUID() {
   return uuidv4();
 }
 
-const allUsers = asyncHandler(async (req, res) => {
+const allAdmins = asyncHandler(async (req, res) => {
   try {
     const client = await pool.connect();
-    const allrecords = await client.query('SELECT * FROM "User"');
+    const allrecords = await client.query('SELECT * FROM "Admin"');
     res.json(allrecords.rows);
   } catch (error) {
     res.status(500).send("Internal Server Error");
@@ -18,25 +18,25 @@ const allUsers = asyncHandler(async (req, res) => {
   }
 });
 
-const authUser = asyncHandler(async (req, res) => {
+const authAdmin = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) {
-    res.status(400);
+    res.status(400).send("Please Enter all the Fields");
     throw new Error("Please Enter all the Fields");
   }
   try {
     const client = await pool.connect();
-    const user = await client.query('SELECT * FROM "User" WHERE email = $1', [
+    const user = await client.query('SELECT * FROM "Admin" WHERE email = $1', [
       email,
     ]);
     if (user.rows.length > 0) {
       if (user.rows[0].password === password) {
         res.json({
-          _id: user.rows[0].uid,
+          _id: user.rows[0].adminId,
           name: user.rows[0].name,
           email: user.rows[0].email,
-          image: user.rows[0].image,
-          token: generateToken(user.rows[0].uid),
+          noOfQuizzes: user.rows[0].noOfQuizzes,
+          token: generateToken(user.rows[0].adminId),
         });
       } else {
         res.status(401);
@@ -45,7 +45,7 @@ const authUser = asyncHandler(async (req, res) => {
       }
     } else {
       res.status(404);
-      throw new Error("User not found");
+      throw new Error("Admin not found");
     }
   } catch (error) {
     res.status(500);
@@ -54,8 +54,8 @@ const authUser = asyncHandler(async (req, res) => {
   }
 });
 
-const updateUser = asyncHandler(async (req, res) => {
-  const { name, email, password, image } = req.body;
+const updateAdmin = asyncHandler(async (req, res) => {
+  const { name, email, password, noOfQuizzes } = req.body;
   if (!email) {
     res.status(400);
     throw new Error("Please Enter all the Fields");
@@ -68,15 +68,15 @@ const updateUser = asyncHandler(async (req, res) => {
     if (user.rows.length > 0) {
       if (user.rows[0].password === password) {
         const updatedUser = await client.query(
-          'UPDATE "User" SET name = $1, email = $2, password = $3, image = $4 WHERE uid = $5 RETURNING *',
-          [name, email, password, image, user.rows[0].uid]
+          'UPDATE "Admin" SET name = $1, email = $2, password = $3, image = $4 WHERE adminId = $5 RETURNING *',
+          [name, email, password, noOfQuizzes, user.rows[0].adminId]
         );
         res.json({
-          _id: updatedUser.rows[0].uid,
+          _id: updatedUser.rows[0].adminId,
           name: updatedUser.rows[0].name,
           email: updatedUser.rows[0].email,
-          image: updatedUser.rows[0].image,
-          token: generateToken(updatedUser.rows[0].uid),
+          noOfQuizzes: updatedUser.rows[0].noOfQuizzes,
+          token: generateToken(updatedUser.rows[0].adminId),
         });
       } else {
         res.status(401);
@@ -92,8 +92,8 @@ const updateUser = asyncHandler(async (req, res) => {
   }
 });
 
-const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password, image } = req.body;
+const registerAdmin = asyncHandler(async (req, res) => {
+  const { name, email, password, noOfQuizzes } = req.body;
 
   if (!name || !email || !password) {
     res.status(400);
@@ -104,12 +104,12 @@ const registerUser = asyncHandler(async (req, res) => {
     // Check if the user already exists in the database
     const client = await pool.connect();
 
-    const userExists = await client.query(
-      'SELECT * FROM "User" WHERE email = $1',
+    const adminExists = await client.query(
+      'SELECT * FROM "Admin" WHERE email = $1',
       [email]
     );
 
-    if (userExists.rows.length > 0) {
+    if (adminExists.rows.length > 0) {
       // Check if any rows were returned
       client.release();
       res.status(400);
@@ -117,22 +117,22 @@ const registerUser = asyncHandler(async (req, res) => {
     }
 
     // Generate a UUID for the new user
-    const uid = generateUUID(); // You should have a function to generate UUIDs
+    const adminId = generateUUID(); // You should have a function to generate UUIDs
 
     // Insert the new user into the database
-    const newUser = await client.query(
-      'INSERT INTO "User"(uid, name, email, password, image) VALUES($1, $2, $3, $4, $5) RETURNING uid;',
-      [uid, name, email, password, image]
+    const newAdmin = await client.query(
+      'INSERT INTO "Admin"(adminId, name, email, password, noOfQuizzes) VALUES($1, $2, $3, $4, $5) RETURNING adminId;',
+      [adminId, name, email, password, noOfQuizzes]
     );
 
-    if (newUser.rows.length > 0) {
+    if (newAdmin.rows.length > 0) {
       // Check if any rows were returned
       res.status(201).json({
-        _id: newUser.rows[0].uid,
+        _id: newAdmin.rows[0].adminId,
         name,
         email,
-        image,
-        token: generateToken(newUser.rows[0].uid), // Use the actual ID
+        noOfQuizzes,
+        token: generateToken(newAdmin.rows[0].adminId), // Use the actual ID
       });
     } else {
       res.status(400);
@@ -146,4 +146,4 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { allUsers, authUser, registerUser, updateUser };
+module.exports = { allAdmins, authAdmin, updateAdmin, registerAdmin };
