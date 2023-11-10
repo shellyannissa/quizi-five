@@ -3,8 +3,8 @@ const app = express();
 require("dotenv").config();
 
 const { createUsersTable } = require("./database/tableCreation");
-
-const registerUser = require("./controllers/userController");
+const userRoutes = require("./routes/userRoutes");
+const { registerUser } = require("./controllers/userController");
 
 // Middleware setup
 
@@ -13,16 +13,17 @@ app.use(express.json());
 // Create the "User" table
 createUsersTable();
 
+app.use("/api/user", userRoutes);
 // Register user
-app.post("/register2", async (req, res) => {
-  try {
-    const user = await registerUser(req, res);
-    console.log(user);
-    res.json(user);
-  } catch (err) {
-    res.status(500).send("Internal Server Error");
-  }
-});
+// app.post("/register2", async (req, res) => {
+//   try {
+//     const user = await registerUser(req, res);
+//     console.log(user);
+//     res.json(user);
+//   } catch (err) {
+//     res.status(500).send("Internal Server Error");
+//   }
+// });
 
 app.get("/allrecords", async (req, res) => {
   try {
