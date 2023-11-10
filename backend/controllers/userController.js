@@ -11,11 +11,84 @@ const allUsers = asyncHandler(async (req, res) => {
   try {
     const client = await pool.connect();
     const allrecords = await client.query('SELECT * FROM "User"');
-    console.log(allrecords.rows);
     res.json(allrecords.rows);
-  } catch (err) {
+  } catch (error) {
     res.status(500).send("Internal Server Error");
-    throw new Error("Internal Server Error");
+    throw new Error(error.message);
+  }
+});
+
+const authUser = asyncHandler(async (req, res) => {
+  const { email, password } = req.body;
+  if (!email || !password) {
+    res.status(400);
+    throw new Error("Please Enter all the Fields");
+  }
+  try {
+    const client = await pool.connect();
+    const user = await client.query('SELECT * FROM "User" WHERE email = $1', [
+      email,
+    ]);
+    if (user.rows.length > 0) {
+      if (user.rows[0].password === password) {
+        res.json({
+          _id: user.rows[0].uid,
+          name: user.rows[0].name,
+          email: user.rows[0].email,
+          pic: user.rows[0].image,
+          token: generateToken(user.rows[0].uid),
+        });
+      } else {
+        res.status(401);
+
+        throw new Error("Invalid Password");
+      }
+    } else {
+      res.status(404);
+      throw new Error("User not found");
+    }
+  } catch (error) {
+    res.status(500);
+
+    throw new Error(error.message);
+  }
+});
+
+const updateUser = asyncHandler(async (req, res) => {
+  const { name, email, password, pic } = req.body;
+  if (!email) {
+    res.status(400);
+    throw new Error("Please Enter all the Fields");
+  }
+  try {
+    const client = await pool.connect();
+    const user = await client.query('SELECT * FROM "User" WHERE email = $1', [
+      email,
+    ]);
+    if (user.rows.length > 0) {
+      if (user.rows[0].password === password) {
+        const updatedUser = await client.query(
+          'UPDATE "User" SET name = $1, email = $2, password = $3, image = $4 WHERE uid = $5 RETURNING *',
+          [name, email, password, pic, user.rows[0].uid]
+        );
+        res.json({
+          _id: updatedUser.rows[0].uid,
+          name: updatedUser.rows[0].name,
+          email: updatedUser.rows[0].email,
+          pic: updatedUser.rows[0].image,
+          token: generateToken(updatedUser.rows[0].uid),
+        });
+      } else {
+        res.status(401);
+        throw new Error("Invalid Password");
+      }
+    } else {
+      res.status(404);
+      throw new Error("User not found");
+    }
+  } catch (error) {
+    res.status(500);
+    throw new Error(error.message);
   }
 });
 
@@ -32,7 +105,7 @@ const registerUser = asyncHandler(async (req, res) => {
     const client = await pool.connect();
 
     const userExists = await client.query(
-      "SELECT * FROM users WHERE email = $1",
+      'SELECT * FROM "User" WHERE email = $1',
       [email]
     );
 
@@ -68,10 +141,9 @@ const registerUser = asyncHandler(async (req, res) => {
 
     client.release();
   } catch (error) {
-    console.error(error);
     res.status(500);
-    throw new Error("Internal Server Error");
+    throw new Error(error.message);
   }
 });
 
-module.exports = { allUsers, registerUser };
+module.exports = { allUsers, authUser, registerUser, updateUser };
