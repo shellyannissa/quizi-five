@@ -1,4 +1,11 @@
 {
+  "name": "quizi-five",
+  "version": "1.0.0",
+  "description": "Interactive Quiz App",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
