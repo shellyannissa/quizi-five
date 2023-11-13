@@ -1,6 +1,44 @@
 :root {
   --box-colour: aqua;
 }
+:root {
+  --auth-font-family: "Nunito-ExtraBold", Helvetica;
+  --auth-font-size: 18px;
+  --auth-font-style: normal;
+  --auth-font-weight: 800;
+  --auth-letter-spacing: 0px;
+  --auth-line-height: normal;
+  --collection-1-balls: rgba(121, 72, 255, 1);
+  --collection-1-black: rgba(0, 0, 0, 1);
+  --collection-1-canvabackground: rgba(24, 25, 27, 1);
+  --collection-1-fourth: rgba(203, 240, 143, 1);
+  --collection-1-main: rgba(181, 112, 247, 1);
+  --collection-1-purple: rgba(87, 26, 255, 1);
+  --collection-1-secondary: rgba(36, 218, 166, 1);
+  --collection-1-support: rgba(71, 4, 255, 0.68);
+  --collection-1-tatjva: rgba(126, 79, 255, 1);
+  --collection-1-third: rgba(239, 206, 241, 1);
+  --collection-1-white: rgba(255, 255, 255, 1);
+  --date-font-family: "Epilogue-Bold", Helvetica;
+  --date-font-size: 26px;
+  --date-font-style: normal;
+  --date-font-weight: 700;
+  --date-letter-spacing: 0px;
+  --date-line-height: normal;
+  --quiz-name-font-family: "Quicksand-Bold", Helvetica;
+  --quiz-name-font-size: 24px;
+  --quiz-name-font-style: normal;
+  --quiz-name-font-weight: 700;
+  --quiz-name-letter-spacing: 0px;
+  --quiz-name-line-height: normal;
+  --type-font-family: "Epilogue-SemiBold", Helvetica;
+  --type-font-size: 16px;
+  --type-font-style: normal;
+  --type-font-weight: 600;
+  --type-letter-spacing: 0px;
+  --type-line-height: normal;
+}
+
 
 html {
   height: 100vh;

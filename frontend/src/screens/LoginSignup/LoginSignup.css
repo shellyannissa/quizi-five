@@ -1,0 +1,241 @@
+.login-signup {
+    background-color: rgba(255, 255, 255, 1);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .login-signup .div-2 {
+    background: linear-gradient(
+      180deg,
+      rgb(136, 190, 186) 0%,
+      rgb(219, 148, 147) 0.01%,
+      rgb(208.25, 173.02, 170.94) 24.9%,
+      rgb(115.35, 205.06, 183.53) 55.39%,
+      rgb(84.79, 119, 116.37) 100%
+    );
+    background-color: rgba(255, 255, 255, 1);
+    height: 1024px;
+    position: relative;
+    width: 1440px;
+  }
+  
+  .login-signup .purple-ball-instance {
+    left: 1270px !important;
+    position: absolute !important;
+    top: -24px !important;
+  }
+  
+  .login-signup .design-component-instance-node {
+    border-radius: 46.5px !important;
+    height: 93px !important;
+    left: 1347px !important;
+    position: absolute !important;
+    top: 257px !important;
+    width: 93px !important;
+  }
+  
+  .login-signup .blue-ball {
+    left: 473px !important;
+    opacity: 0 !important;
+    position: absolute !important;
+    top: -16px !important;
+    transform: scale(0.8) !important;
+  }
+  
+  .login-signup .purple-ball-2 {
+    border-radius: 76.5px !important;
+    height: 153px !important;
+    left: 41px !important;
+    opacity: 0 !important;
+    position: absolute !important;
+    top: 853px !important;
+    transform: scale(0.8) !important;
+    width: 153px !important;
+  }
+  
+  .login-signup .ellipse-2 {
+    border-radius: 43.5px !important;
+    height: 87px !important;
+    left: 286px !important;
+    position: absolute !important;
+    top: 877px !important;
+    width: 87px !important;
+  }
+  
+  .login-signup .blue-ball-instance {
+    left: 907px !important;
+    position: absolute !important;
+    top: 845px !important;
+  }
+  
+  .login-signup .ellipse-3 {
+    border-radius: 36.5px !important;
+    height: 73px !important;
+    left: 1197px !important;
+    position: absolute !important;
+    top: 903px !important;
+    width: 73px !important;
+  }
+  
+  .login-signup .ellipse-4 {
+    border-radius: 47px/48px !important;
+    height: 96px !important;
+    left: 137px !important;
+    opacity: 0 !important;
+    position: absolute !important;
+    top: 41px !important;
+    transform: scale(1.1) !important;
+    width: 94px !important;
+  }
+  
+  .login-signup .auth-container {
+    height: 503px;
+    left: 160px;
+    position: absolute;
+    top: 260px;
+    width: 421px;
+  }
+  
+  .login-signup .overlap {
+    height: 503px;
+    position: relative;
+  }
+  
+  .login-signup .back-box {
+    background-color: var(--collection-1-support);
+    border-radius: 24px;
+    box-shadow: -18px -14px 10px #7f0cff, 8px 8px 12px #00000040;
+    height: 476px;
+    left: 22px;
+    position: absolute;
+    top: 27px;
+    width: 398px;
+  }
+  
+  .login-signup .top-box {
+    -webkit-backdrop-filter: blur(10px) brightness(100%);
+    backdrop-filter: blur(10px) brightness(100%);
+    background-color: #a572dfc2;
+    border-radius: 24px;
+    box-shadow: 20px 8px 18px #9864da, -10px 25px 20px 8px #bc88ff5e;
+    height: 476px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 398px;
+  }
+  
+  .login-signup .auth-frame {
+    align-items: center;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 58px;
+    left: 34px;
+    position: absolute;
+    top: 73px;
+  }
+  
+  .login-signup .auth-slider-instance {
+    flex: 0 0 auto !important;
+  }
+  
+  .login-signup .frame {
+    align-items: center;
+    display: inline-flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    gap: 28px;
+    position: relative;
+  }
+  
+  .login-signup .overlap-group-wrapper {
+    border-radius: 20px;
+    height: 54px;
+    position: relative;
+    width: 352px;
+  }
+  
+  .login-signup .overlap-group {
+    background-color: var(--collection-1-white);
+    border: 1px solid;
+    border-color: var(--collection-1-main);
+    border-radius: 20px;
+    height: 52px;
+    left: 16px;
+    position: relative;
+    width: 320px;
+  }
+  
+  .login-signup .enter-email {
+    background-color: transparent;
+    border: 0;
+    color: var(--collection-1-black);
+    font-family: "Inter", Helvetica;
+    font-size: 16px;
+    font-weight: 400;
+    height: 19px;
+    left: 65px;
+    letter-spacing: 0;
+    line-height: normal;
+    padding: 0;
+    position: absolute;
+    top: 15px;
+    white-space: nowrap;
+    width: 85px;
+  }
+  
+  .login-signup .user {
+    height: 35px;
+    left: 18px;
+    position: absolute;
+    top: 8px;
+    width: 35px;
+  }
+  
+  .login-signup .overlap-2 {
+    background-color: var(--collection-1-white);
+    border: 1px solid;
+    border-color: var(--collection-1-main);
+    border-radius: 20px;
+    height: 52px;
+    left: 15px;
+    position: relative;
+    width: 320px;
+  }
+  
+  .login-signup .enter-password {
+    background-color: transparent;
+    border: 0;
+    color: var(--collection-1-black);
+    font-family: "Inter", Helvetica;
+    font-size: 16px;
+    font-weight: 400;
+    height: 19px;
+    left: 66px;
+    letter-spacing: 0;
+    line-height: normal;
+    padding: 0;
+    position: absolute;
+    top: 15px;
+    white-space: nowrap;
+    width: 118px;
+  }
+  
+  .login-signup .password {
+    height: 29px;
+    left: 21px;
+    position: absolute;
+    top: 11px;
+    width: 29px;
+  }
+  
+  .login-signup .questions {
+    height: 456px;
+    left: 632px;
+    position: absolute;
+    top: 287px;
+    width: 648px;
+  }
+  
