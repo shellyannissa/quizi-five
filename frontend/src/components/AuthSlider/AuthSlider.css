@@ -4,6 +4,7 @@
     flex-direction: column;
     gap: 10px;
     position: relative;
+    transition: all 0.3s ease-in-out;
   }
   
   .auth-slider .group {
@@ -11,9 +12,9 @@
     border: 2px solid;
     border-color: var(--collection-1-secondary);
     border-radius: 40px;
-    height: 52px;
+    height: 57px;
     position: relative;
-    width: 320px;
+    width: 352px;
   }
   
   .auth-slider .rectangle {
@@ -22,10 +23,10 @@
     border-color: var(--collection-1-third);
     border-radius: 40px;
     box-shadow: 0px 4px 4px #00000040;
-    height: 52px;
+    height: 57px;
     position: relative;
     top: -2px;
-    width: 160px;
+    width: 179px;
   }
   
   .auth-slider .text-wrapper {
@@ -38,7 +39,8 @@
     letter-spacing: var(--auth-letter-spacing);
     line-height: var(--auth-line-height);
     position: absolute;
-    top: 14px;
+    top: 15px;
+    white-space: nowrap;
   }
   
   .auth-slider .div {
@@ -47,18 +49,20 @@
     font-size: var(--auth-font-size);
     font-style: var(--auth-font-style);
     font-weight: var(--auth-font-weight);
-    left: 208px;
+    left: 226px;
     letter-spacing: var(--auth-letter-spacing);
     line-height: var(--auth-line-height);
     position: absolute;
-    top: 14px;
+    top: 15px;
+    white-space: nowrap;
   }
   
-  .auth-slider .property-1-0-default {
+  .auth-slider .default {
     left: -2px;
+    translate: all 2s ease-in-out;
   }
   
-  .auth-slider .property-1-0-variant-2 {
-    left: 158px;
+  .auth-slider .variant-2 {
+    left: 171px;
+    translate: all 2s ease-in-out;
   }
-  
