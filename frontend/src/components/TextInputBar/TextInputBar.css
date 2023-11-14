@@ -1,7 +1,10 @@
 .text-input-bar {
-    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1rem;
     height: 54px;
-    width: 352px;
+    width: 100%;
   }
   
   .text-input-bar .overlap-group {
@@ -11,11 +14,10 @@
     background-color: var(--collection-1-white);
     border: 1px solid;
     border-color: var(--collection-1-main);
-    border-radius: 20px;
+    border-radius: 1rem;
     height: 52px;
-    left: 16px;
     position: relative;
-    width: 320px;
+    width: 100%;
   }
   
   .text-input-bar input {
@@ -27,14 +29,9 @@
     outline: none;
     color: var(--collection-1-black);
     font-family: "Inter-Regular", Helvetica;
-    font-size: 16px;
     font-weight: 400;
-    left: 65px;
-    letter-spacing: 0;
     line-height: normal;
-    padding: 0;
-    position: absolute;
-    top: 15px;
+    width: 60%;
   }
   
   .text-input-bar .icon {
@@ -44,4 +41,3 @@
     top: 8px;
     width: 35px;
   }
-  

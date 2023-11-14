@@ -18,9 +18,9 @@ export const AuthSlider = ({ property1 }) => {
     >
       <div className="group">
         <div className={`rectangle ${state.property1}`} />
+        <div className="left">LOGIN</div>
+        <div className="right">SIGNUP</div>
       </div>
-      <div className="text-wrapper">LOGIN</div>
-      <div className="div">SIGNUP</div>
     </div>
   );
 };

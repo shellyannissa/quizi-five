@@ -1,6 +1,6 @@
 
 :root {
-  --appColor:  #60656e;
+  --loginColor:  #3c3f45;
   --box-colour: aqua;
   --auth-font-family: "Nunito-ExtraBold", Helvetica;
   --auth-font-size: 18px;
@@ -38,7 +38,6 @@
   --type-letter-spacing: 0px;
   --type-line-height: normal;
 }
-
 
 ::-webkit-scrollbar{
   display: none;

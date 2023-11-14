@@ -13,7 +13,7 @@ export const AuthFrame = ({ property1 }) => {
     return (
         // Auth Slider jsx is now in AuthFrame.jsx but css is still in AuthSlider.css
         <div 
-        className={`auth-frame ${property1}`}
+        className={`auth-frame ${state.property1}`}
         >
             <div id="auth-slider"
             className="auth-slider"
@@ -23,9 +23,9 @@ export const AuthFrame = ({ property1 }) => {
             >
                 <div className="group">
                     <div className={`rectangle ${state.property1}`} />
+                    <div className="left">LOGIN</div>
+                    <div className="right">SIGNUP</div>
                 </div>
-                <div className="text-wrapper">LOGIN</div>
-                <div className="div">SIGNUP</div>
             </div>
             <TextInputBar id="email-id" placeholder="Enter email" inputType="email" iconPath="../../../assets/icons/user.svg"/>
             <TextInputBar id="password" placeholder="Enter password" inputType="password" iconPath="../../../assets/icons/lock.svg"/>

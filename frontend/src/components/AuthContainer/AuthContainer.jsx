@@ -1,5 +1,6 @@
 import React from 'react'
 import { AuthFrame } from '../AuthFrame/AuthFrame'
+import './AuthContainer.css'
 
 const AuthContainer = () => {
   return (
@@ -7,8 +8,8 @@ const AuthContainer = () => {
         <div className="overlap">
             <div className="back-box" />
             <div className="top-box" />
-            <AuthFrame property1="default"/>
         </div>
+        <AuthFrame className="auth-frame" property1="default"/>
     </div>
   )
 }

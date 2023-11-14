@@ -9,7 +9,9 @@ export const LoginSignup = () => {
   return (
     <div className="login-signup">
       <div className="main">
-        <AuthContainer />
+        <div className="left-side">
+          <AuthContainer className="auth-container"/>
+        </div>
         <div className="question">
           <img alt="Questions" src="../../assets/illustrations/questions.svg" />
         </div>
