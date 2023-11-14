@@ -1,0 +1,17 @@
+.auth-frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2rem;
+  position: relative;
+  top: 3rem
+}
+
+.auth-frame .default {
+  gap: 3rem;
+}
+
+.auth-frame .variant-2 {
+  gap: 1rem;
+}

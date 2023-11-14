@@ -6,7 +6,7 @@
     width: 100%;
   }
   
-  .login-signup .div-2 {
+  .login-signup .main {
     background: linear-gradient(
       180deg,
       rgb(136, 190, 186) 0%,
@@ -127,7 +127,7 @@
     width: 398px;
   }
   
-  .login-signup .auth-frame {
+  /* .login-signup .auth-frame {
     align-items: center;
     display: inline-flex;
     flex-direction: column;
@@ -135,11 +135,11 @@
     left: 34px;
     position: absolute;
     top: 73px;
-  }
+  } */
   
-  .login-signup .auth-slider-instance {
+  /* .login-signup .auth-slider-instance {
     flex: 0 0 auto !important;
-  }
+  } */
   
   .login-signup .frame {
     align-items: center;
@@ -168,7 +168,7 @@
     width: 320px;
   }
   
-  .login-signup .enter-email {
+  /* .login-signup .enter-email {
     background-color: transparent;
     border: 0;
     color: var(--collection-1-black);
@@ -184,15 +184,15 @@
     top: 15px;
     white-space: nowrap;
     width: 85px;
-  }
+  } */
   
-  .login-signup .user {
+  /* .login-signup .user {
     height: 35px;
     left: 18px;
     position: absolute;
     top: 8px;
     width: 35px;
-  }
+  } */
   
   .login-signup .overlap-2 {
     background-color: var(--collection-1-white);
@@ -205,7 +205,7 @@
     width: 320px;
   }
   
-  .login-signup .enter-password {
+  /* .login-signup .enter-password {
     background-color: transparent;
     border: 0;
     color: var(--collection-1-black);
@@ -221,15 +221,15 @@
     top: 15px;
     white-space: nowrap;
     width: 118px;
-  }
-  
+  } */
+/*   
   .login-signup .password {
     height: 29px;
     left: 21px;
     position: absolute;
     top: 11px;
     width: 29px;
-  }
+  } */
   
   .login-signup .questions {
     height: 456px;

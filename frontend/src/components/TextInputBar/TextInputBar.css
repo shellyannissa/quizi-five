@@ -1,0 +1,47 @@
+.text-input-bar {
+    border-radius: 20px;
+    height: 54px;
+    width: 352px;
+  }
+  
+  .text-input-bar .overlap-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--collection-1-white);
+    border: 1px solid;
+    border-color: var(--collection-1-main);
+    border-radius: 20px;
+    height: 52px;
+    left: 16px;
+    position: relative;
+    width: 320px;
+  }
+  
+  .text-input-bar input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--collection-1-black);
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 16px;
+    font-weight: 400;
+    left: 65px;
+    letter-spacing: 0;
+    line-height: normal;
+    padding: 0;
+    position: absolute;
+    top: 15px;
+  }
+  
+  .text-input-bar .icon {
+    height: 35px;
+    left: 18px;
+    position: absolute;
+    top: 8px;
+    width: 35px;
+  }
+  

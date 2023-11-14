@@ -4,14 +4,14 @@ import { useReducer } from "react";
 import "./AuthSlider.css";
 
 
-export const AuthSlider = ({ property1, className }) => {
+export const AuthSlider = ({ property1 }) => {
   const [state, dispatch] = useReducer(reducer, {
     property1: property1 || "default",
   });
 
   return (
     <div
-      className={`auth-slider ${className}`}
+      className={`auth-slider`}
       onClick={() => {
         dispatch("click");
       }}

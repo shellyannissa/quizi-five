@@ -10,12 +10,12 @@ function App() {
 
   return (
   <div>
-    <LoginSignup />
-    {/* <Router>
+    <Router>
       <Routes>
       <Route path="/login" element={<Login />} />
+      <Route path="/" element={<LoginSignup />} />
       </Routes>
-    </Router> */}
+    </Router>
   </div>
   );
 }
