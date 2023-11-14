@@ -1,8 +1,8 @@
 import React from "react";
-import { AuthSlider } from "../AuthSlider/AuthSlider";
 import { useReducer } from "react";
 import { Button } from "../Button/Button";
 import "./AuthFrame.css";
+import "../AuthSlider/AuthSlider.css";
 import { TextInputBar } from "../TextInputBar/TextInputBar";
 
 export const AuthFrame = ({ property1 }) => {
@@ -11,13 +11,22 @@ export const AuthFrame = ({ property1 }) => {
     });
 
     return (
+        // Auth Slider jsx is now in AuthFrame.jsx but css is still in AuthSlider.css
         <div 
         className={`auth-frame ${property1}`}
         >
-            <AuthSlider 
-            property1={state.property1 === "variant-2" ? "varaint-2" : "default"}
-            onClick={() => { dispatch("click"); }}
-            />
+            <div id="auth-slider"
+            className="auth-slider"
+            onClick={() => {
+                dispatch("click");
+            }}
+            >
+                <div className="group">
+                    <div className={`rectangle ${state.property1}`} />
+                </div>
+                <div className="text-wrapper">LOGIN</div>
+                <div className="div">SIGNUP</div>
+            </div>
             <TextInputBar id="email-id" placeholder="Enter email" inputType="email" iconPath="../../../assets/icons/user.svg"/>
             <TextInputBar id="password" placeholder="Enter password" inputType="password" iconPath="../../../assets/icons/lock.svg"/>
             {state.property1 === "variant-2" ? <TextInputBar id="confirm-password" placeholder="Confirm password" inputType="password" iconPath="../../../assets/icons/key.svg"/> : null}
