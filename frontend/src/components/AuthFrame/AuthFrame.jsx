@@ -13,10 +13,10 @@ export const AuthFrame = ({ property1 }) => {
     return (
         <div 
         className={`auth-frame ${property1}`}
-        onClick={() => { dispatch("click"); }}
         >
             <AuthSlider 
             property1={state.property1 === "variant-2" ? "varaint-2" : "default"}
+            onClick={() => { dispatch("click"); }}
             />
             <TextInputBar id="email-id" placeholder="Enter email" inputType="email" iconPath="../../../assets/icons/user.svg"/>
             <TextInputBar id="password" placeholder="Enter password" inputType="password" iconPath="../../../assets/icons/lock.svg"/>
