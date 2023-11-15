@@ -31,6 +31,7 @@ const quizQuestions = asyncHandler(async (req, res) => {
       'SELECT * FROM "Question" WHERE quizId = $1',
       [quizId]
     );
+    client.release();
     res.json(allrecords.rows);
   } catch (error) {
     res.status(500).send("Internal Server Error");
@@ -80,6 +81,7 @@ const allQuizzes = asyncHandler(async (req, res) => {
     await updateAllQuizStatus();
     const client = await pool.connect();
     const allrecords = await client.query('SELECT * FROM "Quiz"');
+    client.release();
     res.json(allrecords.rows);
   } catch (error) {
     res.status(500).send("Internal Server Error");
@@ -128,14 +130,10 @@ const deleteQuiz = asyncHandler(async (req, res) => {
     const deletedQuiz = await client.query(deleteQuery, [quizId]);
     client.release();
     console.log(deletedQuiz.rows);
-    if (deletedQuiz.rows.length > 0) {
-      return res.status(201).json({
-        quizId: deletedQuiz.rows[0].quizid,
-      });
-    } else {
-      res.status(400).json({ error: "Quiz not deleted" });
-      throw new Error("Quiz not deleted");
-    }
+
+    return res.status(201).json({
+      quizId: quizId,
+    });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Internal Server Error" });

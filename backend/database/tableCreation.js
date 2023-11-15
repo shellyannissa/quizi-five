@@ -45,8 +45,8 @@ const createUsersTable = async () => {
 
     const registrationQuery = `
     CREATE TABLE  IF NOT EXISTS "Registration"(
-      uid UUID REFERENCES "User"(uId),
-      quizId UUID REFERENCES "Quiz"(quizId),
+      uid UUID REFERENCES "User"(uId) ON DELETE CASCADE,
+      quizId UUID REFERENCES "Quiz"(quizId) ON DELETE CASCADE,
       points INTEGER,
       position INTEGER
     );`;
@@ -117,11 +117,18 @@ const tempModifications = async () => {
     const client = await pool.connect();
 
     const query = `
-
+    ALTER TABLE "Registration"
+    DROP CONSTRAINT IF EXISTS registration_quizid_fkey;
+    
+    ALTER TABLE "Registration"
+    ADD CONSTRAINT registration_uid_fkey
+    FOREIGN KEY (uid) REFERENCES "User"(uid) ON DELETE CASCADE;
+    
       `;
 
     const ans = await client.query(query);
     console.log(ans);
+    client.release();
   } catch (error) {
     console.error(error.message);
   }
