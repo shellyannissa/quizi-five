@@ -2,6 +2,7 @@ import React from "react";
 import { useReducer } from "react";
 import PropTypes from "prop-types";
 import { QuizCard } from "../../components/QuizCard/QuizCard";
+import { useState } from "react";
 import { Hero } from "../../components/Hero/Hero";
 import "./UserHome.css";
 
@@ -56,17 +57,36 @@ export const UserHome = ({property}) => {
     property: property || "registered",
   });
 
+  const [quizList, setQuizList] = useState(registered);
+  const [searchTerm, setSearchTerm] = useState("");
+  
+  const handleSearch = (event) => {
+    const term = event.target.value;
+    setSearchTerm(term);
+    const newList = state.property === "registered" ? registered : available;
+    const filtered = newList.filter((quiz) => {
+      console.log(quiz.quizName.toLowerCase().includes(term.toLowerCase()));
+      return quiz.quizName.toLowerCase().includes(term.toLowerCase());
+    });
+    setQuizList(filtered);
+  }
+
   const updateState = () => {
     dispatch("click");
+    if (state.property === "registered") {
+      setQuizList(available);
+    } else {
+      setQuizList(registered);
+    }
   };
 
   return (
     <div className="user-home">
-      <Hero property={state.property} updateState={updateState}/>
+      <Hero property={state.property} updateState={updateState} searchTerm={searchTerm} handleSearch={handleSearch}/>
       <div className={`quiz-list ${state.property}`}>
         {state.property === "registered" ? (
           <div  className="quiz-list">
-            {registered.map((quiz) => (
+            {quizList.map((quiz) => (
               <QuizCard
                 quizType={quiz.quizType}
                 quizName={quiz.quizName}
@@ -79,7 +99,7 @@ export const UserHome = ({property}) => {
           </div>
         ):(
           <div className="quiz-list">
-            {available.map((quiz) => (
+            {quizList.map((quiz) => (
               <QuizCard
                 quizType={quiz.quizType}
                 quizName={quiz.quizName}
@@ -91,6 +111,16 @@ export const UserHome = ({property}) => {
             ))}
           </div>
         )}
+        {/* {quizList.map((quiz) => (
+          <QuizCard
+            quizType={quiz.quizType}
+            quizName={quiz.quizName}
+            image={quiz.image}
+            time={quiz.time}
+            month={quiz.month}
+            day={quiz.day}
+          />
+        ))} */}
       </div>
     </div>
   );
