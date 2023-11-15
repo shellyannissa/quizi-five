@@ -11,6 +11,7 @@ const allAdmins = asyncHandler(async (req, res) => {
   try {
     const client = await pool.connect();
     const allrecords = await client.query('SELECT * FROM "Admin"');
+    client.release();
     res.json(allrecords.rows);
   } catch (error) {
     res.status(500).send("Internal Server Error");
@@ -29,6 +30,7 @@ const authAdmin = asyncHandler(async (req, res) => {
     const user = await client.query('SELECT * FROM "Admin" WHERE email = $1', [
       email,
     ]);
+    client.release();
     if (user.rows.length > 0) {
       if (user.rows[0].password === password) {
         res.json({
@@ -65,6 +67,7 @@ const updateAdmin = asyncHandler(async (req, res) => {
     const user = await client.query('SELECT * FROM "User" WHERE email = $1', [
       email,
     ]);
+    client.release();
     if (user.rows.length > 0) {
       if (user.rows[0].password === password) {
         const updatedUser = await client.query(
@@ -108,7 +111,7 @@ const registerAdmin = asyncHandler(async (req, res) => {
       'SELECT * FROM "Admin" WHERE email = $1',
       [email]
     );
-
+    client.release();
     if (adminExists.rows.length > 0) {
       // Check if any rows were returned
       client.release();

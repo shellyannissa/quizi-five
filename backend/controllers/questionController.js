@@ -15,6 +15,7 @@ const quizQuestions = asyncHandler(async (req, res) => {
       'SELECT * FROM "Question" WHERE quizId = $1',
       [quizId]
     );
+    client.release();
     res.json(allrecords.rows);
   } catch (error) {
     res.status(500).send("Internal Server Error");
@@ -40,6 +41,7 @@ const addQuestion = asyncHandler(async (req, res) => {
       options,
       correctOption,
     ]);
+    client.release();
     res.json("Question Added Successfully");
   } catch (error) {
     res.status(500).send("Internal Server Error");
