@@ -1,0 +1,122 @@
+.quiz-card {
+  height: 550px;
+  width: 337px;
+}
+
+.quiz-card .frame-wrapper {
+  background: linear-gradient(
+    180deg,
+    rgb(121.21, 196.56, 192.04) 0%,
+    rgb(239.06, 137.46, 137.46) 100%
+  );
+  border: 2px solid;
+  border-color: var(--collection-1-purple);
+  border-radius: 10px;
+  height: 536px;
+}
+
+.quiz-card .frame-3 {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  height: 496px;
+  left: 17px;
+  position: relative;
+  top: 18px;
+  width: 300px;
+}
+
+.quiz-card .img {
+  height: 308px;
+  margin-left: -4px;
+  margin-right: -4px;
+  object-fit: cover;
+  position: relative;
+  width: 308px;
+}
+
+.quiz-card .frame-4 {
+  align-items: flex-start;
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 24px;
+  position: relative;
+  width: 300px;
+}
+
+.quiz-card .frame-5 {
+  align-items: flex-start;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 49px;
+  position: relative;
+}
+
+.quiz-card .frame-6 {
+  align-items: flex-start;
+  display: inline-flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+}
+
+.quiz-card .text-wrapper-6 {
+  color: var(--collection-1-purple);
+  font-family: var(--type-font-family);
+  font-size: var(--type-font-size);
+  font-style: var(--type-font-style);
+  font-weight: var(--type-font-weight);
+  letter-spacing: var(--type-letter-spacing);
+  line-height: var(--type-line-height);
+  margin-top: -1px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.quiz-card .did-you-know-quiz {
+  color: var(--collection-1-black);
+  font-family: var(--quiz-name-font-family);
+  font-size: var(--quiz-name-font-size);
+  font-style: var(--quiz-name-font-style);
+  font-weight: var(--quiz-name-font-weight);
+  letter-spacing: var(--quiz-name-letter-spacing);
+  line-height: var(--quiz-name-line-height);
+  position: relative;
+  width: fit-content;
+}
+
+.quiz-card .date-instance {
+  position: relative !important;
+}
+
+.quiz-card .frame-7 {
+  align-items: center;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 94px;
+  position: relative;
+}
+
+.quiz-card .text-wrapper-7 {
+  color: var(--collection-1-purple);
+  font-family: "Quicksand", Helvetica;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: normal;
+  position: relative;
+  width: fit-content;
+}
+
+.quiz-card .button-2 {
+  height: 44px !important;
+  width: 120px !important;
+}
+
+.quiz-card .button-3 {
+  margin-top: -2.5px !important;
+}

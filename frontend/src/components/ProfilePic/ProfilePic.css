@@ -1,0 +1,14 @@
+.profile-pic {
+  height: 64px;
+  position: relative;
+  width: 64px;
+}
+
+.profile-pic .ellipse {
+  height: 68px;
+  left: -2px;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  width: 68px;
+}

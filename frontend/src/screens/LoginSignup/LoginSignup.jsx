@@ -37,7 +37,7 @@ export const LoginSignup = () => {
                   </div>
                 </div>
               </div>
-              <Button />
+              <Button clickHandler={() => console.log('Clicked!!!')} text="SUBMIT"/>
             </div>
           </div>
         </div>

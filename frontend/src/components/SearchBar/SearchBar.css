@@ -1,0 +1,40 @@
+.search-bar {
+  background-color: var(--collection-1-white);
+  border: 2px solid;
+  border-color: var(--collection-1-secondary);
+  border-radius: 10px;
+  height: 45px;
+  width: 970px;
+}
+
+.search-bar .frame {
+  align-items: center;
+  display: flex;
+  gap: 21px;
+  height: 17px;
+  left: 19px;
+  position: relative;
+  top: 12px;
+  width: 157px;
+}
+
+.search-bar .vector {
+  height: 17.49px;
+  position: relative;
+  width: 17.49px;
+}
+
+.search-bar .text-wrapper-3 {
+  color: #000000;
+  font-family: var(--type-font-family);
+  font-size: var(--type-font-size);
+  font-style: var(--type-font-style);
+  font-weight: var(--type-font-weight);
+  letter-spacing: var(--type-letter-spacing);
+  line-height: var(--type-line-height);
+  margin-right: -24.31px;
+  margin-top: -0.25px;
+  position: relative;
+  white-space: nowrap;
+  width: fit-content;
+}
