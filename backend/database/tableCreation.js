@@ -63,6 +63,8 @@ const createUsersTable = async () => {
         description VARCHAR(255),
         correctOptionId UUID );`;
 
+    //! type of allottedTime is to be changed
+
     await client.query(questionQuery);
 
     const answerQuery = `
@@ -110,4 +112,17 @@ const createUsersTable = async () => {
   }
 };
 
-module.exports = { createUsersTable };
+const tempModifications = async () => {
+  try {
+    const client = await pool.connect();
+
+    const query = `
+
+    `;
+    const ans = await client.query(query);
+    console.log(ans);
+  } catch (error) {
+    console.error(error.message);
+  }
+};
+module.exports = { createUsersTable, tempModifications };
