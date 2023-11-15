@@ -1,9 +1,10 @@
 import React from 'react'
 import { Profile } from '../Profile/Profile'
 import { SearchBar } from '../SearchBar/SearchBar'
+import { HomeSlider } from '../HomeSlider/HomeSlider'
 import './Hero.css'
 
-export const Hero = () => {
+export const Hero = ({ property, updateState}) => {
   return (
     <div className="hero-section">
       <div className="top-part">
@@ -15,8 +16,9 @@ export const Hero = () => {
             <span>&nbsp;</span>
             <span className="for-you">For You</span>
           </p>
-          <div className="sea">
-          <SearchBar />
+          <div className="quiz-type">
+            <HomeSlider property={property} updateState={updateState}/>
+            <SearchBar property={property} />
           </div>
       </div>
     </div>

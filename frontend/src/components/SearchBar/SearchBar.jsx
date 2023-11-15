@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import "./SearchBar.css";
 
-export const SearchBar = () => {
+export const SearchBar = ({ property, reducer }) => {
   return (
     <div className="search-bar">
       <div className="frame">

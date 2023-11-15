@@ -44,12 +44,12 @@
   cursor: pointer;
 }
 
-.default {
+.login {
   left: 0;
   translate: all 0.2s ease-in-out;
 }
 
-.variant-2 {
+.signup {
   right: 0;
   translate: all 0.2s ease-in-out;
 }

@@ -15,7 +15,7 @@
       rgb(92.54, 48.05, 142.38) 99.99%,
       rgba(13.56, 13.29, 13.81, 0) 100%
     );
-    padding: 2rem;
+    padding: 0.6rem 4rem 2rem 4rem;
     border-radius: 2rem;
 }
 
@@ -43,4 +43,10 @@
 
 .hero-section .for-you {
     color: white;
+}
+
+.quiz-type {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 }
