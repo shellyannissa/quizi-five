@@ -30,7 +30,7 @@ export const AuthFrame = ({ property1 }) => {
             <TextInputBar id="email-id" placeholder="Enter email" inputType="email" iconPath="../../../assets/icons/user.svg"/>
             <TextInputBar id="password" placeholder="Enter password" inputType="password" iconPath="../../../assets/icons/lock.svg"/>
             {state.property1 === "variant-2" ? <TextInputBar id="confirm-password" placeholder="Confirm password" inputType="password" iconPath="../../../assets/icons/key.svg"/> : null}
-            <Button />
+            <Button clickHandler={()=>{console.log("Clicked")}} text="SUBMIT"/>
         </div>
     )
 }
