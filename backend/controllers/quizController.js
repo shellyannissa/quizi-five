@@ -31,6 +31,7 @@ const quizQuestions = asyncHandler(async (req, res) => {
       'SELECT * FROM "Question" WHERE quizId = $1',
       [quizId]
     );
+    client.release();
     res.json(allrecords.rows);
   } catch (error) {
     res.status(500).send("Internal Server Error");
@@ -66,7 +67,8 @@ const createQuiz = asyncHandler(async (req, res) => {
         quizId: newQuiz.rows[0].quizid,
       });
     } else {
-      return res.status(400).json({ error: "Quiz not created" });
+      res.status(400).json({ error: "Quiz not created" });
+      throw new Error("Quiz not created");
     }
   } catch (error) {
     console.error(error);
@@ -76,8 +78,10 @@ const createQuiz = asyncHandler(async (req, res) => {
 
 const allQuizzes = asyncHandler(async (req, res) => {
   try {
+    await updateAllQuizStatus();
     const client = await pool.connect();
     const allrecords = await client.query('SELECT * FROM "Quiz"');
+    client.release();
     res.json(allrecords.rows);
   } catch (error) {
     res.status(500).send("Internal Server Error");
@@ -96,16 +100,16 @@ const updateAllQuizStatus = async () => {
     const quizRecords = result.rows;
     // Iterate through the records and update the status
     for (const record of quizRecords) {
-      console.log(record.eventtime);
-      console.log(Date(record.eventTime));
       console.log("initial status of quiz", record.quizid, "is", record.status);
-      const newStatus = calculateEventStatus(record.eventtime);
-      //   Update the status in the database
-      await client.query('UPDATE "Quiz" SET status = $1 WHERE quizId = $2', [
-        newStatus,
-        record.quizid,
-      ]);
-      console.log(`Updated status of quiz ${record.quizid} to ${newStatus}`);
+      if (record.status === "upcoming") {
+        const newStatus = calculateEventStatus(record.eventtime);
+        //   Update the status in the database
+        await client.query('UPDATE "Quiz" SET status = $1 WHERE quizId = $2', [
+          newStatus,
+          record.quizid,
+        ]);
+        console.log(`Updated status of quiz ${record.quizid} to ${newStatus}`);
+      }
     }
 
     client.release();
@@ -115,28 +119,57 @@ const updateAllQuizStatus = async () => {
 };
 
 const deleteQuiz = asyncHandler(async (req, res) => {
-  const { quizId } = req.body;
   try {
+    const { quizId } = req.body;
+    console.log(quizId);
     const client = await pool.connect();
     const deleteQuery = `
-                DELETE FROM "Quiz"
-                WHERE quizId = $1 RETURNING *;`;
+                DELETE  FROM "Quiz"
+                WHERE quizid = $1 ;`;
 
     const deletedQuiz = await client.query(deleteQuery, [quizId]);
     client.release();
-    console.log(deletedQuiz);
-    if (deletedQuiz.rows.length > 0) {
-      return res.status(201).json({
-        quizId: deletedQuiz.rows[0].quizid,
-      });
-    } else {
-      res.status(400).json({ error: "Quiz not deleted" });
-      throw new Error("Quiz not deleted");
-    }
+    console.log(deletedQuiz.rows);
+
+    return res.status(201).json({
+      quizId: quizId,
+    });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
-module.exports = { createQuiz, allQuizzes, updateAllQuizStatus, deleteQuiz };
+const terminateQuiz = asyncHandler(async (req, res) => {
+  try {
+    const { quizId } = req.body;
+    const client = await pool.connect();
+    console.log(quizId);
+    const terminateQuery = `
+                UPDATE "Quiz"
+                SET status = 'completed'
+                WHERE quizId = $1 RETURNING *;`;
+
+    const terminatedQuiz = await client.query(terminateQuery, [quizId]);
+    client.release();
+    console.log(terminatedQuiz);
+    if (terminatedQuiz.rows.length > 0) {
+      return res.status(201).json({
+        quizId: terminatedQuiz.rows[0].quizid,
+      });
+    } else {
+      res.status(400).json({ error: "Quiz not terminated" });
+      // throw new Error("Quiz not terminated");
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+module.exports = {
+  createQuiz,
+  allQuizzes,
+  updateAllQuizStatus,
+  deleteQuiz,
+  terminateQuiz,
+};
