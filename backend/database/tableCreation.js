@@ -118,7 +118,8 @@ const tempModifications = async () => {
 
     const query = `
 
-    `;
+      `;
+
     const ans = await client.query(query);
     console.log(ans);
   } catch (error) {
