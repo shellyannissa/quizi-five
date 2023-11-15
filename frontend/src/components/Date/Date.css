@@ -1,64 +1,34 @@
 .date {
-  height: 80px;
-  width: 80px;
-}
-
-.date .overlap {
-  background-color: #d9d9d9;
-  border-radius: 14px;
-  height: 75px;
-  left: 5px;
-  position: relative;
-  width: 75px;
-}
-
-.date .frame-2 {
-  align-items: center;
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
-  gap: 8px;
-  position: relative;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--collection-1-white);
+  border-radius: 14px;
 }
 
-.date .overlap-group-wrapper {
-  height: 26px;
-  margin-right: -2px;
-  position: relative;
-  width: 77px;
-}
-
-.date .overlap-group {
+.month {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: var(--collection-1-purple);
-  border-radius: 14px 14px 0px 0px;
-  height: 26px;
-  position: relative;
-  width: 75px;
-}
-
-.date .text-wrapper-4 {
   color: var(--collection-1-white);
-  font-family: "Epilogue", Helvetica;
-  font-size: 16px;
-  font-weight: 700;
-  left: 22px;
-  letter-spacing: 0;
-  line-height: normal;
-  position: absolute;
-  text-align: center;
-  top: 7px;
-  width: 31px;
+  border-radius: 14px 14px 0px 0px;
+  position: relative;
+  top: 0;
+  width: 80px;
+  height: 30px;
 }
 
-.date .text-wrapper-5 {
+.month-date {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: var(--collection-1-purple);
+  background-color: var(--collection-1-white);
   font-family: var(--date-font-family);
   font-size: var(--date-font-size);
   font-style: var(--date-font-style);
   font-weight: var(--date-font-weight);
-  letter-spacing: var(--date-letter-spacing);
-  line-height: var(--date-line-height);
-  position: relative;
-  text-align: center;
-  white-space: nowrap;
-  width: fit-content;
+  height: 50px;
 }
