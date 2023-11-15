@@ -22,6 +22,8 @@ function calculateEventStatus(eventTime) {
 
 const quizQuestions = asyncHandler(async (req, res) => {
   const { quizId } = req.body;
+
+  //! control does not pass onto updateAllQuestions function
   await updateAllQuizStatus();
   try {
     const client = await pool.connect();
@@ -112,4 +114,29 @@ const updateAllQuizStatus = async () => {
   }
 };
 
-module.exports = { createQuiz, allQuizzes, updateAllQuizStatus };
+const deleteQuiz = asyncHandler(async (req, res) => {
+  const { quizId } = req.body;
+  try {
+    const client = await pool.connect();
+    const deleteQuery = `
+                DELETE FROM "Quiz"
+                WHERE quizId = $1 RETURNING *;`;
+
+    const deletedQuiz = await client.query(deleteQuery, [quizId]);
+    client.release();
+    console.log(deletedQuiz);
+    if (deletedQuiz.rows.length > 0) {
+      return res.status(201).json({
+        quizId: deletedQuiz.rows[0].quizid,
+      });
+    } else {
+      res.status(400).json({ error: "Quiz not deleted" });
+      throw new Error("Quiz not deleted");
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+module.exports = { createQuiz, allQuizzes, updateAllQuizStatus, deleteQuiz };
