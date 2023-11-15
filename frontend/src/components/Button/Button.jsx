@@ -5,7 +5,7 @@ import "./Button.css";
 export const Button = ({ text = "SUBMIT", clickHandler}) => {
   return (
     <button className="button" onClick={clickHandler}>
-      <div className="SUBMIT" >{text}</div>
+      <div className="submit" >{text}</div>
     </button>
   );
 };
