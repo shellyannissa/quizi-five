@@ -5,10 +5,9 @@
 }
 
 .profile-pic .ellipse {
-  height: 68px;
-  left: -2px;
   object-fit: cover;
   position: absolute;
   top: 0;
+  height: 68px;
   width: 68px;
 }
