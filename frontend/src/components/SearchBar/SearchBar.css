@@ -6,7 +6,7 @@
   border-color: var(--collection-1-secondary);
   border-radius: 1rem;
   height: 50px;
-  width: 1000px;
+  width: 100%;
 }
 
 .frame {

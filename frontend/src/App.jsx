@@ -4,6 +4,7 @@ import "./App.css";
 
 import { UserHome } from "./screens/UserHome/UserHome";
 import { LoginSignup } from "./screens/LoginSignup/LoginSignup";
+import { AdminHome } from "./screens/AdminHome/AdminHome";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LoginSignup />} />
         <Route path="/home" element={<UserHome />} />
+        <Route path="/admin" element={<AdminHome />} />
       </Routes>
     </Router>
   </div>

@@ -1,0 +1,19 @@
+.create-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.6rem;
+    background-color: var(--collection-1-secondary);
+    width: fit-content;
+    padding: 0.5rem 1rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border-radius: 10px;
+    border: 2px solid var(--collection-1-third);
+    box-shadow: 0px 4px 4px #00000040;
+}
+
+.create-btn:hover {
+    border-color: var(--collection-1-secondary);
+    cursor: pointer;
+}
