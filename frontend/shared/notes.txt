@@ -1,0 +1,6 @@
+Instead of different attributes  date and time for quiz creation it is combined to one timestamp for easier arithmetic (new column name eventTime)
+The evenTime attribute should adhere to string format “YYYY-MM-DD HH:MM:SS” eg:- 2023-11-10 14:30:00 
+If invalid format is given the status of quiz is marked as terminated
+
+
+all attributes for all tables are in lowercase letters as saved in the database
