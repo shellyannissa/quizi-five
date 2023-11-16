@@ -1,7 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const pool = require("../database/db");
 const { v4: uuidv4 } = require("uuid");
-const utilities = require("../database/utilities");
 
 function generateUUID() {
   return uuidv4();
@@ -85,7 +84,6 @@ const getOptions = asyncHandler(async (req, res) => {
       res.status(200).json(options.rows);
     } else {
       res.status(400).send("Bad Request");
-      throw new Error("Couldn't get Options");
     }
   } catch (error) {
     res.status(500).send("Internal Server Error");

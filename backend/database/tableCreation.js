@@ -72,9 +72,9 @@ const createUsersTable = async () => {
 
     const answerQuery = `
       CREATE TABLE IF NOT EXISTS "Answer" (
-        uid UUID REFERENCES "User"(uId),
-        questionId UUID REFERENCES "Question"(questionId),
-        quizId UUID REFERENCES "Quiz"(quizId),
+        uid UUID REFERENCES "User"(uId) ON DELETE CASCADE,
+        questionId UUID REFERENCES "Question"(questionId) ON DELETE CASCADE,
+        quizId UUID REFERENCES "Quiz"(quizId) ON DELETE CASCADE,
         optionId UUID ,
         answeredInstant TIME);`;
 
@@ -82,8 +82,8 @@ const createUsersTable = async () => {
     const optionQuery = `
     CREATE TABLE IF NOT EXISTS "Option" (
       optionId UUID PRIMARY KEY,
-      questionId UUID REFERENCES "Question"(questionId),
-      quizId UUID REFERENCES "Quiz"(quizId),
+      questionId UUID REFERENCES "Question"(questionId) ON DELETE CASCADE,
+      quizId UUID REFERENCES "Quiz"(quizId) ON DELETE CASCADE,
       description VARCHAR(255));`;
     await client.query(optionQuery);
 
@@ -105,6 +105,55 @@ const createUsersTable = async () => {
 
     await client.query(foreignKeyQuery2);
 
+    cosnt foreignKeyQuery3 = `
+        ALTER TABLE "Answer"
+        ADD CONSTRAINT fk_answer_user
+        FOREIGN KEY (uid)
+        REFERENCES "User" (uId)
+        ON DELETE CASCADE;
+
+
+        ALTER TABLE "Answer"
+        ADD CONSTRAINT fk_answer_question
+        FOREIGN KEY (questionId)
+        REFERENCES "Question" (questionId)
+        ON DELETE CASCADE;
+
+
+        ALTER TABLE "Answer"
+        ADD CONSTRAINT fk_answer_quiz
+        FOREIGN KEY (quizId)
+        REFERENCES "Quiz" (quizId)
+        ON DELETE CASCADE;
+
+        ALTER TABLE "Option"
+        ADD CONSTRAINT fk_option_question
+        FOREIGN KEY (questionId)
+        REFERENCES "Question" (questionId)
+        ON DELETE CASCADE;
+
+        ALTER TABLE "Option"
+        ADD CONSTRAINT fk_option_quiz
+        FOREIGN KEY (quizId)
+        REFERENCES "Quiz" (quizId)
+        ON DELETE CASCADE;
+
+
+        ALTER TABLE "Question"
+        ADD CONSTRAINT fk_question_quiz
+        FOREIGN KEY (quizId)
+        REFERENCES "Quiz" (quizId)
+        ON DELETE CASCADE;
+
+        
+    ALTER TABLE "Registration"
+    ADD CONSTRAINT fk_registration_quiz
+    FOREIGN KEY (quizId)
+    REFERENCES "Quiz" (quizId)
+    ON DELETE CASCADE;
+
+        `;
+        await client.query(foreignKeyQuery3);
   */
 
     client.release();
@@ -120,6 +169,9 @@ const tempModifications = async () => {
     const client = await pool.connect();
 
     const query = `
+
+
+    
     
       `;
 
@@ -134,17 +186,3 @@ const tempModifications = async () => {
 };
 
 module.exports = { createUsersTable, tempModifications };
-
-const dummy = () => {
-  const originalTime = new Date("2023-11-11T07:50:00.000Z");
-  console.log(convertUTCToIST(originalTime));
-  const updatedTime = addMinutesAndSeconds(originalTime, 30, 15);
-  console.log(convertUTCToIST(updatedTime));
-  console.log(originalTime.getMinutes());
-  console.log(originalTime.getSeconds());
-  console.log(originalTime.getHours());
-  console.log(updatedTime.getMinutes());
-  console.log(updatedTime.getSeconds());
-  console.log(originalTime.getHours());
-  console.log(updatedTime - originalTime);
-};
