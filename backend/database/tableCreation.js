@@ -1,4 +1,5 @@
 const pool = require("./db");
+const { addMinutesAndSeconds, convertUTCToIST } = require("./utilities");
 
 const createUsersTable = async () => {
   try {
@@ -58,12 +59,14 @@ const createUsersTable = async () => {
         questionId UUID PRIMARY KEY,
         quizId UUID REFERENCES "Quiz"(quizId),
         weightage INT,
-        allottedTime INT,
-        postedInstant TIME,
+        startedInstant TIMESTAMP,
+        endingInstant TIMESTAMP,
+        alottedMin INT,
+        alottedSec INT,
+        started BOOLEAN,
         description VARCHAR(255),
-        correctOptionId UUID );`;
-
-    //! type of allottedTime is to be changed
+        correctOptionId UUID 
+        );`;
 
     await client.query(questionQuery);
 
@@ -117,20 +120,31 @@ const tempModifications = async () => {
     const client = await pool.connect();
 
     const query = `
-    ALTER TABLE "Registration"
-    DROP CONSTRAINT IF EXISTS registration_quizid_fkey;
-    
-    ALTER TABLE "Registration"
-    ADD CONSTRAINT registration_uid_fkey
-    FOREIGN KEY (uid) REFERENCES "User"(uid) ON DELETE CASCADE;
     
       `;
 
     const ans = await client.query(query);
+
     console.log(ans);
+
     client.release();
   } catch (error) {
     console.error(error.message);
   }
 };
+
 module.exports = { createUsersTable, tempModifications };
+
+const dummy = () => {
+  const originalTime = new Date("2023-11-11T07:50:00.000Z");
+  console.log(convertUTCToIST(originalTime));
+  const updatedTime = addMinutesAndSeconds(originalTime, 30, 15);
+  console.log(convertUTCToIST(updatedTime));
+  console.log(originalTime.getMinutes());
+  console.log(originalTime.getSeconds());
+  console.log(originalTime.getHours());
+  console.log(updatedTime.getMinutes());
+  console.log(updatedTime.getSeconds());
+  console.log(originalTime.getHours());
+  console.log(updatedTime - originalTime);
+};

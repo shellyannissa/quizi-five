@@ -1,7 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const pool = require("../database/db");
 const { v4: uuidv4 } = require("uuid");
-const generateToken = require("../database/generateToken");
+const generateToken = require("../database/utilities");
 
 function generateUUID() {
   return uuidv4();
