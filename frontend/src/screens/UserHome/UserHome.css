@@ -8,12 +8,13 @@
   width: 100vw;
   min-height: 100vh;
   overflow-y: scroll;
-  gap: 3rem;
+  gap: 1rem;
 }
 
 .quiz-list {
   display: flex;
   gap: 2rem;
+  margin-bottom: 2rem;
 }
 
 .list-of-quizzes {
