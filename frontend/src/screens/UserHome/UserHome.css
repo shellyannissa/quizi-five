@@ -22,3 +22,17 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 2rem;
 }
+
+/** Tablet **/
+@media screen and (max-width: 1000px){
+  .list-of-quizzes {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/** Mobile **/
+@media screen and (max-width: 600px){
+  .list-of-quizzes {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}

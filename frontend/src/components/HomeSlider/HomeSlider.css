@@ -5,7 +5,7 @@
   width: 400px;
 }
 
-.home-slider .group {
+.home-group {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -27,7 +27,7 @@
   cursor: pointer;
 }
 
-.home-slider .group .rectangle {
+.home-rectangle {
   background-color: var(--collection-1-secondary);
   border: 2px solid;
   border-color: var(--collection-1-third);
@@ -43,12 +43,12 @@
   cursor: pointer;
 }
 
-.group .left {
+.home-left {
   position: absolute;
   left: 3rem;
 }
 
-.group .right {
+.home-right {
   position: absolute;
   right: 3rem;
 }
@@ -59,4 +59,17 @@
 
 .available {
   right: 0;
+}
+
+
+/** Mobile **/
+@media screen and (max-width: 600px) {
+  .home-slider {
+    width: 90%;
+    height: 48px;
+  }
+  .home-slider .group .rectangle {
+    height: 50px;
+    width: 50%;
+  }
 }
