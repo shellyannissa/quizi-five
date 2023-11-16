@@ -5,6 +5,7 @@ const {
   updateAllQuizStatus,
   deleteQuiz,
   terminateQuiz,
+  quizQuestions,
 } = require("../controllers/quizController");
 const { protect } = require("../middleware/authMiddleware");
 
@@ -15,5 +16,6 @@ router.route("/").get(allQuizzes);
 router.route("/status").put(updateAllQuizStatus);
 router.route("/delete").delete(deleteQuiz);
 router.route("/terminate").put(terminateQuiz);
+router.route("/allqns").put(quizQuestions);
 
 module.exports = router;

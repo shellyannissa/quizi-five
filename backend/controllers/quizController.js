@@ -1,7 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const pool = require("../database/db");
 const { v4: uuidv4 } = require("uuid");
-const generateToken = require("../database/generateToken");
+const generateToken = require("../database/utilities");
 
 function generateUUID() {
   return uuidv4();
@@ -22,9 +22,6 @@ function calculateEventStatus(eventTime) {
 
 const quizQuestions = asyncHandler(async (req, res) => {
   const { quizId } = req.body;
-
-  //! control does not pass onto updateAllQuestions function
-  await updateAllQuizStatus();
   try {
     const client = await pool.connect();
     const allrecords = await client.query(
@@ -172,4 +169,5 @@ module.exports = {
   updateAllQuizStatus,
   deleteQuiz,
   terminateQuiz,
+  quizQuestions,
 };
