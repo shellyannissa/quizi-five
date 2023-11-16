@@ -50,6 +50,22 @@ const available = [
     month: "APR",
     day: "01",
   },
+  {
+    quizType: "Science Quiz",
+    quizName: "Science is cool",
+    image: "https://img.freepik.com/free-vector/quiz-night-concept-illustration_114360-1334.jpg?size=626&ext=jpg",
+    time: "09:00 AM",
+    month: "APR",
+    day: "01",
+  },
+  {
+    quizType: "Science Quiz",
+    quizName: "Science is cool",
+    image: "https://img.freepik.com/free-vector/quiz-night-concept-illustration_114360-1334.jpg?size=626&ext=jpg",
+    time: "09:00 AM",
+    month: "APR",
+    day: "01",
+  },
 ];
 
 export const UserHome = ({property}) => {
@@ -85,7 +101,7 @@ export const UserHome = ({property}) => {
       <Hero property={state.property} updateState={updateState} searchTerm={searchTerm} handleSearch={handleSearch}/>
       <div className={`quiz-list ${state.property}`}>
         {state.property === "registered" ? (
-          <div  className="quiz-list">
+          <div  className="list-of-quizzes">
             {quizList.map((quiz) => (
               <QuizCard
                 quizType={quiz.quizType}
@@ -98,7 +114,7 @@ export const UserHome = ({property}) => {
             ))}
           </div>
         ):(
-          <div className="quiz-list">
+          <div className="list-of-quizzes">
             {quizList.map((quiz) => (
               <QuizCard
                 quizType={quiz.quizType}
@@ -111,16 +127,6 @@ export const UserHome = ({property}) => {
             ))}
           </div>
         )}
-        {/* {quizList.map((quiz) => (
-          <QuizCard
-            quizType={quiz.quizType}
-            quizName={quiz.quizName}
-            image={quiz.image}
-            time={quiz.time}
-            month={quiz.month}
-            day={quiz.day}
-          />
-        ))} */}
       </div>
     </div>
   );

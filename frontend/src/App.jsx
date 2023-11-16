@@ -7,7 +7,7 @@ import { LoginSignup } from "./screens/LoginSignup/LoginSignup";
 
 function App() {
   return (
-  <div>
+  <div className="app-root">
     <Router>
       <Routes>
         <Route path="/" element={<LoginSignup />} />
