@@ -4,7 +4,7 @@ import { SearchBar } from '../SearchBar/SearchBar'
 import { HomeSlider } from '../HomeSlider/HomeSlider'
 import './Hero.css'
 
-export const Hero = ({ property, updateState}) => {
+export const Hero = ({ property, updateState, searchTerm, handleSearch}) => {
   return (
     <div className="hero-section">
       <div className="top-part">
@@ -18,7 +18,7 @@ export const Hero = ({ property, updateState}) => {
           </p>
           <div className="quiz-type">
             <HomeSlider property={property} updateState={updateState}/>
-            <SearchBar property={property} />
+            <SearchBar property={property} searchTerm={searchTerm} handleSearch={handleSearch}/>
           </div>
       </div>
     </div>
