@@ -10,10 +10,10 @@ export const HomeSlider = ({ property, updateState}) => {
         updateState();
       }}
     >
-      <div className="group">
-        <div className={`rectangle ${property}`} />
-        <div className="left">Registered</div>
-        <div className="right">Available</div>
+      <div className="home-group">
+        <div className={`home-rectangle ${property}`} />
+        <div className="home-left">Registered</div>
+        <div className="home-right">Available</div>
       </div>
     </div>
   );

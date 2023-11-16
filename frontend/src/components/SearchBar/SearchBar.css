@@ -31,3 +31,24 @@
   font-weight: var(--type-font-weight);
   width: 100%;
 }
+
+/** Mobile **/
+@media screen and (max-width: 700px) {
+  .search-bar {
+    width: 90%;
+  }
+
+  .frame {
+    width: 100%;
+  }
+}
+/** Tablet **/
+@media screen and (max-width: 1000px) {
+  .search-bar {
+    width: 100%;
+  }
+
+  .frame {
+    width: 100%;
+  }
+}
