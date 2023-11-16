@@ -19,3 +19,17 @@
   position: relative;
   width: fit-content;
 }
+
+.profile-pic {
+  height: 64px;
+  position: relative;
+  width: 64px;
+}
+
+.profile-pic .ellipse {
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  height: 60px;
+  width: 60px;
+}

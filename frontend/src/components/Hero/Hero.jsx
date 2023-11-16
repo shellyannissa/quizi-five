@@ -11,6 +11,7 @@ export const Hero = ({ property, updateState, searchTerm, handleSearch}) => {
         <Profile className="profile"/>
       </div>
       <div className="bottom-part">
+        <div className="hero-left">
           <p className="QUIZZES-for-you">
             <span className="quiz">QUIZZES</span>
             <span>&nbsp;</span>
@@ -20,6 +21,10 @@ export const Hero = ({ property, updateState, searchTerm, handleSearch}) => {
             <HomeSlider property={property} updateState={updateState}/>
             <SearchBar property={property} searchTerm={searchTerm} handleSearch={handleSearch}/>
           </div>
+        </div>
+        <div className="hero-right">
+          <img src="../../assets/images/quiz-hero.avif" alt="poster" />
+        </div>
       </div>
     </div>
   )
