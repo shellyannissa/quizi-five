@@ -1,0 +1,26 @@
+.bar-graph {
+  width: 150px;
+  height: 100%;
+  background-color: #ddd;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-right: 10px;
+}
+
+.bar {
+  height: 100%;
+  transition: 0.5s ease-in-out;
+  background-color: lightblue;
+}
+
+.selected-bar {
+  background-color: orange;
+}
+
+.correct {
+  background-color: green;
+}
+
+.incorrect {
+  background-color: red;
+}

@@ -4,6 +4,8 @@ import "./App.css";
 
 import { UserHome } from "./screens/UserHome/UserHome";
 import { LoginSignup } from "./screens/LoginSignup/LoginSignup";
+import Quiz from "./screens/Quiz/Quiz";
+import { LeaderboardScreen } from "./screens/LeaderboardScreen/LeaderboardScreen";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -11,12 +13,12 @@ function App() {
   return (
   <div>
     <Router>
-    <Router>
       <Routes>
         <Route path="/" element={<LoginSignup />} />
         <Route path="/home" element={<UserHome />} />
+        <Route path = "/quiz" element={<Quiz />}/>
+        <Route path = "/leaderboard" element={<LeaderboardScreen />}/>
       </Routes>
-    </Router>
     </Router>
   </div>
   );
