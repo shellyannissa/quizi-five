@@ -1,9 +1,9 @@
 import React from "react";
 import { QuizCard } from "../../components/QuizCard/QuizCard";
 import { useState } from "react";
+import { AdminHero } from "../../components/AdminHero/AdminHero";
 import "../UserHome/UserHome.css";
 import "./AdminHome.css";
-import { AdminHero } from "../../components/AdminHero/AdminHero";
 
 const created = [
   {
@@ -71,6 +71,7 @@ export const AdminHome = () => {
         <div className="list-of-quizzes">
         {quizList.map((quiz) => (
             <QuizCard
+            quizId={quiz.quizId}
             key={quiz.quizName}
             quizType={quiz.quizType}
             quizName={quiz.quizName}
