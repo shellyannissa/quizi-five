@@ -16,6 +16,6 @@ router.route("/").get(allQuizzes);
 router.route("/status").put(updateAllQuizStatus);
 router.route("/delete").delete(deleteQuiz);
 router.route("/terminate").put(terminateQuiz);
-router.route("/allqns").put(quizQuestions);
+router.route("/getqns").put(quizQuestions);
 
 module.exports = router;

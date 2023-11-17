@@ -170,8 +170,6 @@ const tempModifications = async () => {
 
     const query = `
 
-
-    
     
       `;
 
