@@ -199,6 +199,25 @@ const unregisteredQuizzes = asyncHandler(async (req, res) => {
   }
 });
 
+const history = asyncHandler(async (req, res) => {
+  const { uid } = req.body;
+  try {
+    const client = await pool.connect();
+    const allrecords = await client.query(
+      `SELECT image,"Quiz".name quizName, points, position, eventTime
+       FROM "Quiz" JOIN "Registration" ON "Quiz".quizId = "Registration".quizId 
+      WHERE uid = $1 and status = 'completed'
+      ORDER BY eventTime DESC`,
+      [uid]
+    );
+    client.release();
+    res.json(allrecords.rows);
+  } catch (error) {
+    res.status(500).send("Internal Server Error");
+    throw new Error(error.message);
+  }
+});
+
 module.exports = {
   allUsers,
   authUser,
@@ -207,4 +226,5 @@ module.exports = {
   deleteUser,
   registeredQuizzes,
   unregisteredQuizzes,
+  history,
 };

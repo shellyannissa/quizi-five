@@ -7,6 +7,7 @@ const {
   deleteUser,
   registeredQuizzes,
   unregisteredQuizzes,
+  history,
 } = require("../controllers/userController");
 const { protect } = require("../middleware/authMiddleware");
 
@@ -20,5 +21,6 @@ router.put("/update", updateUser);
 router.put("/regquizzes", registeredQuizzes);
 router.put("/unregquizzes", unregisteredQuizzes);
 router.delete("/delete", deleteUser);
+router.put("/history", history);
 
 module.exports = router;

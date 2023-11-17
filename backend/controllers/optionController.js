@@ -87,4 +87,21 @@ const getOptions = asyncHandler(async (req, res) => {
     throw new Error(error.message);
   }
 });
-module.exports = { addOption, allOptions, deleteOption, getOptions };
+
+const count = asyncHandler(async (req, res) => {
+  const { optionId } = req.body;
+  try {
+    const client = await pool.connect();
+    const getQuery = `
+                        SELECT COUNT(*) FROM "Answer"
+                        WHERE optionId = $1;`;
+    const count = await client.query(getQuery, [optionId]);
+    client.release();
+
+    res.status(200).json(count.rows);
+  } catch (error) {
+    res.status(500).send("Internal Server Error");
+    throw new Error(error.message);
+  }
+});
+module.exports = { addOption, allOptions, deleteOption, getOptions, count };
