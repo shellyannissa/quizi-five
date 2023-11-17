@@ -80,11 +80,8 @@ const getOptions = asyncHandler(async (req, res) => {
                         WHERE questionId = $1;`;
     const options = await client.query(getQuery, [questionId]);
     client.release();
-    if (options.rowCount > 0) {
-      res.status(200).json(options.rows);
-    } else {
-      res.status(400).send("Bad Request");
-    }
+
+    res.status(200).json(options.rows);
   } catch (error) {
     res.status(500).send("Internal Server Error");
     throw new Error(error.message);

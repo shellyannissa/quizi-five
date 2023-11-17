@@ -126,16 +126,17 @@ const updateCrctOption = asyncHandler(async (req, res) => {
     throw new Error(error.message);
   }
 });
-const partialPoints = async (quizId, questionId, uid) => {
-  const client = await pool.connect();
-  const query = `
-      SELECT endingInstant FROM "Question" WHERE quizId = $1;`;
-  const endingInstant = (await client.query(query, [quizId])).rows[0]
-    .endinginstant;
 
+const partialPoints = async (questionId, uid) => {
+  const client = await pool.connect();
+  console.log("inside partial points");
+  const query = `
+      SELECT endingInstant FROM "Question" WHERE questionId = $1;`;
+  const endingInstant = (await client.query(query, [questionId])).rows[0]
+    .endinginstant;
   const query2 = `
-    SELECT startedInstant FROM "Question" WHERE quizId = $1;`;
-  const startedInstant = (await client.query(query2, [quizId])).rows[0]
+    SELECT startedInstant FROM "Question" WHERE questionId = $1;`;
+  const startedInstant = (await client.query(query2, [questionId])).rows[0]
     .startedinstant;
   console.log(utilities.convertUTCToIST(startedInstant));
   console.log(utilities.convertUTCToIST(endingInstant));
@@ -158,9 +159,7 @@ const partialPoints = async (quizId, questionId, uid) => {
 
 const calculatePoints = async (questionId, optionId) => {
   const client = await pool.connect();
-  const quizIdQuery = `
-      SELECT quizId FROM "Question" WHERE questionId = $1;`;
-  const quizId = (await client.query(quizIdQuery, [questionId])).rows[0].quizid;
+
   const weightageQuery = `
       SELECT weightage FROM "Question" WHERE questionId = $1;`;
   const weightage = (await client.query(weightageQuery, [questionId])).rows[0]
@@ -173,7 +172,7 @@ const calculatePoints = async (questionId, optionId) => {
     .rows;
   for (let i = 0; i < rightUsers.length; i++) {
     const uid = rightUsers[i].uid;
-    points = parseInt(weightage * partialPoints(quizId, questionId, uid));
+    points = parseInt(weightage * (await partialPoints(questionId, uid)));
     console.log(points);
     const updateQuery = `
     UPDATE "Registration" SET points =points+ $1 WHERE uid = $2 ;`;
