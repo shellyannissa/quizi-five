@@ -1,0 +1,33 @@
+/* Question.css */
+.question-container {
+  margin-top: 20px;
+}
+
+.button-group {
+  display: flex;
+  padding: 0, 10px;
+}
+
+.question-title {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.option {
+  cursor: pointer;
+  padding: 8px;
+  margin: 4px;
+  border-radius: 4px;
+}
+
+.selected {
+  background-color: transparent;
+}
+
+.correct {
+  background-color: green;
+}
+
+.incorrect {
+  background-color: red;
+}
