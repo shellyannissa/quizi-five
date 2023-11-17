@@ -1,7 +1,6 @@
 import React from "react";
 import { QuizCard } from "../../components/QuizCard/QuizCard";
 import { useState } from "react";
-import { Hero } from "../../components/Hero/Hero";
 import "../UserHome/UserHome.css";
 import "./AdminHome.css";
 import { AdminHero } from "../../components/AdminHero/AdminHero";

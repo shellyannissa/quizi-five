@@ -1,6 +1,8 @@
 
 :root {
   --loginColor:  #3c3f45;
+  --containerColor: #dedede;
+  --darkGrey: #6a6a6a;
   --box-colour: aqua;
   --auth-font-family: "Nunito-ExtraBold", Helvetica;
   --auth-font-size: 18px;

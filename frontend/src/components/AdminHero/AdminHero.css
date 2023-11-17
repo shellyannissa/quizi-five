@@ -15,3 +15,13 @@
     border-radius: 2rem;
     box-shadow: 0px 4px 4px #00000040;
 }
+
+/** Mobile **/
+@media screen and (max-width: 768px) {
+    .quiz-type-admin {
+        width: 100%;
+    }
+    .hero-right-admin {
+        display: none;
+    }
+}
