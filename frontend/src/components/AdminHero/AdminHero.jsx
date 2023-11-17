@@ -36,7 +36,7 @@ export const AdminHero = ({ searchTerm, handleSearch}) => {
         <div className="hero-right-admin">
           <img src="../../assets/images/quiz-hero.avif" alt="poster" />
         </div>
-        <QuizForm trigger={trigger} triggerHandler={triggerHandler}/>
+        <QuizForm heading="Enter quiz details" trigger={trigger} triggerHandler={triggerHandler}/>
       </div>
     </div>
   )
