@@ -24,7 +24,7 @@ const created = [
   },
   {
     quizType: "Science Quiz",
-    quizName: "Science is cool",
+    quizName: "Science is super cool",
     image: "https://img.freepik.com/free-vector/quiz-night-concept-illustration_114360-1334.jpg?size=626&ext=jpg",
     time: "09:00 AM",
     month: "APR",
@@ -32,7 +32,7 @@ const created = [
   },
   {
     quizType: "Science Quiz",
-    quizName: "Science is cool",
+    quizName: "Science is not cool",
     image: "https://img.freepik.com/free-vector/quiz-night-concept-illustration_114360-1334.jpg?size=626&ext=jpg",
     time: "09:00 AM",
     month: "APR",
@@ -71,12 +71,14 @@ export const AdminHome = () => {
         <div className="list-of-quizzes">
         {quizList.map((quiz) => (
             <QuizCard
+            key={quiz.quizName}
             quizType={quiz.quizType}
             quizName={quiz.quizName}
             image={quiz.image}
             time={quiz.time}
             month={quiz.month}
             day={quiz.day}
+            buttonContent="Edit"
             />))}
         </div>
       </div>

@@ -3,7 +3,7 @@ import { Button } from '../Button/Button'
 import { TextInputBar } from '../TextInputBar/TextInputBar'
 import './QuizForm.css'
 
-const QuizForm = ({trigger, triggerHandler}) => {
+const QuizForm = ({heading, image, quizName, quizType, quizDate, quizTime, trigger, triggerHandler}) => {
   
   const popUpRef = React.useRef(null);
 
@@ -44,23 +44,30 @@ const QuizForm = ({trigger, triggerHandler}) => {
   return (trigger) ?(
     <div className="popup">
       <div className='quiz-form' ref={popUpRef}>
-          <div className="heading">
-              <h2>Enter quiz details</h2>
-          </div>
-          <div className="image-container">
-              <input type="file" name="image" id="file-input" onChange={handleImageSelection} />
-              <label for="file-input" class="preview-label">
-                <img id="preview-image" src="../../assets/images/preview.png" alt="Preview" />
-                <span>Select quiz poster</span>
-              </label>
-          </div>
-          <div className="text-inputs">
-              <TextInputBar id='quiz-name' placeholder='Quiz Name' />
-              <TextInputBar id='quiz-type' placeholder='Quiz Description' />
-              <TextInputBar id='quiz-date' placeholder='Date of quiz' inputType="date"/>
-              <TextInputBar id='quiz-time' placeholder='Time of quiz' inputType="" />
-          </div>
-          <Button text='SUBMIT' />
+        <div className="heading">
+            <h2>{heading}</h2>
+        </div>
+        <div className="image-container">
+            <input type="file" name="image" id="file-input" onChange={handleImageSelection} />
+              {image ? (
+                <label for="file-input" class="preview-label dont-show">
+                    <img id="preview-image" className="quiz-image" src={image} alt="Preview" />
+                    <span>Select quiz poster</span>
+                </label>
+                ) : (
+                <label for="file-input" class="preview-label">
+                  <img id="preview-image" src="../../assets/images/preview.png" alt="Preview" />
+                  <span>Select quiz poster</span>
+                </label>
+              )}
+        </div>
+        <div className="text-inputs">
+            <TextInputBar id='quiz-name' placeholder='Quiz Name' defautlValue={quizName} />
+            <TextInputBar id='quiz-type' placeholder='Quiz Description' defautlValue={quizType}/>
+            <TextInputBar id='quiz-date' placeholder='Date of quiz' inputType="date" defautlValue={quizDate}/>
+            <TextInputBar id='quiz-time' placeholder='Time of quiz' inputType="" defautlValue={quizTime}/>
+        </div>
+        <Button text='SUBMIT' />
       </div>
     </div>
   ) : "";

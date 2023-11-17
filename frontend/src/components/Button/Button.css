@@ -13,6 +13,7 @@
   justify-content: center;
   position: relative;
   width: fit-content;
+  min-width: 100px;
 }
 
 .button:hover {
