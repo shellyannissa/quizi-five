@@ -1,7 +1,8 @@
 const asyncHandler = require("express-async-handler");
 const pool = require("../database/db");
 const { v4: uuidv4 } = require("uuid");
-const generateToken = require("../database/generateToken");
+const generateToken = require("../database/utilities");
+const { updateAllQuizStatus } = require("./quizController");
 
 function generateUUID() {
   return uuidv4();
@@ -11,6 +12,7 @@ const allUsers = asyncHandler(async (req, res) => {
   try {
     const client = await pool.connect();
     const allrecords = await client.query('SELECT * FROM "User"');
+    client.release();
     res.json(allrecords.rows);
   } catch (error) {
     res.status(500).send("Internal Server Error");
@@ -29,6 +31,7 @@ const authUser = asyncHandler(async (req, res) => {
     const user = await client.query('SELECT * FROM "User" WHERE email = $1', [
       email,
     ]);
+    client.release();
     if (user.rows.length > 0) {
       if (user.rows[0].password === password) {
         res.json({
@@ -54,6 +57,21 @@ const authUser = asyncHandler(async (req, res) => {
   }
 });
 
+const deleteUser = asyncHandler(async (req, res) => {
+  const { uid } = req.body;
+  try {
+    const client = await pool.connect();
+    const deleteQuery = `
+    DELETE FROM "User" WHERE uid = $1;`;
+    const result = await client.query(deleteQuery, [uid]);
+    client.release();
+    res.json(result.rows);
+  } catch (error) {
+    res.status(500).send("Internal Server Error");
+    throw new Error(error.message);
+  }
+});
+
 const updateUser = asyncHandler(async (req, res) => {
   const { name, email, password, image } = req.body;
   if (!email) {
@@ -65,6 +83,7 @@ const updateUser = asyncHandler(async (req, res) => {
     const user = await client.query('SELECT * FROM "User" WHERE email = $1', [
       email,
     ]);
+    client.release();
     if (user.rows.length > 0) {
       if (user.rows[0].password === password) {
         const updatedUser = await client.query(
@@ -146,4 +165,46 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { allUsers, authUser, registerUser, updateUser };
+const registeredQuizzes = asyncHandler(async (req, res) => {
+  const { uid } = req.body;
+  try {
+    const client = await pool.connect();
+    await updateAllQuizStatus();
+    const allrecords = await client.query(
+      'SELECT * FROM "Quiz" WHERE quizId IN (SELECT quizId FROM "Registration" WHERE uid = $1)',
+      [uid]
+    );
+    client.release();
+    res.json(allrecords.rows);
+  } catch (error) {
+    res.status(500).send("Internal Server Error");
+    throw new Error(error.message);
+  }
+});
+
+const unregisteredQuizzes = asyncHandler(async (req, res) => {
+  const { uid } = req.body;
+  try {
+    const client = await pool.connect();
+    await updateAllQuizStatus();
+    const allrecords = await client.query(
+      'SELECT * FROM "Quiz" WHERE quizId NOT IN (SELECT quizId FROM "Registration" WHERE uid = $1)',
+      [uid]
+    );
+    client.release();
+    res.json(allrecords.rows);
+  } catch (error) {
+    res.status(500).send("Internal Server Error");
+    throw new Error(error.message);
+  }
+});
+
+module.exports = {
+  allUsers,
+  authUser,
+  registerUser,
+  updateUser,
+  deleteUser,
+  registeredQuizzes,
+  unregisteredQuizzes,
+};

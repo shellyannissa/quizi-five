@@ -1,0 +1,35 @@
+.profile {
+  align-items: center;
+  display: inline-flex;
+  gap: 31px;
+  position: relative;
+  z-index: 99;
+}
+
+.profile:hover {
+  cursor: pointer;
+}
+
+.profile .text-wrapper {
+  color: var(--collection-1-secondary);
+  font-family: "Nunito", Helvetica;
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: normal;
+  position: relative;
+  width: fit-content;
+}
+
+.profile-pic {
+  height: 64px;
+  position: relative;
+  width: 64px;
+}
+
+.profile-pic .ellipse {
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  height: 60px;
+  width: 60px;
+}

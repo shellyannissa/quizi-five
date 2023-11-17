@@ -2,20 +2,20 @@ import { useState } from "react";
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import "./App.css";
 
-import Login from "./components/Login";
+import { UserHome } from "./screens/UserHome/UserHome";
 import { LoginSignup } from "./screens/LoginSignup/LoginSignup";
+import { AdminHome } from "./screens/AdminHome/AdminHome";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-  <div>
-    <LoginSignup />
-    {/* <Router>
+  <div className="app-root">
+    <Router>
       <Routes>
-      <Route path="/login" element={<Login />} />
+        <Route path="/" element={<LoginSignup />} />
+        <Route path="/home" element={<UserHome />} />
+        <Route path="/admin" element={<AdminHome />} />
       </Routes>
-    </Router> */}
+    </Router>
   </div>
   );
 }
