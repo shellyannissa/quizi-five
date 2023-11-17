@@ -13,5 +13,6 @@ router.route("/register").post(registerQuiz);
 router.route("/regs").patch(quizRegistrations);
 router.route("/allreg").get(allRegistrations);
 router.route("/unregister").delete(unRegister);
+router.route("/getregs").put(quizRegistrations);
 
 module.exports = router;

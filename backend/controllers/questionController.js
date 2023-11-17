@@ -118,8 +118,14 @@ const updateCrctOption = asyncHandler(async (req, res) => {
     const updateQuery = `
     UPDATE "Question" SET correctOptionId = $1 WHERE questionId = $2;`;
     await client.query(updateQuery, [optionId, questionId]);
+
+    const quizIdQuery = `
+    SELECT quizId FROM "Question" WHERE questionId = $1;`;
+    const quizId = (await client.query(quizIdQuery, [questionId])).rows[0]
+      .quizid;
     client.release();
-    calculatePoints(questionId, optionId);
+    await calculatePoints(questionId, optionId);
+    await updatePostition(quizId);
     res.status(200).send("Correct Option Updated");
   } catch (error) {
     res.status(500).send("Internal Server Error");
@@ -180,6 +186,22 @@ const calculatePoints = async (questionId, optionId) => {
   }
   client.release();
 };
+
+const updatePostition = async (quizId) => {
+  const client = await pool.connect();
+  const query = `
+  SELECT uid, points FROM "Registration" WHERE quizId = $1 ORDER BY points DESC;`;
+  const allUsers = (await client.query(query, [quizId])).rows;
+  for (let i = 0; i < allUsers.length; i++) {
+    const uid = allUsers[i].uid;
+    const position = i + 1;
+    const updateQuery = `
+    UPDATE "Registration" SET position = $1 WHERE uid = $2;`;
+    await client.query(updateQuery, [position, uid]);
+  }
+  client.release();
+};
+
 module.exports = {
   addQuestion,
   allQuestions,
