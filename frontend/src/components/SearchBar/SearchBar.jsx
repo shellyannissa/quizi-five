@@ -2,12 +2,12 @@ import PropTypes from "prop-types";
 import React from "react";
 import "./SearchBar.css";
 
-export const SearchBar = ({ vector = "https://c.animaapp.com/fWGxq1VK/img/vector-1.svg" }) => {
+export const SearchBar = ({ property, searchTerm, handleSearch }) => {
   return (
     <div className="search-bar">
       <div className="frame">
-        <img className="vector" alt="Vector" src={vector} />
-        <input htmlFor="searchTerm" placeholder="Search For Quizzes" className="text-wrapper-3" />
+        <img className="vector" alt="search" src="../../assets/icons/search.svg" />
+        <input htmlFor="searchTerm" placeholder="Search For Quizzes" className="hint-text" value={searchTerm} onChange={handleSearch}/>
       </div>
     </div>
   );

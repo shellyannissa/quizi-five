@@ -19,7 +19,7 @@ const protect = asyncHandler(async (req, res, next) => {
       );
       req.user = user.rows[0];
       console.log(req.user);
-
+      client.release();
       next();
     } catch (error) {
       res.status(401);

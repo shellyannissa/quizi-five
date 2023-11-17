@@ -1,22 +1,26 @@
 .button {
-  all: unset;
   align-items: center;
   background-color: var(--collection-1-secondary);
   border: 2px solid;
   border-color: var(--collection-1-third);
-  border-radius: 16px;
-  box-shadow: -4px 4px 4px #00000040;
+  border-radius: 12px;
+  box-shadow: 0px 4px 4px #00000040;
   box-sizing: border-box;
   display: flex;
   gap: 10px;
   height: 52px;
+  padding: 1rem;
   justify-content: center;
-  padding: 10px;
   position: relative;
-  width: 160px;
+  width: fit-content;
 }
 
-.button .SUBMIT {
+.button:hover {
+  border-color: var(--collection-1-secondary);
+  cursor: pointer;
+}
+
+.button .submit {
   color: var(--collection-1-black);
   font-family: var(--auth-font-family);
   font-size: var(--auth-font-size);

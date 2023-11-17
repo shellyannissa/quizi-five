@@ -7,7 +7,7 @@
     width: 100%;
   }
   
-  .text-input-bar .overlap-group {
+.overlap-group {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,6 +19,16 @@
     position: relative;
     width: 100%;
   }
+
+  .overlap-group:hover {
+    border-color: var(--collection-1-secondary);
+    cursor: pointer;
+  }
+
+  .overlap-group:focus-within {
+    border-color: var(--collection-1-secondary);
+  }
+
   
   .text-input-bar input {
     display: flex;
@@ -31,13 +41,14 @@
     font-family: "Inter-Regular", Helvetica;
     font-weight: 400;
     line-height: normal;
-    width: 60%;
+    width: 90%;
   }
   
   .text-input-bar .icon {
     height: 35px;
     left: 18px;
-    position: absolute;
     top: 8px;
     width: 35px;
+    margin-left: 1rem;
+    margin-right: 0.4rem;
   }

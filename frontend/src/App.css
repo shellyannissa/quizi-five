@@ -1,6 +1,8 @@
 
 :root {
   --loginColor:  #3c3f45;
+  --containerColor: #dedede;
+  --darkGrey: #6a6a6a;
   --box-colour: aqua;
   --auth-font-family: "Nunito-ExtraBold", Helvetica;
   --auth-font-size: 18px;
@@ -44,22 +46,29 @@
 }
 
 html {
-  height: 100vh;
   width: 100vw;
+  min-height: 100vh;
 }
 
 body {
   height: 100%;
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: start;
+  align-items: start;
+}
+
+.app-root{
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: start;
 }
 
 .inner {
   background-color: var(--box-colour);
   border-radius: 10px;
-  height: 400px !important;
+  height: 400px;
   width: 400px;
 }
 
