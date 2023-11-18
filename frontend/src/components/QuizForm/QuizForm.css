@@ -11,6 +11,10 @@
     justify-content: center;
 }
 
+h3 {
+    margin-bottom: 0;
+}
+
 .quiz-form {
     display: flex;
     flex-direction: column;
@@ -18,15 +22,15 @@
     justify-content: center;
     gap: 1rem;
     width: fit-content;
-    padding: 1rem 2rem 2rem 2rem;
-    max-width: 700px;
+    padding: 0.6rem 1.4rem 1.4rem 1.4rem;
+    max-width: 500px;
     background-color: white;
-    border-radius: 2rem;
+    border-radius: 1.5rem;
 }
 
 .image-container{
-    width: 24rem;
-    height: 24rem;
+    width: 20rem;
+    height: 20rem;
     border-radius: 1.5rem;
     background-color: var(--containerColor);
     display: flex;

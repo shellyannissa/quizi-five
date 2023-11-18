@@ -45,7 +45,7 @@ const QuizForm = ({heading, image, quizName, quizType, quizDate, quizTime, trigg
     <div className="popup">
       <div className='quiz-form' ref={popUpRef}>
         <div className="heading">
-            <h2>{heading}</h2>
+            <h3>{heading}</h3>
         </div>
         <div className="image-container">
             <input type="file" name="image" id="file-input" onChange={handleImageSelection} />

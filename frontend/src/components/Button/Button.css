@@ -17,11 +17,11 @@
 
 .button:hover {
   border-color: var(--collection-1-secondary);
+  color: var(--collection-1-purple);
   cursor: pointer;
 }
 
 .button .submit {
-  color: var(--collection-1-black);
   font-family: var(--auth-font-family);
   font-size: 1rem;
   font-style: var(--auth-font-style);
