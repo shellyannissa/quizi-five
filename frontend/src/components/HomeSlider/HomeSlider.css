@@ -2,7 +2,7 @@
   display: flex;
   position: relative;
   gap: 2rem;
-  width: 400px;
+  width: 300px;
 }
 
 .home-group {
@@ -13,17 +13,17 @@
   border: 2px solid;
   border-color: var(--collection-1-secondary);
   border-radius: 10px;
-  height: 52px;
-  width: 400px;
+  height: 42px;
+  width: 300px;
   color: var(--collection-1-black);
   font-family: var(--auth-font-family);
-  font-size: var(--auth-font-size);
+  font-size: 1rem;
   font-style: var(--auth-font-style);
   font-weight: var(--auth-font-weight);
   transition: all 0.2s ease-in-out;
 }
 
-.group:hover {
+.home-slider:hover {
   cursor: pointer;
 }
 
@@ -33,9 +33,9 @@
   border-color: var(--collection-1-third);
   border-radius: 10px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  height: 54px;
+  height: 42px;
   position: absolute;
-  width: 200px;
+  width: 150px;
   transition: all 0.2s ease-in-out;
 }
 
@@ -45,12 +45,12 @@
 
 .home-left {
   position: absolute;
-  left: 3rem;
+  left: 2rem;
 }
 
 .home-right {
   position: absolute;
-  right: 3rem;
+  right: 2rem;
 }
 
 .registered {
@@ -63,13 +63,22 @@
 
 
 /** Mobile **/
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 800px) {
   .home-slider {
     width: 90%;
-    height: 48px;
+    height: 42px;
+  }
+  .home-group {
+    font-size: 0.9rem;
   }
   .home-rectangle {
-    height: 50px;
+    height: 42px;
     width: 50%;
+  }
+  .home-left {
+    left: 1.6rem;
+  }
+  .home-right {
+    right: 1.6rem;
   }
 }

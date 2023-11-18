@@ -8,12 +8,11 @@
   box-sizing: border-box;
   display: flex;
   gap: 10px;
-  height: 52px;
-  padding: 1rem;
+  padding: 0.6rem 0.8rem;
   justify-content: center;
   position: relative;
   width: fit-content;
-  min-width: 100px;
+  min-width: 80px;
 }
 
 .button:hover {
@@ -24,7 +23,7 @@
 .button .submit {
   color: var(--collection-1-black);
   font-family: var(--auth-font-family);
-  font-size: var(--auth-font-size);
+  font-size: 1rem;
   font-style: var(--auth-font-style);
   font-weight: var(--auth-font-weight);
   letter-spacing: var(--auth-letter-spacing);

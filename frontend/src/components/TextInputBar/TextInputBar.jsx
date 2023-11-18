@@ -10,7 +10,7 @@ export const TextInputBar = ({ defautlValue = '', id, placeholder, inputType, ic
             <div className="overlap-group">
                 {lebel && <label className="label" htmlFor={id}>{lebel}</label> }
                 {iconPath && <img className="icon" alt="User" src={iconPath} />}
-                <input id={id} value={defautlValue} placeholder={placeholder} type={inputType} onChange={(e) => setValue(e.target.value)} />
+                <input id={id} value={value} placeholder={placeholder} type={inputType} onChange={(e) => setValue(e.target.value)} />
             </div>
         </div>
     );

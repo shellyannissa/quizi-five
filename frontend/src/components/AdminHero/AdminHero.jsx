@@ -33,7 +33,7 @@ export const AdminHero = ({ searchTerm, handleSearch}) => {
             <CreateButton textContent="New" clickHandler={clickHandler} />
           </div>
         </div>
-        <div className="hero-right-admin">
+        <div className="hero-right">
           <img src="../../assets/images/quiz-hero.avif" alt="poster" />
         </div>
         <QuizForm heading="Enter quiz details" trigger={trigger} triggerHandler={triggerHandler}/>

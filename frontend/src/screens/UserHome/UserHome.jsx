@@ -27,6 +27,14 @@ const registered = [
 
 const available = [
   {
+    quizType: "General Quiz",
+    quizName: "Generally a quiz",
+    image: "https://d3jmn01ri1fzgl.cloudfront.net/photoadking/webp_thumbnail/63fd90f31203c_json_image_1677562099.webp",
+    time: "10:00 AM",
+    month: "JAN",
+    day: "12",
+  },
+  {
     quizType: "Sports Quiz",
     quizName: "Sports is cool",
     image: "https://img.freepik.com/free-vector/quiz-night-concept-illustration_114360-1334.jpg?size=626&ext=jpg",
@@ -41,14 +49,6 @@ const available = [
     time: "09:00 PM",
     month: "JUN",
     day: "23",
-  },
-  {
-    quizType: "Science Quiz",
-    quizName: "Science is cool",
-    image: "https://img.freepik.com/free-vector/quiz-night-concept-illustration_114360-1334.jpg?size=626&ext=jpg",
-    time: "09:00 AM",
-    month: "APR",
-    day: "01",
   },
   {
     quizType: "Science Quiz",
@@ -110,6 +110,7 @@ export const UserHome = ({property}) => {
                 time={quiz.time}
                 month={quiz.month}
                 day={quiz.day}
+                buttonContent="Register"
               />
             ))}
           </div>
@@ -123,6 +124,7 @@ export const UserHome = ({property}) => {
                 time={quiz.time}
                 month={quiz.month}
                 day={quiz.day}
+                buttonContent="Register"
               />
             ))}
           </div>

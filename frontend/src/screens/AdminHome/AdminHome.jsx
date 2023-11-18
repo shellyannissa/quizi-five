@@ -7,6 +7,7 @@ import "./AdminHome.css";
 
 const created = [
   {
+    quizId: "1",
     quizType: "Sports Quiz",
     quizName: "Sports is cool",
     image: "https://img.freepik.com/free-vector/quiz-night-concept-illustration_114360-1334.jpg?size=626&ext=jpg",
@@ -15,6 +16,7 @@ const created = [
     day: "23",
   },
   {
+    quizId: "2",
     quizType: "Entertainment Quiz",
     quizName: "Entertainment is cool",
     image: "https://img.freepik.com/free-vector/quiz-night-concept-illustration_114360-1334.jpg?size=626&ext=jpg",
@@ -23,6 +25,7 @@ const created = [
     day: "23",
   },
   {
+    quizId: "3",
     quizType: "Science Quiz",
     quizName: "Science is super cool",
     image: "https://img.freepik.com/free-vector/quiz-night-concept-illustration_114360-1334.jpg?size=626&ext=jpg",
@@ -31,6 +34,7 @@ const created = [
     day: "01",
   },
   {
+    quizId: "4",
     quizType: "Science Quiz",
     quizName: "Science is not cool",
     image: "https://img.freepik.com/free-vector/quiz-night-concept-illustration_114360-1334.jpg?size=626&ext=jpg",
@@ -39,6 +43,7 @@ const created = [
     day: "01",
   },
   {
+    quizId: "5",
     quizType: "Science Quiz",
     quizName: "Science is cool",
     image: "https://img.freepik.com/free-vector/quiz-night-concept-illustration_114360-1334.jpg?size=626&ext=jpg",

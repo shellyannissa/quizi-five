@@ -23,6 +23,16 @@
   gap: 2rem;
 }
 
+/** Whatever **/
+@media screen and (max-width: 1200px){
+  .hero-section {
+    width: 95vw;
+  }
+  .list-of-quizzes {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 /** Tablet **/
 @media screen and (max-width: 1000px){
   .list-of-quizzes {
