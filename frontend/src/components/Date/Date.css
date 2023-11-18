@@ -5,6 +5,7 @@
   align-items: center;
   background-color: var(--collection-1-white);
   border-radius: 14px;
+  box-shadow: 0px 4px 4px #00000040;
 }
 
 .month {
