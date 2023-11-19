@@ -124,9 +124,9 @@ const updateCrctOption = asyncHandler(async (req, res) => {
     const quizId = (await client.query(quizIdQuery, [questionId])).rows[0]
       .quizid;
     client.release();
-    await calculatePoints(questionId, optionId);
-    await updatePostition(quizId);
     res.status(200).send("Correct Option Updated");
+    // await calculatePoints(questionId, optionId);
+    // await updatePostition(quizId);
   } catch (error) {
     res.status(500).send("Internal Server Error");
     throw new Error(error.message);

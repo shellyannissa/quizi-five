@@ -1,7 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const pool = require("../database/db");
 const { v4: uuidv4 } = require("uuid");
-const generateToken = require("../database/utilities");
+const { generateToken } = require("../database/utilities");
 const { updateAllQuizStatus } = require("./quizController");
 
 function generateUUID() {
@@ -113,8 +113,9 @@ const updateUser = asyncHandler(async (req, res) => {
 
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password, image } = req.body;
-
-  if (!name || !email || !password) {
+  console.log(req.body);
+  // if (!name || !email || !password) {
+  if (!email || !password) {
     res.status(400);
     throw new Error("Please Enter all the Fields");
   }
