@@ -96,9 +96,6 @@ input[type="file"]{
         width: 80vw;
         height: 80vw;
     }
-    .image-container img{
-        width: 100%;
-    }
     .image-container span{
         font-size: 1rem;
     }

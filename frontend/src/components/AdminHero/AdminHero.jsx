@@ -3,20 +3,13 @@ import { Profile } from '../Profile/Profile'
 import { SearchBar } from '../SearchBar/SearchBar'
 import CreateButton from '../CreateButton/CreateButton'
 import QuizForm from '../QuizForm/QuizForm'
+import QuestionForm from '../QuestionForm/QuestionForm'
 import '../Hero/Hero.css'
 import './AdminHero.css'
 
-export const AdminHero = ({ heading, image, searchTerm, handleSearch}) => {
+export const AdminHero = ({ heading, image, searchTerm, handleSearch, isQuestion, trigger, triggerHandler, clickHandler }) => {
   if (!image) {
     image = "../../assets/images/quiz-hero.avif";
-  }
-  const [trigger, setTrigger] = React.useState(false);
-  const clickHandler = () => {
-    setTrigger(true);
-  }
-
-  const triggerHandler = () => {
-    setTrigger(false);
   }
 
   return (
@@ -35,7 +28,6 @@ export const AdminHero = ({ heading, image, searchTerm, handleSearch}) => {
           ) : (
             <p className="heading">{heading}</p>
           )}
-          
           <div className="quiz-type-admin">
             <SearchBar property='registerd' searchTerm={searchTerm} handleSearch={handleSearch}/>
             <CreateButton textContent="New" clickHandler={clickHandler} />
@@ -44,7 +36,8 @@ export const AdminHero = ({ heading, image, searchTerm, handleSearch}) => {
         <div className="hero-right">
           <img src={image} alt="poster" />
         </div>
-        <QuizForm heading="Enter quiz details" trigger={trigger} triggerHandler={triggerHandler}/>
+        {!isQuestion && <QuizForm heading="Enter quiz details" trigger={trigger} triggerHandler={triggerHandler}/>}
+        {isQuestion && <QuestionForm heading="Enter question details" trigger={trigger} triggerHandler={triggerHandler} />}
       </div>
     </div>
   )

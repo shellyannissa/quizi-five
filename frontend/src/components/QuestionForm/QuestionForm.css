@@ -1,0 +1,31 @@
+.question-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: fit-content;
+    padding: 0.6rem 1.4rem 1.4rem 1.4rem;
+    max-width: 700px;
+    max-height: 500px;
+    background-color: white;
+    border-radius: 1.5rem;
+}
+
+.q-details{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-color: rgb(255, 22, 22);
+    border-radius: 1rem;
+    width: 50vw;
+    max-width: 650px;
+}
+
+textarea{
+    outline: none;
+    border: none;
+    background-color: transparent;
+    width: 85%;
+    max-height: 700px;
+}

@@ -57,6 +57,15 @@ export const AdminHome = () => {
 
   const [quizList, setQuizList] = useState(created);
   const [searchTerm, setSearchTerm] = useState("");
+
+  const [trigger, setTrigger] = React.useState(false);
+
+  const clickHandler = () => {
+    setTrigger(true);
+  }
+  const triggerHandler = () => {
+    setTrigger(false);
+  }
   
   const handleSearch = (event) => {
     const term = event.target.value;
@@ -71,7 +80,7 @@ export const AdminHome = () => {
 
   return (
     <div className="user-home">
-      <AdminHero searchTerm={searchTerm} handleSearch={handleSearch}/>
+      <AdminHero searchTerm={searchTerm} handleSearch={handleSearch} trigger={trigger} triggerHandler={triggerHandler} clickHandler={clickHandler} />
       <div className={`quiz-list`}>
         <div className="list-of-quizzes">
         {quizList.map((quiz) => (
