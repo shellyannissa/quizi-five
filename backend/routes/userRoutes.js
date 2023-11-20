@@ -24,3 +24,5 @@ router.delete("/delete", deleteUser);
 router.put("/history", history);
 
 module.exports = router;
+
+// https://8000/api/user/register

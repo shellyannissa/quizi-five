@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const app = express();
 require("dotenv").config();
 
@@ -16,6 +17,7 @@ const answerRoutes = require("./routes/answerRoutes");
 
 // !Middleware setup
 app.use(express.json());
+app.use(cors());
 
 // *Currently commented as tables have already been created
 // createUsersTable();
