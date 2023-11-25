@@ -36,7 +36,7 @@ export const QuizCard = ({ quizId, quizType, quizName, image, month, day, time, 
         </div>
         <div className="timer">
           <div className="time">{time}</div>
-          <Button text={buttonContent} clickHandler={clickHandler}/>
+          {buttonContent && <Button text={buttonContent} clickHandler={clickHandler}/>}
         </div>
       </div>
       <QuizForm heading="Edit quiz details" trigger={trigger} triggerHandler={triggerHandler} image={image} quizName={quizName} quizType={quizType} quizDate={month} quizTime={time}/>
