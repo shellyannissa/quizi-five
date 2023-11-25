@@ -3,6 +3,7 @@ import { useReducer } from "react";
 import PropTypes from "prop-types";
 import { QuizCard } from "../../components/QuizCard/QuizCard";
 import { useState } from "react";
+import { useUser } from "../../context/UserContext";
 import { Hero } from "../../components/Hero/Hero";
 import "./UserHome.css";
 
@@ -73,6 +74,8 @@ export const UserHome = ({property}) => {
     property: property || "registered",
   });
 
+  const { user, setUser } = useUser();
+
   const [quizList, setQuizList] = useState(registered);
   const [searchTerm, setSearchTerm] = useState("");
   
@@ -95,6 +98,9 @@ export const UserHome = ({property}) => {
       setQuizList(registered);
     }
   };
+
+  if(user) console.log(user);
+  else console.log("No user");
 
   return (
     <div className="user-home">

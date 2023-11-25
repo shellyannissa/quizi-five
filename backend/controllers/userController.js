@@ -34,6 +34,7 @@ const authUser = asyncHandler(async (req, res) => {
     ]);
     client.release();
     if (user.rows.length > 0) {
+      console.log(user.rows[0].password, password);
       if (user.rows[0].password === password) {
         res.json({
           _id: user.rows[0].uid,

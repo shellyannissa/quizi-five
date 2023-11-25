@@ -3,14 +3,16 @@ import { useReducer } from "react";
 import { Button } from "../Button/Button";
 import { TextInputBar } from "../TextInputBar/TextInputBar";
 import { AuthSlider } from "../AuthSlider/AuthSlider";
+import { useUser } from "../../context/UserContext";
 import "./AuthFrame.css";
+
 
 export const AuthFrame = ({ property }) => {
     const [state, dispatch] = useReducer(reducer, {
         property : property || "login",
     });
 
-    const [user, setUser] = useState(null);
+    const { user, setUser } = useUser();
 
     const updateState = () => {
         dispatch("click");
@@ -49,15 +51,16 @@ export const AuthFrame = ({ property }) => {
               });
             
               const data = await response.json();
-              const token = data.token;
-            const newUser = { name: "Ruben", token: token, email: email };
-            setUser(newUser);
+              setUser(data);
         }
         catch (error) {
-            console.log("Error: ",error.message);
+            console.log(error);
         }
     };
+
     console.log(user);
+    if(user) console.log(user.token);
+    else console.log("no user");
 
     return (
         <div className={`auth-frame`}>
