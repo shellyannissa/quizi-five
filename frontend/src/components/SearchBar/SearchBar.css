@@ -4,7 +4,7 @@
   background-color: var(--collection-1-white);
   border: 2px solid;
   border-color: var(--collection-1-secondary);
-  border-radius: 1rem;
+  border-radius: 0.6rem;
   height: 40px;
   width: 50vw;
 }

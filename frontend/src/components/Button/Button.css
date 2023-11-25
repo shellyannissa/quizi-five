@@ -17,7 +17,6 @@
 
 .button:hover {
   border-color: var(--collection-1-secondary);
-  color: var(--collection-1-purple);
   cursor: pointer;
 }
 
