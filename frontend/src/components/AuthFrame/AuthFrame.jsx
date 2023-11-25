@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useReducer } from "react";
 import { Button } from "../Button/Button";
 import { TextInputBar } from "../TextInputBar/TextInputBar";
@@ -10,11 +10,13 @@ export const AuthFrame = ({ property }) => {
         property : property || "login",
     });
 
+    const [user, setUser] = useState(null);
+
     const updateState = () => {
         dispatch("click");
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         const email = document.getElementById("email-id").value;
         const password = document.getElementById("password").value;
 
@@ -35,30 +37,27 @@ export const AuthFrame = ({ property }) => {
             endpoint = "http://localhost:8000/api/user/register"
             const confirmPassword = document.getElementById("confirm-password").value;
             userDetails.name = "Ruben";
-            userDetails.image = ""
         }
 
-        fetch(endpoint, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(userDetails)
-          })
-            .then(response => {
-              if (response.ok) {
-                return response.json();
-              }
-              throw new Error('Login failed.');
-            })
-            .then(data => {
-              console.log('User details:', data);
-            })
-            .catch(error => {
-              // Handle errors
-              console.error('Error:', error.message);
-            })
+        try {
+            const response = await fetch(endpoint, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userDetails)
+              });
+            
+              const data = await response.json();
+              const token = data.token;
+            const newUser = { name: "Ruben", token: token, email: email };
+            setUser(newUser);
+        }
+        catch (error) {
+            console.log("Error: ",error.message);
+        }
     };
+    console.log(user);
 
     return (
         <div className={`auth-frame`}>
