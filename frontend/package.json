@@ -21,7 +21,8 @@
     "react-router-dom": "^6.18.0",
     "react-slick": "^0.29.0",
     "save": "^2.9.0",
-    "slick-carousel": "^1.8.1"
+    "slick-carousel": "^1.8.1",
+    "socket.io-client": "^4.7.2"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
