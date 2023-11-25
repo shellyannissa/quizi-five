@@ -1,7 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const pool = require("../database/db");
 const { v4: uuidv4 } = require("uuid");
-const generateToken = require("../database/utilities");
+const { generateToken } = require("../database/utilities");
 const { updateAllQuizStatus } = require("./quizController");
 
 function generateUUID() {
@@ -22,6 +22,7 @@ const allUsers = asyncHandler(async (req, res) => {
 
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
+  console.log(req.body);
   if (!email || !password) {
     res.status(400);
     throw new Error("Please Enter all the Fields");
@@ -33,6 +34,7 @@ const authUser = asyncHandler(async (req, res) => {
     ]);
     client.release();
     if (user.rows.length > 0) {
+      console.log(user.rows[0].password, password);
       if (user.rows[0].password === password) {
         res.json({
           _id: user.rows[0].uid,
@@ -113,8 +115,9 @@ const updateUser = asyncHandler(async (req, res) => {
 
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password, image } = req.body;
-
-  if (!name || !email || !password) {
+  console.log(req.body);
+  // if (!name || !email || !password) {
+  if (!email || !password) {
     res.status(400);
     throw new Error("Please Enter all the Fields");
   }
@@ -170,12 +173,38 @@ const registeredQuizzes = asyncHandler(async (req, res) => {
   try {
     const client = await pool.connect();
     await updateAllQuizStatus();
-    const allrecords = await client.query(
+    const allrecordrows = await client.query(
       'SELECT * FROM "Quiz" WHERE quizId IN (SELECT quizId FROM "Registration" WHERE uid = $1)',
       [uid]
     );
+    const allrecords = allrecordrows.rows;
+
+    const formatQuizEntry = (quiz) => {
+      const datetime = new Date(quiz.eventtime);
+      const hours = datetime.getHours();
+      const minutes = datetime.getMinutes();
+      const ampm = hours >= 12 ? "PM" : "AM";
+      const hours12 = hours % 12 || 12;
+      const month = datetime
+        .toLocaleString("default", { month: "short" })
+        .toUpperCase();
+      const day = datetime.getDate();
+
+      return {
+        quizId: quiz.quizid,
+        quizName: quiz.name,
+        image: quiz.image,
+        time: `${hours12}:${minutes} ${ampm}`,
+        month: month,
+        day: day,
+        buttonContent: "Register",
+      };
+    };
+
+    const formattedRecords = allrecords.map(formatQuizEntry);
+
     client.release();
-    res.json(allrecords.rows);
+    res.json(formattedRecords);
   } catch (error) {
     res.status(500).send("Internal Server Error");
     throw new Error(error.message);
@@ -199,6 +228,25 @@ const unregisteredQuizzes = asyncHandler(async (req, res) => {
   }
 });
 
+const history = asyncHandler(async (req, res) => {
+  const { uid } = req.body;
+  try {
+    const client = await pool.connect();
+    const allrecords = await client.query(
+      `SELECT image,"Quiz".name quizName, points, position, eventTime
+       FROM "Quiz" JOIN "Registration" ON "Quiz".quizId = "Registration".quizId 
+      WHERE uid = $1 and status = 'completed'
+      ORDER BY eventTime DESC`,
+      [uid]
+    );
+    client.release();
+    res.json(allrecords.rows);
+  } catch (error) {
+    res.status(500).send("Internal Server Error");
+    throw new Error(error.message);
+  }
+});
+
 module.exports = {
   allUsers,
   authUser,
@@ -207,4 +255,5 @@ module.exports = {
   deleteUser,
   registeredQuizzes,
   unregisteredQuizzes,
+  history,
 };

@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const app = express();
 require("dotenv").config();
 
@@ -16,6 +17,7 @@ const answerRoutes = require("./routes/answerRoutes");
 
 // !Middleware setup
 app.use(express.json());
+app.use(cors());
 
 // *Currently commented as tables have already been created
 // createUsersTable();
@@ -29,6 +31,25 @@ app.use("/api/ques", questionRoutes);
 app.use("/api/option", optionRoutes);
 app.use("/api/ans", answerRoutes);
 
-app.listen(8000, () => {
+const server = app.listen(8000, () => {
   console.log("Server is running on port 8000");
+});
+
+const io = require("socket.io")(server, {
+  pingTimeout: 60000,
+  cors: {
+    origin: "http://localhost:5173",
+  },
+});
+io.on("connection", (socket) => {
+  console.log("connected to socket.io");
+  socket.on("setup", (userData) => {
+    socket.join(userData._id);
+    socket.emit("connected");
+  });
+
+  socket.off("setup", () => {
+    console.log("USER DISCONNECTED");
+    socket.leave(userData._id);
+  });
 });

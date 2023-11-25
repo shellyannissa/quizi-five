@@ -1,18 +1,66 @@
-import React from "react";
+import React, { useState } from "react";
 import { useReducer } from "react";
 import { Button } from "../Button/Button";
 import { TextInputBar } from "../TextInputBar/TextInputBar";
 import { AuthSlider } from "../AuthSlider/AuthSlider";
+import { useUser } from "../../context/UserContext";
 import "./AuthFrame.css";
+
 
 export const AuthFrame = ({ property }) => {
     const [state, dispatch] = useReducer(reducer, {
         property : property || "login",
     });
 
+    const { user, setUser } = useUser();
+
     const updateState = () => {
         dispatch("click");
     }
+
+    const handleSubmit = async () => {
+        const email = document.getElementById("email-id").value;
+        const password = document.getElementById("password").value;
+
+        const userDetails = 
+            {
+                email: email,
+                password: password,
+            };
+        
+        console.log(userDetails);
+
+        let endpoint;
+
+        if(state.property === "login") {
+            endpoint = "http://localhost:8000/api/user/login"
+        }
+        else {
+            endpoint = "http://localhost:8000/api/user/register"
+            const confirmPassword = document.getElementById("confirm-password").value;
+            userDetails.name = "Ruben";
+        }
+
+        try {
+            const response = await fetch(endpoint, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userDetails)
+              });
+            
+              const data = await response.json();
+              setUser(data);
+        }
+        catch (error) {
+            console.log(error);
+        }
+    };
+
+    console.log(user);
+    if(user) console.log(user.token);
+    else console.log("no user");
 
     return (
         <div className={`auth-frame`}>
@@ -22,7 +70,7 @@ export const AuthFrame = ({ property }) => {
                 <TextInputBar id="password" placeholder="Enter password" inputType="password" iconPath="../../../assets/icons/lock.svg"/>
                 {state.property === "signup" ? <TextInputBar id="confirm-password" placeholder="Confirm password" inputType="password" iconPath="../../../assets/icons/key.svg"/> : null}
             </div>
-            <Button clickHandler={updateState} text="SUBMIT"/>
+            <Button clickHandler={handleSubmit} text="SUBMIT"/>
         </div>
     )
 }

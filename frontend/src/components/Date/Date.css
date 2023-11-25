@@ -5,6 +5,7 @@
   align-items: center;
   background-color: var(--collection-1-white);
   border-radius: 14px;
+  box-shadow: 0px 4px 4px #00000040;
 }
 
 .month {
@@ -16,8 +17,8 @@
   border-radius: 14px 14px 0px 0px;
   position: relative;
   top: 0;
-  width: 80px;
-  height: 30px;
+  width: 70px;
+  height: 26px;
 }
 
 .month-date {
@@ -30,5 +31,5 @@
   font-size: var(--date-font-size);
   font-style: var(--date-font-style);
   font-weight: var(--date-font-weight);
-  height: 50px;
+  height: 44px;
 }

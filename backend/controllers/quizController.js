@@ -77,9 +77,35 @@ const allQuizzes = asyncHandler(async (req, res) => {
   try {
     await updateAllQuizStatus();
     const client = await pool.connect();
-    const allrecords = await client.query('SELECT * FROM "Quiz"');
+    const allrecordrows = await client.query('SELECT * FROM "Quiz"');
+    const allrecords = allrecordrows.rows;
+
+    const formatQuizEntry = (quiz) => {
+      const datetime = new Date(quiz.eventtime);
+      const hours = datetime.getHours();
+      const minutes = datetime.getMinutes();
+      const ampm = hours >= 12 ? "PM" : "AM";
+      const hours12 = hours % 12 || 12;
+      const month = datetime
+        .toLocaleString("default", { month: "short" })
+        .toUpperCase();
+      const day = datetime.getDate();
+
+      return {
+        quizId: quiz.quizid,
+        quizName: quiz.name,
+        image: quiz.image,
+        time: `${hours12}:${minutes} ${ampm}`,
+        month: month,
+        day: day,
+        buttonContent: "Register",
+      };
+    };
+
+    const formattedRecords = allrecords.map(formatQuizEntry);
+
     client.release();
-    res.json(allrecords.rows);
+    res.json(formattedRecords);
   } catch (error) {
     res.status(500).send("Internal Server Error");
     throw new Error(error.message);

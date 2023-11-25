@@ -1,27 +1,11 @@
 .quiz-type-admin {
     display: flex;
     gap: 2rem;
-    width: 130%;
-}
-
-.hero-right-admin {
-    height: 300px;
-}
-
-.hero-right-admin img {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    border-radius: 2rem;
-    box-shadow: 0px 4px 4px #00000040;
 }
 
 /** Mobile **/
 @media screen and (max-width: 768px) {
     .quiz-type-admin {
         width: 100%;
-    }
-    .hero-right-admin {
-        display: none;
     }
 }
