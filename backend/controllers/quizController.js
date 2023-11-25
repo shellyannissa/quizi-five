@@ -92,6 +92,7 @@ const allQuizzes = asyncHandler(async (req, res) => {
       const day = datetime.getDate();
 
       return {
+        quizId: quiz.quizid,
         quizName: quiz.name,
         image: quiz.image,
         time: `${hours12}:${minutes} ${ampm}`,
