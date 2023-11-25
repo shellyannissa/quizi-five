@@ -3,17 +3,13 @@ import { Profile } from '../Profile/Profile'
 import { SearchBar } from '../SearchBar/SearchBar'
 import CreateButton from '../CreateButton/CreateButton'
 import QuizForm from '../QuizForm/QuizForm'
+import QuestionForm from '../QuestionForm/QuestionForm'
 import '../Hero/Hero.css'
 import './AdminHero.css'
 
-export const AdminHero = ({ searchTerm, handleSearch}) => {
-  const [trigger, setTrigger] = React.useState(false);
-  const clickHandler = () => {
-    setTrigger(true);
-  }
-
-  const triggerHandler = () => {
-    setTrigger(false);
+export const AdminHero = ({ heading, image, searchTerm, handleSearch, isQuestion, trigger, triggerHandler, clickHandler }) => {
+  if (!image) {
+    image = "../../assets/images/quiz-hero.avif";
   }
 
   return (
@@ -23,20 +19,25 @@ export const AdminHero = ({ searchTerm, handleSearch}) => {
       </div>
       <div className="bottom-part">
         <div className="hero-left">
-          <p className="QUIZZES-for-you">
-            <span className="quiz">QUIZZES</span>
-            <span>&nbsp;</span>
-            <span className="for-you">By You</span>
-          </p>
+          {!heading ? (
+            <p className="QUIZZES-for-you">
+              <span className="quiz">QUIZZES</span>
+              <span>&nbsp;</span>
+              <span className="for-you">By You</span>
+            </p>
+          ) : (
+            <p className="heading">{heading}</p>
+          )}
           <div className="quiz-type-admin">
             <SearchBar property='registerd' searchTerm={searchTerm} handleSearch={handleSearch}/>
             <CreateButton textContent="New" clickHandler={clickHandler} />
           </div>
         </div>
-        <div className="hero-right-admin">
-          <img src="../../assets/images/quiz-hero.avif" alt="poster" />
+        <div className="hero-right">
+          <img src={image} alt="poster" />
         </div>
-        <QuizForm heading="Enter quiz details" trigger={trigger} triggerHandler={triggerHandler}/>
+        {!isQuestion && <QuizForm heading="Enter quiz details" trigger={trigger} triggerHandler={triggerHandler}/>}
+        {isQuestion && <QuestionForm heading="Enter question details" trigger={trigger} triggerHandler={triggerHandler} />}
       </div>
     </div>
   )

@@ -2,5 +2,16 @@ Instead of different attributes  date and time for quiz creation it is combined 
 The evenTime attribute should adhere to string format “YYYY-MM-DD HH:MM:SS” eg:- 2023-11-10 14:30:00 
 If invalid format is given the status of quiz is marked as terminated
 
+function to evaluate answers and distribute marks have to be initiated after the specified time after question is activated
 
 all attributes for all tables are in lowercase letters as saved in the database
+
+
+
+//! todo
+admin  specific quiz page
+added questios 
+    should display state , if not activated an option to activated, 
+    three states inactive, active, terminated
+    edit 
+

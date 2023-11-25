@@ -1,10 +1,10 @@
 import { useState } from "react";
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
-import "./App.css";
-
 import { UserHome } from "./screens/UserHome/UserHome";
 import { LoginSignup } from "./screens/LoginSignup/LoginSignup";
 import { AdminHome } from "./screens/AdminHome/AdminHome";
+import QuizPage from "./screens/QuizPage/QuizPage";
+import "./App.css";
 
 function App() {
   return (
@@ -14,6 +14,7 @@ function App() {
         <Route path="/" element={<LoginSignup />} />
         <Route path="/home" element={<UserHome />} />
         <Route path="/admin" element={<AdminHome />} />
+        <Route path="/quizpage/:quizId" element={<QuizPage />} />
       </Routes>
     </Router>
   </div>

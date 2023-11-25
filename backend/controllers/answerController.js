@@ -52,4 +52,21 @@ const allAnswers = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { addAnswer, allAnswers };
+const detailedAnswers = asyncHandler(async (req, res) => {
+  try {
+    const client = await pool.connect();
+    const allrecords = await client.query(
+      `SELECT "Question".description Qn, "Option".description Op, "User".name User, "Quiz".name Quiz
+    FROM "Answer" JOIN "Question" ON "Answer".questionId = "Question".questionId
+   JOIN "Quiz" ON "Answer".quizId = "Quiz".quizId JOIN "User" ON "Answer".uid = "User".uid
+   JOIN "Option" ON "Answer".optionId = "Option".optionId;`
+    );
+    client.release();
+    res.json(allrecords.rows);
+  } catch (error) {
+    res.status(500).send("Internal Server Error");
+    throw new Error(error.message);
+  }
+});
+
+module.exports = { addAnswer, allAnswers, detailedAnswers };

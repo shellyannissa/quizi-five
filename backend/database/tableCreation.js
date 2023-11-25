@@ -175,7 +175,7 @@ const tempModifications = async () => {
 
     const ans = await client.query(query);
 
-    console.log(ans);
+    console.log(ans.rows);
 
     client.release();
   } catch (error) {
