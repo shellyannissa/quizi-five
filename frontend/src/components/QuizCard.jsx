@@ -15,6 +15,7 @@ import {
   Legend,
   Tooltip,
 } from "chart.js";
+import { QSlider } from "./QSlider/QSlider";
 
 ChartJS.register(
   CategoryScale,
@@ -27,10 +28,7 @@ ChartJS.register(
 );
 
 export const QuizCard = (props) => {
-
-  let optionIDs = [
-    "A","B","C","D","E"
-  ]
+  let optionIDs = ["A", "B", "C", "D", "E"];
 
   let delayed;
   const option = {
@@ -48,8 +46,8 @@ export const QuizCard = (props) => {
           // drawborder: false
         },
         display: false,
-        min:0,
-        max:1
+        min: 0,
+        max: 1,
       },
     },
 
@@ -87,9 +85,14 @@ export const QuizCard = (props) => {
   };
 
   const [isFlipped, setIsFlipped] = useState(false);
-
   function flipCard() {
     setIsFlipped(!isFlipped);
+  }
+
+  const test = 5;
+  const [optionClicked, setClicked] = useState(0);
+  function clickedOption(i) {
+    setClicked(i);
   }
 
   return (
@@ -97,7 +100,7 @@ export const QuizCard = (props) => {
       {/*get rid of quiz-container in css for removing extra border */}
       <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
         <div className="front" onClick={flipCard}>
-          <img src={props.imgSrc} alt="Robowars Image" className="quiz-image" />
+          {/* <img src={props.imgSrc} alt="Robowars Image" className="quiz-image" />
  
           <div className="otherside">
             {props.title && <h1 className="quiz-title">{props.title}</h1>}
@@ -108,7 +111,8 @@ export const QuizCard = (props) => {
             <a href="register" className="reg-link">
               Register
             </a>
-          </div>
+          </div> */}
+          <QSlider time={10} clickedOption={clickedOption}/>
         </div>
 
         <div className="graph" onClick={flipCard}>
@@ -123,11 +127,16 @@ export const QuizCard = (props) => {
 
                   // backgroundColor: "rgba(255, 99, 132) ",
                   backgroundColor: [
-                    "rgba(255, 99, 132)",
-                    "rgba(54, 162, 235)",
-                    "rgba(255, 206, 86)",
-                    "rgba(75, 192, 192)",
-                    "rgba(153, 102, 255)",
+                    optionClicked == 0 ? "rgba(255, 99, 132)" : "rgba(132, 99, 255)",
+                    optionClicked == 1 ? "rgba(255, 99, 132)" : "rgba(132, 99, 255)",
+                    optionClicked == 2 ? "rgba(255, 99, 132)" : "rgba(132, 99, 255)",
+                    optionClicked == 3 ? "rgba(255, 99, 132)" : "rgba(132, 99, 255)",
+                    optionClicked == 4 ? "rgba(255, 99, 132)" : "rgba(132, 99, 255)",
+                    // "rgba(255, 99, 132)"
+                    // "rgba(54, 162, 235)",
+                    // "rgba(255, 206, 86)",
+                    // "rgba(75, 192, 192)",
+                    // "rgba(153, 102, 255)",
                   ],
                 },
               ],
