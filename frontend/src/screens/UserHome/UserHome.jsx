@@ -63,6 +63,7 @@ export const UserHome = ({property}) => {
   
   useEffect(() => {
     getAvailableQuizzes();
+    getRegisteredQuizzes();
   }, []);
 
   // const [quizList, setQuizList] = useState(registered);
