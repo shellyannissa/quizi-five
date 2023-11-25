@@ -1,14 +1,14 @@
 import React from 'react'
-import './UserProfile.css'
 import { Button } from '../../components/Button/Button'
 import { QuizCard } from '../../components/QuizCard/QuizCard'
+import './UserProfile.css'
 
 const UserProfile = () => {
     
     const logoutHandler = () => {
         console.log('logout handler');
     }
-
+    const userName = 'Pikachu';
     const listQuiz = [
         {
             quizType: "General Quiz",
@@ -55,10 +55,15 @@ const UserProfile = () => {
     return (
         <div className='user-profile'>
             <div className="profile-section">
-                <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" className="avatar"/>
-                <Button text='Logout' clickHandler={logoutHandler} />
+                <div className="hero-left">
+                    <h1>{userName}</h1>
+                    <Button text='Logout' clickHandler={logoutHandler} />
+                    <h2>Quiz History</h2>
+                </div>
+                <div className="hero-right">
+                    <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" className="avatar"/>
+                </div>
             </div>
-            <h3>Quiz History</h3>
             <div className={'quiz-list'}>
                 <div className="list-of-quizzes">
                     {
