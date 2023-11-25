@@ -102,7 +102,6 @@ export const UserHome = ({property}) => {
                 time={quiz.time}
                 month={quiz.month}
                 day={quiz.day}
-                buttonContent="Register"
               />
             ))}
           </div>
