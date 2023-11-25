@@ -101,7 +101,7 @@ export const UserHome = ({property}) => {
       <Hero property={state.property} updateState={updateState} searchTerm={searchTerm} handleSearch={handleSearch}/>
       <div className={`quiz-list ${state.property}`}>
         {state.property === "registered" ? (
-          <div  className="list-of-quizzes">
+          <div className="list-of-quizzes">
             {quizList.map((quiz) => (
               <QuizCard
                 quizType={quiz.quizType}
@@ -110,7 +110,6 @@ export const UserHome = ({property}) => {
                 time={quiz.time}
                 month={quiz.month}
                 day={quiz.day}
-                buttonContent="Register"
               />
             ))}
           </div>
