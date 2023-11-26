@@ -1,0 +1,50 @@
+.app_container {
+    /* height: 100vh;
+    display: flex;
+    color: white; */
+    /* background-color: #061161; */
+
+    background-color: white;
+    border-radius: 15px;
+  }
+
+  /* .main {
+    width: 75%;  
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0), #020230),
+      url("../src/assets/image05.png") center;  
+    display: flex;
+    flex-direction: column;
+  } */
+  
+  .top {
+    height: 50%;
+    position: relative;
+    margin: 0px auto;
+  }
+
+  .timer {
+    /* width: 100px;
+    height: 100px; */
+    border-radius: 50%;
+    /* border: 2px solid #ffa800; */
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    /* position: absolute; */
+    /* bottom: -20px;
+    left: -50px; */
+
+    font-size: 15px;
+    font-weight: 700;
+    
+    /* padding: 5px; */
+    margin: 2px auto;
+    /* background: linear-gradient(black, #100241); */
+  }
+
+  .bottom {
+    height: 50%;
+  }
+  
