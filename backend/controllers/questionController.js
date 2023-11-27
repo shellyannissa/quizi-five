@@ -88,6 +88,8 @@ const activateQuestion = asyncHandler(async (req, res) => {
     const updateQuery = `
     UPDATE "Question" SET started = true, startedInstant = $1, endingInstant = $2 WHERE questionId = $3;`;
     await client.query(updateQuery, [currentTime, endingInstant, questionId]);
+
+    //! must add functionality to calculate points and position after the specified time
     client.release();
     res.status(200).send("Question Activated");
   } catch (error) {
