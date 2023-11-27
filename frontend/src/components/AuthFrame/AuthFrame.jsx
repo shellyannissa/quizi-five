@@ -1,20 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import { useReducer } from "react";
 import { Button } from "../Button/Button";
 import { TextInputBar } from "../TextInputBar/TextInputBar";
 import { AuthSlider } from "../AuthSlider/AuthSlider";
+import { useUser } from "../../context/UserContext";
 import "./AuthFrame.css";
+
 
 export const AuthFrame = ({ property }) => {
     const [state, dispatch] = useReducer(reducer, {
         property : property || "login",
     });
 
+    const { user, setUser } = useUser();
+
     const updateState = () => {
         dispatch("click");
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         const email = document.getElementById("email-id").value;
         const password = document.getElementById("password").value;
 
@@ -35,30 +39,28 @@ export const AuthFrame = ({ property }) => {
             endpoint = "http://localhost:8000/api/user/register"
             const confirmPassword = document.getElementById("confirm-password").value;
             userDetails.name = "Ruben";
-            userDetails.image = ""
         }
 
-        fetch(endpoint, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(userDetails)
-          })
-            .then(response => {
-              if (response.ok) {
-                return response.json();
-              }
-              throw new Error('Login failed.');
-            })
-            .then(data => {
-              console.log('User details:', data);
-            })
-            .catch(error => {
-              // Handle errors
-              console.error('Error:', error.message);
-            })
+        try {
+            const response = await fetch(endpoint, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userDetails)
+              });
+            
+              const data = await response.json();
+              setUser(data);
+        }
+        catch (error) {
+            console.log(error);
+        }
     };
+
+    console.log(user);
+    if(user) console.log(user.token);
+    else console.log("no user");
 
     return (
         <div className={`auth-frame`}>

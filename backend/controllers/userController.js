@@ -22,6 +22,7 @@ const allUsers = asyncHandler(async (req, res) => {
 
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
+  console.log(req.body);
   if (!email || !password) {
     res.status(400);
     throw new Error("Please Enter all the Fields");
@@ -33,6 +34,7 @@ const authUser = asyncHandler(async (req, res) => {
     ]);
     client.release();
     if (user.rows.length > 0) {
+      console.log(user.rows[0].password, password);
       if (user.rows[0].password === password) {
         res.json({
           _id: user.rows[0].uid,
