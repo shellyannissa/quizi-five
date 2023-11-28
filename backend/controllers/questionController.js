@@ -90,6 +90,18 @@ const activateQuestion = asyncHandler(async (req, res) => {
     await client.query(updateQuery, [currentTime, endingInstant, questionId]);
 
     //! must add functionality to calculate points and position after the specified time
+
+    console.log(endingInstant.getTime() - currentTime.getTime());
+
+    const quizIdQuery = `
+    SELECT quizId FROM "Question" WHERE questionId = $1;`;
+    const quizId = (await client.query(quizIdQuery, [questionId])).rows[0]
+      .quizid;
+    setTimeout(() => {
+      calculatePoints(questionId, optionId);
+      updatePostition(quizId);
+    }, endingInstant.getTime() - currentTime.getTime());
+
     client.release();
     res.status(200).send("Question Activated");
   } catch (error) {
