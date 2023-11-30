@@ -25,7 +25,7 @@ const QuizPage = ({quiz}) => {
     return (
         <div className='quiz-page'>
             <AdminHero searchTerm={searchTerm} handleSearch={handleSearch} isQuestion={true} trigger={trigger} triggerHandler={triggerHandler} clickHandler={clickHandler}/>
-            <QuizCard title="RoboWars" description="Nov 15, 6:00PM" imgSrc="https://picsum.photos/330/320" percentages={[0.1,0.3]}/>
+            {/* <QuizCard title="RoboWars" description="Nov 15, 6:00PM" imgSrc="https://picsum.photos/330/320" percentages={[0.1,0.3]}/> */}
         </div>
     )
 }
