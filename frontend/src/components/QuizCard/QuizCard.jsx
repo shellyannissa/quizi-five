@@ -9,6 +9,7 @@ export const QuizCard = ({ quizId, quizType, quizName, image, month, day, time, 
   const [trigger, setTrigger] = React.useState(false);
   const clickHandler = () => {
     setTrigger(true);
+    
   }
 
   const triggerHandler = () => {
@@ -22,7 +23,7 @@ export const QuizCard = ({ quizId, quizType, quizName, image, month, day, time, 
   }
   
   return (
-    <div className="quiz-card" onClick={routeToQuizPage}>
+    <div className="quiz-card" onClick={!buttonContent && routeToQuizPage}>
       <div className="quiz-poster">
         <img alt="Rectangle" src={image} />
       </div>

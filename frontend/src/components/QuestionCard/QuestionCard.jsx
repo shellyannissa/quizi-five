@@ -3,7 +3,7 @@ import "./QuestionCard.css"
 import { Button } from '../Button/Button';
 import { AnswerCard } from '../AnswerCard/AnswerCard';
 
-const QuestionCard = ({ questions }) => {
+export const QuestionCard = ({ questions }) => {
   
     const [ currentQuestion, setCurrentQuestion ] = useState(0);
     const currentQuestionData = questions[currentQuestion];
@@ -43,4 +43,3 @@ const QuestionCard = ({ questions }) => {
 
 }
 
-export default QuestionCard

@@ -46,7 +46,6 @@ export const UserHome = ({property}) => {
   });
   setAvailableQuizzes(await availableResponse.json());
   };
-  console.log("registered",registeredQuizzes);
 
   const getRegisteredQuizzes = async () => {
   const registeredResponse = await fetch("http://localhost:8000/api/user/regquizzes", {
@@ -57,9 +56,10 @@ export const UserHome = ({property}) => {
     },
   });
   setRegisteredQuizzes(await registeredResponse.json());
-  };
+};
 
-  console.log("availbale",availableQuizzes);
+  console.log("registered ",registeredQuizzes);
+  console.log("available",availableQuizzes);
   
   useEffect(() => {
     getAvailableQuizzes();
