@@ -3,8 +3,23 @@ import { AdminHero } from '../../components/AdminHero/AdminHero'
 import './QuizPage.css'
 import { useParams } from 'react-router-dom'
 import { QuizCard } from '../../components/QuizCard'
+import {QuestionCard} from '../../components/QuestionCard/QuestionCard'
 
 const QuizPage = ({quiz}) => {
+
+    const questions = [
+        {
+            question: "Capital Of India?",
+            options: ["Delhi", "Pune", "Calicut", "Italy"],
+            correctOption: 0
+        }
+        ,
+        {
+            question: "How are you?",
+            options: ["Fine", "Sad"],
+            correctOption: 1
+        }
+    ];
 
     const { quizId } = useParams();
     const [searchTerm, setSearchTerm] = React.useState("");
@@ -25,7 +40,8 @@ const QuizPage = ({quiz}) => {
     return (
         <div className='quiz-page'>
             <AdminHero searchTerm={searchTerm} handleSearch={handleSearch} isQuestion={true} trigger={trigger} triggerHandler={triggerHandler} clickHandler={clickHandler}/>
-            {/* <QuizCard title="RoboWars" description="Nov 15, 6:00PM" imgSrc="https://picsum.photos/330/320" percentages={[0.1,0.3]}/> */}
+            <QuizCard title="RoboWars" description="Nov 15, 6:00PM" imgSrc="https://picsum.photos/330/320" percentages={[0.1,0.3]}/>
+            <QuestionCard questions={questions} />
         </div>
     )
 }
