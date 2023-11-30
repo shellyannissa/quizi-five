@@ -1,31 +1,30 @@
 .blue-ball .ellipse {
-    background: linear-gradient(180deg, rgb(255, 255, 255) 0%, rgb(56.31, 255, 171.55) 100%);
-    border-radius: 30.5px/85px;
-    box-shadow: inset 0px 4px 4px #59ffba;
-    height: 170px;
-    left: 9px;
-    position: relative;
-    width: 61px;
-  }
-  
-  .blue-ball.property-1-default {
-    background: linear-gradient(180deg, rgb(255, 255, 255) 0%, rgb(131.75, 255, 203.23) 100%);
-    border-radius: 85px;
-    box-shadow: inset 0px 4px 4px #59ffba;
-    height: 170px;
-    width: 170px;
-  }
-  
-  .blue-ball.property-1-variant-3 {
-    height: 170px;
-    width: 79px;
-  }
-  
-  .blue-ball.property-1-variant-2 {
-    background: linear-gradient(180deg, rgb(255, 255, 255) 0%, rgb(56.31, 255, 171.55) 100%);
-    border-radius: 39.5px;
-    box-shadow: inset 0px 4px 4px #59ffba;
-    height: 79px;
-    width: 79px;
-  }
-  
+  background: linear-gradient(180deg, rgb(255, 255, 255) 0%, rgb(56.31, 255, 171.55) 100%);
+  border-radius: 30.5px/85px;
+  box-shadow: inset 0px 4px 4px #59ffba;
+  height: 170px;
+  left: 9px;
+  position: relative;
+  width: 61px;
+}
+
+.blue-ball.property-1-default {
+  background: linear-gradient(180deg, rgb(255, 255, 255) 0%, rgb(131.75, 255, 203.23) 100%);
+  border-radius: 85px;
+  box-shadow: inset 0px 4px 4px #59ffba;
+  height: 170px;
+  width: 170px;
+}
+
+.blue-ball.property-1-variant-3 {
+  height: 170px;
+  width: 79px;
+}
+
+.blue-ball.property-1-variant-2 {
+  background: linear-gradient(180deg, rgb(255, 255, 255) 0%, rgb(56.31, 255, 171.55) 100%);
+  border-radius: 39.5px;
+  box-shadow: inset 0px 4px 4px #59ffba;
+  height: 79px;
+  width: 79px;
+}

@@ -1,54 +1,53 @@
 .text-input-bar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 1rem;
-    height: 44px;
-    width: 100%;
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1rem;
+  height: 44px;
+  width: 100%;
+}
+
 .overlap-group {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--collection-1-white);
-    border: 1px solid;
-    border-color: var(--collection-1-main);
-    border-radius: 1rem;
-    height: 44px;
-    position: relative;
-    width: 100%;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--collection-1-white);
+  border: 1px solid;
+  border-color: var(--collection-1-main);
+  border-radius: 1rem;
+  height: 44px;
+  position: relative;
+  width: 100%;
+}
 
-  .overlap-group:hover {
-    border-color: var(--collection-1-secondary);
-    cursor: pointer;
-  }
+.overlap-group:hover {
+  border-color: var(--collection-1-secondary);
+  cursor: pointer;
+}
 
-  .overlap-group:focus-within {
-    border-color: var(--collection-1-secondary);
-  }
+.overlap-group:focus-within {
+  border-color: var(--collection-1-secondary);
+}
 
-  
-  .text-input-bar input {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: transparent;
-    border: none;
-    outline: none;
-    color: var(--collection-1-black);
-    font-family: "Inter-Regular", Helvetica;
-    font-weight: 400;
-    line-height: normal;
-    width: 90%;
-  }
-  
-  .text-input-bar .icon {
-    left: 18px;
-    top: 8px;
-    height: 28px;
-    width: 28px;
-    margin-left: 1rem;
-    margin-right: 0.4rem;
-  }
+.text-input-bar input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--collection-1-black);
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  line-height: normal;
+  width: 90%;
+}
+
+.text-input-bar .icon {
+  left: 18px;
+  top: 8px;
+  height: 28px;
+  width: 28px;
+  margin-left: 1rem;
+  margin-right: 0.4rem;
+}
