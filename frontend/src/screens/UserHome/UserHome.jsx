@@ -66,26 +66,39 @@ export const UserHome = ({property}) => {
     getRegisteredQuizzes();
   }, []);
 
-  // const [quizList, setQuizList] = useState(registered);
+  const [quizList, setQuizList] = useState(registeredQuizzes);
   const [searchTerm, setSearchTerm] = useState("");
   
-  const handleSearch = (event) => {
-    const term = event.target.value;
-    setSearchTerm(term);
-    const newList = state.property === "registered" ? registeredQuizzes : availableQuizzes;
-    const filtered = newList.filter((quiz) => {
-      console.log(quiz.quizName.toLowerCase().includes(term.toLowerCase()));
-      return quiz.quizName.toLowerCase().includes(term.toLowerCase());
-    });
-    setQuizList(filtered);
+const handleSearch = (event) => {
+  const term = event.target.value.toLowerCase();
+  setSearchTerm(term);
+
+  let filteredRegistered = [];
+  let filteredAvailable = [];
+
+  if (term.trim() !== "") {
+    filteredRegistered = registeredQuizzes.filter((quiz) =>
+      quiz.quizName.toLowerCase().includes(term)
+    );
+
+    filteredAvailable = availableQuizzes.filter((quiz) =>
+      quiz.quizName.toLowerCase().includes(term)
+    );
+  } else {
+    // If the search term is empty, set both filtered lists to the original lists
+    filteredRegistered = registeredQuizzes;
+    filteredAvailable = availableQuizzes;
   }
+
+  setQuizList(state.property === "registered" ? filteredRegistered : filteredAvailable);
+};
 
   const updateState = () => {
     dispatch("click");
     if (state.property === "registered") {
-      setQuizList(registered);
-    } else {
       setQuizList(availableQuizzes);
+    } else {
+      setQuizList(registeredQuizzes);
     }
   };
 
@@ -95,7 +108,7 @@ export const UserHome = ({property}) => {
       <div className={`quiz-list ${state.property}`}>
         {state.property === "registered" ? (
           <div  className="list-of-quizzes">
-            {registeredQuizzes.map((quiz) => (
+            {quizList.map((quiz) => (
               <QuizCard
                 quizType={quiz.quizType}
                 quizName={quiz.quizName}
@@ -108,7 +121,7 @@ export const UserHome = ({property}) => {
           </div>
         ):(
           <div className="list-of-quizzes">
-            {availableQuizzes.map((quiz) => (
+            {quizList.map((quiz) => (
               <QuizCard
                 quizId={quiz.quizid}
                 quizType={quiz.quizType}
