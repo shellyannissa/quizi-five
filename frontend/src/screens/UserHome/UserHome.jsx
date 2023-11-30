@@ -110,12 +110,15 @@ const handleSearch = (event) => {
           <div  className="list-of-quizzes">
             {quizList.map((quiz) => (
               <QuizCard
+                quizId={quiz.quizid}
                 quizType={quiz.quizType}
                 quizName={quiz.quizName}
                 image={quiz.image}
                 time={quiz.time}
                 month={quiz.month}
                 day={quiz.day}
+                buttonContent="Unregister"
+                clickHandler={() => {console.log("Unregister")} }
               />
             ))}
           </div>
@@ -131,6 +134,7 @@ const handleSearch = (event) => {
                 month={quiz.month}
                 day={quiz.day}
                 buttonContent="Register"
+                clickHandler={() => {console.log("Register")} }
               />
             ))}
           </div>
