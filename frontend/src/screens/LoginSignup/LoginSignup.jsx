@@ -1,9 +1,6 @@
-import React, { useEffect } from "react";
-import { BlueBall } from "../../components/BlueBall/BlueBall";
-import { PurpleBall } from "../../components/PurpleBall/PurpleBall";
+import React from "react";
 import AuthContainer from "../../components/AuthContainer/AuthContainer";
 import "./LoginSignup.css";
-import { TextInputBar } from "../../components/TextInputBar/TextInputBar";
 import io from "socket.io-client";
 
 const ENDPOINT = "http://localhost:8000";

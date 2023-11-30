@@ -27,7 +27,7 @@ export const Options = (props) => {
     <div>
       {/* <p className="heading-text">QUESTION TEST</p> */}
       <div className="container">
-        <div className="question">
+        <div className="question-sam">
           {/* <span id="question-number">3. </span> */}
           <span id="question-txt">{QuizData[2].question}</span>
         </div>

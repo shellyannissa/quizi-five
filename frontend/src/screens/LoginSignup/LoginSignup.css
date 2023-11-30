@@ -18,6 +18,7 @@
   height: 100%;
   width: 100%;
 }
+
 .left-side {
   flex: 1;
   display: flex;
@@ -26,12 +27,12 @@
   height: 100%;
   width: 100%;
   background: linear-gradient(
-120deg,
-rgb(136, 190, 186) 0%,
-rgb(219, 148, 147) 0.01%,
-rgb(208.25, 173.02, 170.94) 24.9%,
-rgb(115.35, 205.06, 183.53) 55.39%,
-rgb(84.79, 119, 116.37) 100%);
+    120deg,
+    rgb(136, 190, 186) 0%,
+    rgb(219, 148, 147) 0.01%,
+    rgb(208.25, 173.02, 170.94) 24.9%,
+    rgb(115.35, 205.06, 183.53) 55.39%,
+    rgb(84.79, 119, 116.37) 100%);
 }
 
 .auth-container {
@@ -49,6 +50,7 @@ rgb(84.79, 119, 116.37) 100%);
   justify-content: center;
   align-items: center;
 }
+
 .question img {
   height: 300px;
   position: relative;
