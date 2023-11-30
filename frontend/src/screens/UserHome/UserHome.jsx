@@ -90,7 +90,7 @@ export const UserHome = ({property}) => {
   };
 
   return (
-    <div className="user-home">zdfvalmdf lmf la 
+    <div className="user-home">
       <Hero property={state.property} updateState={updateState} searchTerm={searchTerm} handleSearch={handleSearch}/>
       <div className={`quiz-list ${state.property}`}>
         {state.property === "registered" ? (
