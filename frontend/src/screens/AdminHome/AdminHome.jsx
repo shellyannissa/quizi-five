@@ -45,17 +45,6 @@ export const AdminHome = () => {
     setTrigger(false);
   };
 
-  // const handleSearch = (event) => {
-  //   const term = event.target.value;
-  //   setSearchTerm(term);
-  //   const newList = created;
-  //   const filtered = newList.filter((quiz) => {
-  //     console.log(quiz.quizName.toLowerCase().includes(term.toLowerCase()));
-  //     return quiz.quizName.toLowerCase().includes(term.toLowerCase());
-  //   });
-  //   setQuizList(filtered);
-  // };
-
   const handleSearch = (event) => {
     const term = event.target.value.toLowerCase();
     setSearchTerm(term);
@@ -76,6 +65,20 @@ export const AdminHome = () => {
 
   console.log("QUIZLIST", quizList);
 
+  const deleteQuiz = async (quizId) => {
+    const registeredResponse = await fetch(
+      "http://localhost:8000/api/quiz/delete",
+      {
+        method: "DELETE",
+        body: JSON.stringify({ quizId: quizId }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    getAllQuizzes();
+  };
   return (
     <div className="user-home">
       <AdminHero
@@ -96,7 +99,8 @@ export const AdminHome = () => {
               time={quiz.time}
               month={quiz.month}
               day={quiz.day}
-              buttonContent="Edit"
+              clickHandler={() => deleteQuiz(quiz.quizId)}
+              buttonContent="DELETE"
             />
           ))}
         </div>

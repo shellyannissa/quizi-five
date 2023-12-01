@@ -256,15 +256,35 @@ const history = asyncHandler(async (req, res) => {
   const { uid } = req.body;
   try {
     const client = await pool.connect();
-    const allrecords = await client.query(
+    const allrecordrows = await client.query(
       `SELECT image,"Quiz".name quizName, points, position, eventTime
        FROM "Quiz" JOIN "Registration" ON "Quiz".quizId = "Registration".quizId 
       WHERE uid = $1 and status = 'completed'
       ORDER BY eventTime DESC`,
       [uid]
     );
+    const allrecords = allrecordrows.rows;
+
+    const formatQuizEntry = (quiz) => {
+      const datetime = new Date(quiz.eventtime);
+      const hours = datetime.getHours();
+      const minutes = datetime.getMinutes();
+      const ampm = hours >= 12 ? "PM" : "AM";
+      const hours12 = hours % 12 || 12;
+
+      const position = quiz.position;
+
+      return {
+        quizName: quiz.quizname,
+        image: quiz.image,
+        time: `${hours12}:${minutes} ${ampm}`,
+        position: position,
+        points: quiz.points,
+      };
+    };
+    const formattedRecords = allrecords.map(formatQuizEntry);
     client.release();
-    res.json(allrecords.rows);
+    res.json(formattedRecords);
   } catch (error) {
     res.status(500).send("Internal Server Error");
     throw new Error(error.message);
