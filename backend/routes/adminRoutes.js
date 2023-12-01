@@ -4,7 +4,9 @@ const {
   authAdmin,
   registerAdmin,
   updateAdmin,
+  adminQuizzes,
 } = require("../controllers/adminController");
+
 const { protect } = require("../middleware/authMiddleware");
 
 const router = express.Router();
@@ -16,5 +18,6 @@ router.route("/register").post(registerAdmin);
 router.route("/").get(allAdmins);
 router.post("/login", authAdmin);
 router.put("/update", updateAdmin);
+router.get("/quizzes", adminQuizzes);
 
 module.exports = router;
