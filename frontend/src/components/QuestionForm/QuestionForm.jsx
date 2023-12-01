@@ -87,6 +87,7 @@ const QuestionForm = ({heading, trigger, triggerHandler}) => {
                                 return (
                                     <div className="option" key={index}>
                                         <div className="option-name">{option.name}</div>
+                                        <input type='checkbox' />
                                         <TextInputBar placeholder={option.placeholder} value={optionValues[index]} />
                                     </div>
                                 )
