@@ -1,16 +1,20 @@
 import React, { useEffect } from "react";
 import { useReducer } from "react";
+import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { QuizCard } from "../../components/QuizCard/QuizCard";
 import { useState } from "react";
 import { useUser } from "../../context/UserContext";
 import { Hero } from "../../components/Hero/Hero";
 import "./UserHome.css";
+import { Button } from "../../components/Button/Button";
 
 export const UserHome = ({ property }) => {
   const [state, dispatch] = useReducer(reducer, {
     property: property || "registered",
   });
+
+  const navigate = useNavigate();
 
   const { user, setUser } = useUser();
 
@@ -43,6 +47,7 @@ export const UserHome = ({ property }) => {
       }
     );
     setRegisteredQuizzes(await registeredResponse.json());
+    console.log("Registered Quizzes",registeredQuizzes);
   };
 
   const registerHandler = async (quizId) => {
@@ -125,6 +130,10 @@ export const UserHome = ({ property }) => {
     }
   };
 
+  const goToQuiz = (quizId) => {
+    navigate(`/quizpage/${quizId}`);
+  };
+
   return (
     <div className="user-home">
       <Hero
@@ -137,6 +146,8 @@ export const UserHome = ({ property }) => {
         {state.property === "registered" ? (
           <div className="list-of-quizzes">
             {quizList.map((quiz) => (
+              <div>
+                <Button text="Attempt" clickHandler={() => goToQuiz(quiz.quizId)}/>
               <QuizCard
                 quizId={quiz.quizId}
                 quizType={quiz.quizType}
@@ -150,6 +161,7 @@ export const UserHome = ({ property }) => {
                   unRegisterHandler(quiz.quizId);
                 }}
               />
+            </div>
             ))}
           </div>
         ) : (
