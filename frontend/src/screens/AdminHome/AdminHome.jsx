@@ -3,12 +3,17 @@ import { QuizCard } from "../../components/QuizCard/QuizCard";
 import { useState } from "react";
 import { AdminHero } from "../../components/AdminHero/AdminHero";
 import "../UserHome/UserHome.css";
+import { useNavigate } from "react-router-dom";
 import "./AdminHome.css";
 import { useUser } from "../../context/UserContext";
+import { Button } from "../../components/Button/Button";
 
 export const AdminHome = () => {
   const { user, setUser } = useUser();
   const [created, setCreated] = useState([]);
+
+  const navigate = useNavigate();
+
   const getAllQuizzes = async () => {
     const availableResponse = await fetch(
       "http://localhost:8000/api/admin/quizzes",
@@ -79,6 +84,11 @@ export const AdminHome = () => {
 
     getAllQuizzes();
   };
+
+  const goToQuiz = (quizId) => { 
+    navigate(`/admin/${quizId}`);
+  };
+
   return (
     <div className="user-home">
       <AdminHero
@@ -91,6 +101,8 @@ export const AdminHome = () => {
       <div className={`quiz-list`}>
         <div className="list-of-quizzes">
           {quizList.map((quiz) => (
+            <div>
+              <Button text="EDIT" clickHandler={() => goToQuiz(quiz.quizId)} />
             <QuizCard
               quizId={quiz.quizId}
               key={quiz.quizName}
@@ -102,7 +114,7 @@ export const AdminHome = () => {
               clickHandler={() => deleteQuiz(quiz.quizId)}
               buttonContent="DELETE"
             />
-          ))}
+          </div>))}
         </div>
       </div>
     </div>
