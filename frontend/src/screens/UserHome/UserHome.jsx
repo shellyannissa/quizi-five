@@ -76,6 +76,7 @@ export const UserHome = ({ property }) => {
     getRegisteredQuizzes();
   };
 
+  console.log("User: ",user);
   console.log("registered ", registeredQuizzes);
   console.log("available", availableQuizzes);
 
@@ -84,7 +85,7 @@ export const UserHome = ({ property }) => {
       getAvailableQuizzes();
       getRegisteredQuizzes();
     }
-  }, [registeredQuizzes.length]);
+  }, []);
 
   const [quizList, setQuizList] = useState(registeredQuizzes);
   const [searchTerm, setSearchTerm] = useState("");
