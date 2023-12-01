@@ -5,12 +5,9 @@ import QuizForm from "../QuizForm/QuizForm";
 import { useNavigate } from "react-router-dom";
 import "./QuizCard.css";
 
-export const QuizCard = ({ quizId, quizType, quizName, image, month, day, time, buttonContent }) => {
+export const QuizCard = ({ quizId, quizType, quizName, image, month, day, time, buttonContent, clickHandler }) => {
+  // for quiz edit button in admin page
   const [trigger, setTrigger] = React.useState(false);
-  const clickHandler = () => {
-    setTrigger(true);
-    
-  }
 
   const triggerHandler = () => {
     setTrigger(false);
@@ -23,7 +20,7 @@ export const QuizCard = ({ quizId, quizType, quizName, image, month, day, time, 
   }
   
   return (
-    <div className="quiz-card" onClick={routeToQuizPage}>
+    <div className="quiz-card">
       <div className="quiz-poster">
         <img alt="Rectangle" src={image} />
       </div>
@@ -35,12 +32,12 @@ export const QuizCard = ({ quizId, quizType, quizName, image, month, day, time, 
           </div>
           <Date month={month} day={day}/>
         </div>
-        <div className="timer">
+        <div className="timing">
           <div className="time">{time}</div>
-          {buttonContent && <Button text={buttonContent} clickHandler={clickHandler}/>}
+          {buttonContent && <Button text={buttonContent} clickHandler={clickHandler ? clickHandler : () => {setTrigger(true)}}/>}
         </div>
       </div>
-      <QuizForm heading="Edit quiz details" trigger={trigger} triggerHandler={triggerHandler} image={image} quizName={quizName} quizType={quizType} quizDate={month} quizTime={time}/>
+      {buttonContent==="Edit" && <QuizForm heading="Edit quiz details" trigger={trigger} triggerHandler={triggerHandler} image={image} quizName={quizName} quizType={quizType} quizDate={month} quizTime={time}/> }
     </div>
   );
 };

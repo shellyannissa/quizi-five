@@ -97,9 +97,14 @@ const activateQuestion = asyncHandler(async (req, res) => {
     SELECT quizId FROM "Question" WHERE questionId = $1;`;
     const quizId = (await client.query(quizIdQuery, [questionId])).rows[0]
       .quizid;
+    const optionIdQuery = `
+      SELECT correctOptionId FROM "Question" WHERE questionId = $1;`;
+    const optionId = (await client.query(optionIdQuery, [questionId])).rows[0]
+      .optionId;
     setTimeout(() => {
       calculatePoints(questionId, optionId);
       updatePostition(quizId);
+      console.log("points updated");
     }, endingInstant.getTime() - currentTime.getTime());
 
     client.release();
