@@ -76,17 +76,18 @@ export const UserHome = ({ property }) => {
     getRegisteredQuizzes();
   };
 
+  console.log("user", user);
   console.log("registered ", registeredQuizzes);
   console.log("available", availableQuizzes);
 
+  const [quizList, setQuizList] = useState(registeredQuizzes);
   useEffect(() => {
     if (user) {
       getAvailableQuizzes();
       getRegisteredQuizzes();
     }
-  }, [registeredQuizzes.length]);
+  }, [quizList]);
 
-  const [quizList, setQuizList] = useState(registeredQuizzes);
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleSearch = (event) => {

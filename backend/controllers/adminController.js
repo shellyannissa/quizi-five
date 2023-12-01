@@ -2,6 +2,7 @@ const asyncHandler = require("express-async-handler");
 const pool = require("../database/db");
 const { v4: uuidv4 } = require("uuid");
 const generateToken = require("../database/utilities");
+const { updateAllQuizStatus } = require("./quizController");
 
 function generateUUID() {
   return uuidv4();
@@ -149,4 +150,47 @@ const registerAdmin = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { allAdmins, authAdmin, updateAdmin, registerAdmin };
+const adminQuizzes = asyncHandler(async (req, res) => {
+  try {
+    const client = await pool.connect();
+    await updateAllQuizStatus();
+    const allrecordrows = await client.query('SELECT * FROM "Quiz"');
+    const allrecords = allrecordrows.rows;
+
+    const formatQuizEntry = (quiz) => {
+      const datetime = new Date(quiz.eventtime);
+      const hours = datetime.getHours();
+      const minutes = datetime.getMinutes();
+      const ampm = hours >= 12 ? "PM" : "AM";
+      const hours12 = hours % 12 || 12;
+      const month = datetime
+        .toLocaleString("default", { month: "short" })
+        .toUpperCase();
+      const day = datetime.getDate();
+
+      return {
+        quizId: quiz.quizid,
+        quizName: quiz.name,
+        image: quiz.image,
+        time: `${hours12}:${minutes} ${ampm}`,
+        month: month,
+        day: day,
+        buttonContent: "Register",
+      };
+    };
+
+    const formattedRecords = allrecords.map(formatQuizEntry);
+    client.release();
+    res.json(formattedRecords);
+  } catch (error) {
+    res.status(500).send("Internal Server Error");
+    throw new Error(error.message);
+  }
+});
+module.exports = {
+  allAdmins,
+  authAdmin,
+  updateAdmin,
+  registerAdmin,
+  adminQuizzes,
+};
