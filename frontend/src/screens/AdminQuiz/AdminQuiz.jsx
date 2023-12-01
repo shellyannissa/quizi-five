@@ -1,11 +1,9 @@
 import React from "react";
 import { AdminHero } from "../../components/AdminHero/AdminHero";
-import "./QuizPage.css";
+import "./AdminQuiz.css";
 import { useParams } from "react-router-dom";
-import { QuizCard } from "../../components/QuizCard";
-import { QuestionCard } from "../../components/QuestionCard/QuestionCard";
 
-const QuizPage = ({ quiz }) => {
+const AdminQuiz = ({ quiz }) => {
   const questions = [
     {
       question: "Capital Of India?",
@@ -45,15 +43,8 @@ const QuizPage = ({ quiz }) => {
         triggerHandler={triggerHandler}
         clickHandler={clickHandler}
       />
-      <QuizCard
-        title="RoboWars"
-        description="Nov 15, 6:00PM"
-        imgSrc="https://picsum.photos/330/320"
-        percentages={[0.1, 0.3]}
-      />
-      <QuestionCard questions={questions} />
     </div>
   );
 };
 
-export default QuizPage;
+export default AdminQuiz;
