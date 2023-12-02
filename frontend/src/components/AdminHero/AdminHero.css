@@ -1,11 +1,11 @@
 .quiz-type-admin {
-    display: flex;
-    gap: 2rem;
+  display: flex;
+  gap: 2rem;
 }
 
 /** Mobile **/
 @media screen and (max-width: 768px) {
-    .quiz-type-admin {
-        width: 100%;
-    }
+  .quiz-type-admin {
+    width: 100%;
+  }
 }

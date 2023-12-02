@@ -24,7 +24,7 @@
 }
 
 /** Whatever **/
-@media screen and (max-width: 1200px){
+@media screen and (max-width: 1200px) {
   .hero-section {
     width: 95vw;
   }
@@ -34,14 +34,14 @@
 }
 
 /** Tablet **/
-@media screen and (max-width: 1000px){
+@media screen and (max-width: 1000px) {
   .list-of-quizzes {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 /** Mobile **/
-@media screen and (max-width: 600px){
+@media screen and (max-width: 600px) {
   .list-of-quizzes {
     grid-template-columns: repeat(1, 1fr);
   }
