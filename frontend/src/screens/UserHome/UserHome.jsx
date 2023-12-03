@@ -47,7 +47,7 @@ export const UserHome = ({ property }) => {
       }
     );
     setRegisteredQuizzes(await registeredResponse.json());
-    console.log("Registered Quizzes", registeredQuizzes);
+    console.log("Registered Quizzes",registeredQuizzes);
   };
 
   const registerHandler = async (quizId) => {
