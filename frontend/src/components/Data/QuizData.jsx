@@ -17,15 +17,23 @@ export const QuestionList = [
     time: 100,
   },
   {
+    question: "What does CSS stand for?",
+    options: [
+      "Central Style Sheets",
+      "Cascading Style Sheets",
+      "Cascading Simple Sheets",
+      "Cars SUVs Sailboats",
+    ],
+    answer: 2,
+    time: 100,
+  },
+  {
     question:
       "What does HTML stand for and why is it not one of the easiest languages you can learn I mean why the learning curve is so easy?",
     options: [
       "Hypertext Markup Language",
       "Hypertext Markdown Language",
       "Hyperloop Machine Language",
-      "Hyperloop Machine Language",
-      "Hyperloop Machine Language",
-      "Helicopters Terminals Motorboats Lamborginis",
       "Helicopters Terminals Motorboats Lamborginis",
     ],
     answer: 1,

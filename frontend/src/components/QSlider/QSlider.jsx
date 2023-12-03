@@ -1,18 +1,12 @@
 import React from "react";
 import { useState } from "react";
 import Options from "../Options/Options";
-
-// import Slider from "react-slick";
-// import "slick-carousel/slick/slick.css";
-// import "slick-carousel/slick/slick-theme.css";
-
 import { Timer } from "../Timer/Timer";
-
 import "./QSlider.css";
 
-export const QSlider = ({ question, time }) => {
+export const QSlider = ({ index, question, timerValues }) => {
   const [timerComplete, setTimerComplete] = useState(false);
-
+  console.log(timerValues);
   const handleTimerComplete = () => {
     setTimerComplete(true);
     console.log(timerComplete);
@@ -21,7 +15,11 @@ export const QSlider = ({ question, time }) => {
   return (
     <div className="app_container">
       <div className="timer">
-        <Timer time={question.time} onTimerComplete={handleTimerComplete} />
+        <Timer
+          timerValues={timerValues}
+          index={index}
+          onTimerComplete={handleTimerComplete}
+        />
       </div>
       <div className="question-sam">
         <span id="question-txt">{question.question}</span>

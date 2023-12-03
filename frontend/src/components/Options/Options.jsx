@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { Button } from "../Button/Button";
 import "./Options.css";
 
 // function Options() {
@@ -22,27 +23,29 @@ export const Options = ({ options, timerComplete }) => {
   };
 
   return (
-    <div className="option-container">
-      {options.map((option, i) => {
-        return (
-          <div
-            className={`answer ${
-              clickedOption == i + 1 && timerComplete == false
-                ? "checked"
-                : null
-              // timerComplete == true ? "checked" : null
-            }`}
-            key={i}
-            onClick={() => {
-              setClickedOption(i + 1);
-              clickedOption(i);
-            }}
-          >
-            <div className="answer-letter">{optionId[i]}</div>
-            <div className="answer-text">{option}</div>
-          </div>
-        );
-      })}
+    <div className="options-component">
+      <div className="option-container">
+        {options.map((option, i) => {
+          return (
+            <div
+              className={`answer ${
+                clickedOption == i + 1 ? "checked" : null
+                // timerComplete == true ? "checked" : null
+              }`}
+              key={i}
+              onClick={() => {
+                if (timerComplete) return;
+                setClickedOption(i + 1);
+                clickedOption(i);
+              }}
+            >
+              <div className="answer-letter">{optionId[i]}</div>
+              <div className="answer-text">{option}</div>
+            </div>
+          );
+        })}
+      </div>
+      <Button text="Submit" onClick={handleClick} />
     </div>
   );
 };
