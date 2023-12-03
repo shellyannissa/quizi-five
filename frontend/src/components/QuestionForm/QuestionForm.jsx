@@ -3,7 +3,15 @@ import "./QuestionForm.css";
 import { TextInputBar } from "../TextInputBar/TextInputBar";
 import { Button } from "../Button/Button";
 import { useParams } from "react-router-dom";
-
+let optionDscs = {
+  A: "",
+  B: "",
+  C: "",
+  D: "",
+  E: "",
+  F: "",
+  G: "",
+};
 const QuestionForm = ({
   heading,
   trigger,
@@ -107,13 +115,15 @@ const QuestionForm = ({
     const crctOp = checkedRadioRef.current;
 
     for (let i = 0; i < options.length; i++) {
-      const description = document.getElementById(options[i].name).value;
+      const description = optionDscs[options[i].name];
       let optionId;
       const body = {
         questionId,
         description,
         quizId,
       };
+
+      console.log(body);
       const response = await fetch("http://localhost:8000/api/option/add", {
         method: "POST",
         headers: {
@@ -147,8 +157,14 @@ const QuestionForm = ({
         }
       }
     }
-
+    setOptionCount(2);
+    setDescription("");
+    setOptions(defaultOptions);
     triggerHandler(false);
+  };
+
+  const handleTextInputChange = (id, value) => {
+    optionDscs[id] = value;
   };
 
   const handleEditQn = async () => {};
@@ -181,6 +197,7 @@ const QuestionForm = ({
                   <TextInputBar
                     placeholder={option.placeholder}
                     id={option.name}
+                    onChange={handleTextInputChange}
                   />
                 </div>
               );
