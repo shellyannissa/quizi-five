@@ -5,20 +5,42 @@ import QuizForm from "../QuizForm/QuizForm";
 import { useNavigate } from "react-router-dom";
 import "./QuizCard.css";
 
-export const QuizCard = ({ quizId, quizType, quizName, image, month, day, time, buttonContent, clickHandler }) => {
+export const QuizCard = ({
+  quizId,
+  quizType,
+  quizName,
+  image,
+  month,
+  day,
+  time,
+  buttonContent,
+  clickHandler,
+}) => {
   // for quiz edit button in admin page
   const [trigger, setTrigger] = React.useState(false);
 
   const triggerHandler = () => {
     setTrigger(false);
-  }
+  };
 
   const navigate = useNavigate();
 
   const routeToQuizPage = () => {
     navigate(`/quizpage/${quizId}`);
-  }
-  
+  };
+  const deleteQuiz = async (quizId) => {
+    const registeredResponse = await fetch(
+      "http://localhost:8000/api/quiz/delete",
+      {
+        method: "DELETE",
+        body: JSON.stringify({ quizId: quizId }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  };
+
   return (
     <div className="quiz-card">
       <div className="quiz-poster">
@@ -30,14 +52,43 @@ export const QuizCard = ({ quizId, quizType, quizName, image, month, day, time, 
             <div className="quiz-type">{quizType}</div>
             <div className="quiz-name">{quizName}</div>
           </div>
-          <Date month={month} day={day}/>
+          <Date month={month} day={day} />
         </div>
         <div className="timing">
           <div className="time">{time}</div>
-          {buttonContent && <Button text={buttonContent} clickHandler={clickHandler ? clickHandler : () => {setTrigger(true)}}/>}
+          {buttonContent == "Edit" && (
+            <img
+              onClick={() => deleteQuiz(quizId)}
+              src="../../assets/icons/delete.png"
+            ></img>
+          )}
+          {buttonContent && (
+            <Button
+              text={buttonContent}
+              clickHandler={
+                clickHandler
+                  ? clickHandler
+                  : () => {
+                      setTrigger(true);
+                    }
+              }
+            />
+          )}
         </div>
       </div>
-      {buttonContent==="Edit" && <QuizForm heading="Edit quiz details" trigger={trigger} triggerHandler={triggerHandler} image={image} quizName={quizName} quizType={quizType} quizDate={month} quizTime={time}/> }
+      {buttonContent === "Edit" && (
+        <QuizForm
+          heading="Edit quiz details"
+          trigger={trigger}
+          triggerHandler={triggerHandler}
+          image={image}
+          quizId={quizId}
+          quizName={quizName}
+          quizType={quizType}
+          quizDate={month}
+          quizTime={time}
+        />
+      )}
     </div>
   );
 };
