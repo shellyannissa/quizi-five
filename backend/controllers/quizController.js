@@ -197,6 +197,25 @@ const deleteQuiz = asyncHandler(async (req, res) => {
   }
 });
 
+const getQnsandOptions = asyncHandler(async (req, res) => {
+  const { quizId } = req.body;
+  try {
+    const client = await pool.connect();
+    const allrecords = await client.query(
+      `SELECT optionId, "Question".questionId, 
+      "Question".quizId, "Option".description AS optionName, 
+       "Question".description AS questionName
+       FROM "Option","Question" WHERE "Question".quizId = $1 AND "Option".quizId = $1;`,
+      [quizId]
+    );
+    client.release();
+    res.json(allrecords.rows);
+  } catch (error) {
+    res.status(500).send("Internal Server Error");
+    throw new Error(error.message);
+  }
+});
+
 const terminateQuiz = asyncHandler(async (req, res) => {
   try {
     const { quizId } = req.body;
@@ -231,4 +250,5 @@ module.exports = {
   terminateQuiz,
   quizQuestions,
   editQuiz,
+  getQnsandOptions,
 };
