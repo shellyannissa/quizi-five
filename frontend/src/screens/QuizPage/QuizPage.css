@@ -10,3 +10,10 @@
   overflow-y: scroll;
   gap: 1rem;
 }
+
+.question-list {
+  display: flex;
+  width: 100%;
+  overflow-x: scroll;
+  width: 85%;
+}

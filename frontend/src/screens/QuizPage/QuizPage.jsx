@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { AdminHero } from "../../components/AdminHero/AdminHero";
 import { useParams } from "react-router-dom";
-import DynamicTextComponent from "../../components/DynamicText/DynamicTextComponent";
+import { FlippingCard } from "../../components/FlippingCard/FlippingCard";
+import { QuestionList } from "../../components/Data/QuizData";
 import { useUser } from "../../context/UserContext";
 import io from "socket.io-client";
 import "./QuizPage.css";
@@ -64,6 +65,23 @@ const QuizPage = ({ quiz }) => {
         triggerHandler={triggerHandler}
         clickHandler={clickHandler}
       />
+      <div className="question-list">
+        {QuestionList.map((question, index) => {
+          return (
+            <FlippingCard
+              key={index}
+              question={question}
+              // percentages={[0.2, 0.3, 0.4, 0.1]}
+            />
+          );
+        })}
+      </div>
+      {/* <FlippingCard
+        title="RoboWars"
+        description="Nov 15, 6:00PM"
+        imgSrc="https://picsum.photos/330/320"
+        percentages={[0.2, 0.3, 0.4, 0.1]}
+      /> */}
     </div>
   );
 };
