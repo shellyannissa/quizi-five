@@ -27,8 +27,8 @@ ChartJS.register(
   ChartDataLabels
 );
 
-export const FlippingCard = (props) => {
-  let optionIDs = ["A", "B", "C", "D", "E"];
+export const FlippingCard = ({ question }) => {
+  let optionIDs = ["A", "B", "C", "D", "E", "F", "G"];
 
   let delayed;
   const option = {
@@ -91,30 +91,19 @@ export const FlippingCard = (props) => {
 
   const test = 5;
   const [optionClicked, setClicked] = useState(0);
-  function clickedOption(i) {
-    setClicked(i);
-  }
+  // function clickedOption(i) {
+  //   setClicked(i);
+  // }
+  const chosedOptionColor = "#ff0000";
+  const optionColor = "#f5f5f5";
 
   return (
     <div className="flipcard-container">
-      {/*get rid of quiz-container in css for removing extra border */}
-      <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
+      <QSlider question={question} time={10} clickedOption={setClicked} />
+      {/* <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
         <div className="front" onClick={flipCard}>
-          {/* <img src={props.imgSrc} alt="Robowars Image" className="quiz-image" />
- 
-          <div className="otherside">
-            {props.title && <h1 className="quiz-title">{props.title}</h1>}
-            {props.description && (
-              <p className="quiz-desc">{props.description} </p>
-            )}
-
-            <a href="register" className="reg-link">
-              Register
-            </a>
-          </div> */}
           <QSlider time={10} clickedOption={clickedOption} />
         </div>
-
         <div className="graph" onClick={flipCard}>
           <Bar
             data={{
@@ -124,29 +113,14 @@ export const FlippingCard = (props) => {
                   label: "Percentage Chosen",
                   // data: set.map((user) => user.percent),
                   data: props.percentages,
-
-                  // backgroundColor: "rgba(255, 99, 132) ",
                   backgroundColor: [
-                    optionClicked == 0
-                      ? "rgba(255, 99, 132)"
-                      : "rgba(132, 99, 255)",
-                    optionClicked == 1
-                      ? "rgba(255, 99, 132)"
-                      : "rgba(132, 99, 255)",
-                    optionClicked == 2
-                      ? "rgba(255, 99, 132)"
-                      : "rgba(132, 99, 255)",
-                    optionClicked == 3
-                      ? "rgba(255, 99, 132)"
-                      : "rgba(132, 99, 255)",
-                    optionClicked == 4
-                      ? "rgba(255, 99, 132)"
-                      : "rgba(132, 99, 255)",
-                    // "rgba(255, 99, 132)"
-                    // "rgba(54, 162, 235)",
-                    // "rgba(255, 206, 86)",
-                    // "rgba(75, 192, 192)",
-                    // "rgba(153, 102, 255)",
+                    optionClicked == 0 ? chosedOptionColor : optionColor,
+                    optionClicked == 1 ? chosedOptionColor : optionColor,
+                    optionClicked == 2 ? chosedOptionColor : optionColor,
+                    optionClicked == 3 ? chosedOptionColor : optionColor,
+                    optionClicked == 4 ? chosedOptionColor : optionColor,
+                    optionClicked == 5 ? chosedOptionColor : optionColor,
+                    optionClicked == 6 ? chosedOptionColor : optionColor,
                   ],
                 },
               ],
@@ -156,7 +130,7 @@ export const FlippingCard = (props) => {
             options={option}
           />
         </div>
-      </ReactCardFlip>
+      </ReactCardFlip> */}
     </div>
   );
 };

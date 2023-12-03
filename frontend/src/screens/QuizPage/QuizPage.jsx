@@ -1,9 +1,9 @@
 import React from "react";
 import { AdminHero } from "../../components/AdminHero/AdminHero";
-import "./QuizPage.css";
 import { useParams } from "react-router-dom";
 import { FlippingCard } from "../../components/FlippingCard/FlippingCard";
-import { QuestionCard } from "../../components/QuestionCardRuben/QuestionCard";
+import { QuestionList } from "../../components/Data/QuizData";
+import "./QuizPage.css";
 
 const QuizPage = ({ quiz }) => {
   //! NOTE: this list is for rubens question card
@@ -46,12 +46,23 @@ const QuizPage = ({ quiz }) => {
         triggerHandler={triggerHandler}
         clickHandler={clickHandler}
       />
-      <FlippingCard
+      <div className="question-list">
+        {QuestionList.map((question, index) => {
+          return (
+            <FlippingCard
+              key={index}
+              question={question}
+              // percentages={[0.2, 0.3, 0.4, 0.1]}
+            />
+          );
+        })}
+      </div>
+      {/* <FlippingCard
         title="RoboWars"
         description="Nov 15, 6:00PM"
         imgSrc="https://picsum.photos/330/320"
-        percentages={[0.1, 0.3]}
-      />
+        percentages={[0.2, 0.3, 0.4, 0.1]}
+      /> */}
     </div>
   );
 };
