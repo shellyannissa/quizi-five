@@ -14,12 +14,36 @@ var timerValues = QuestionList.map((question) => {
 });
 
 const QuizPage = ({ quiz }) => {
-  localStorage.clear();
-  const StoredTimerValues = localStorage.getItem("timerValues");
-  if (StoredTimerValues) {
-    timerValues = JSON.parse(StoredTimerValues);
-    console.log("from storage" + timerValues);
-  }
+  // localStorage.clear();
+  // const StoredTimerValues = localStorage.getItem("timerValues");
+  // if (StoredTimerValues) {
+  //   timerValues = JSON.parse(StoredTimerValues);
+  //   console.log("from storage" + timerValues);
+  // }
+  const { quizId } = useParams();
+  const [questions, setQuestions] = useState([]);
+  const getQuestions = async () => {
+    const body = {
+      quizId,
+    };
+    const response = await fetch("http://localhost:8000/api/quiz/activeqns", {
+      method: "PATCH",
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data);
+      setQuestions(data);
+    } else {
+      console.error("Error:", response.status, response.statusText);
+    }
+  };
+  useEffect(() => {
+    getQuestions();
+  }, []);
 
   useEffect(() => {
     const handleBeforeUnload = () => {
@@ -36,24 +60,10 @@ const QuizPage = ({ quiz }) => {
 
   const ENDPOINT = "http://localhost:8000";
   //! NOTE: this list is for rubens question card
-  const questions = [
-    {
-      question: "Capital Of India?",
-      options: ["Delhi", "Pune", "Calicut", "Italy"],
-      correctOption: 0,
-    },
-    {
-      question: "How are you?",
-      options: ["Fine", "Sad"],
-      correctOption: 1,
-    },
-  ];
 
-  const { quizId } = useParams();
   const [searchTerm, setSearchTerm] = React.useState("");
   const { user } = useUser();
   const [socketConnected, setSocketConnected] = useState(false);
-  const [textValue, setTextValue] = useState("");
 
   const [trigger, setTrigger] = React.useState(false);
   const clickHandler = () => {
@@ -91,7 +101,7 @@ const QuizPage = ({ quiz }) => {
         clickHandler={clickHandler}
       />
       <div className="question-list">
-        {QuestionList.map((question, index) => {
+        {questions.map((question, index) => {
           return (
             <FlippingCard
               key={index}
