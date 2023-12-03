@@ -7,9 +7,6 @@ const ENDPOINT = "http://localhost:8000";
 var socket;
 
 export const LoginSignup = () => {
-  // useEffect(() => {
-  //   socket = io(ENDPOINT);
-  // }, []);
   return (
     <div className="login-signup">
       <div className="main">
