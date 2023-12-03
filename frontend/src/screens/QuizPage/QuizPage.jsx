@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { AdminHero } from "../../components/AdminHero/AdminHero";
 import { useParams } from "react-router-dom";
 import { FlippingCard } from "../../components/FlippingCard/FlippingCard";
+import { QuestionList } from "../../components/Data/QuizData";
 import { useUser } from "../../context/UserContext";
 import io from "socket.io-client";
 import "./QuizPage.css";
