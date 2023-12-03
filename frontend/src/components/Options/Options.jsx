@@ -4,22 +4,28 @@ import { Button } from "../Button/Button";
 import "./Options.css";
 
 // function Options() {
-export const Options = ({ options, timerComplete }) => {
-  const [isActive, setIsActive] = useState(false);
-
-  const handleClick = () => {
-    // 👇️ toggle
-    setIsActive((current) => !current);
-
-    // 👇️ or set to true
-    // setIsActive(true);
-  };
-
+export const Options = ({
+  options,
+  timerComplete,
+  clickedOption,
+  setClickedOption,
+}) => {
   const optionId = ["A", "B", "C", "D", "E", "F", "G"];
 
-  const [clickedOption, setClickedOption] = useState(0);
   const clickHandler = (i) => {
-    setClickedOption(i + 1);
+    if (timerComplete) {
+      return;
+    } else {
+      setClickedOption(i + 1);
+    }
+  };
+
+  const handleClick = () => {
+    if (clickedOption == -1) {
+      return;
+    } else {
+      console.log("submitting answer");
+    }
   };
 
   return (
@@ -28,16 +34,9 @@ export const Options = ({ options, timerComplete }) => {
         {options.map((option, i) => {
           return (
             <div
-              className={`answer ${
-                clickedOption == i + 1 ? "checked" : null
-                // timerComplete == true ? "checked" : null
-              }`}
+              className={`answer ${clickedOption == i + 1 ? "checked" : null}`}
               key={i}
-              onClick={() => {
-                if (timerComplete) return;
-                setClickedOption(i + 1);
-                clickedOption(i);
-              }}
+              onClick={() => clickHandler(i)}
             >
               <div className="answer-letter">{optionId[i]}</div>
               <div className="answer-text">{option}</div>

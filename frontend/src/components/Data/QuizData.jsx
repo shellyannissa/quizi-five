@@ -14,7 +14,7 @@ export const QuestionList = [
       "Cars SUVs Sailboats",
     ],
     answer: 2,
-    time: 100,
+    time: 12,
   },
   {
     question: "What does CSS stand for?",
@@ -25,7 +25,7 @@ export const QuestionList = [
       "Cars SUVs Sailboats",
     ],
     answer: 2,
-    time: 100,
+    time: 14,
   },
   {
     question:
@@ -37,12 +37,12 @@ export const QuestionList = [
       "Helicopters Terminals Motorboats Lamborginis",
     ],
     answer: 1,
-    time: 30,
+    time: 15,
   },
   {
     question: "What year was JavaScript launched?",
     options: ["1996", "1995", "1994", "none of the above"],
     answer: 2,
-    time: 50,
+    time: 20,
   },
 ];

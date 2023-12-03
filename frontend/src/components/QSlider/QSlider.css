@@ -5,9 +5,18 @@
   background-color: white;
   border-radius: 1rem;
   padding: 1rem 1rem 1.4rem 1rem;
-  width: fit-content;
+  /* width: fit-content; */
   gap: 1rem;
   min-width: 300px;
+}
+
+.question-active {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  width: fit-content;
+  gap: 1rem;
 }
 
 .timer {
