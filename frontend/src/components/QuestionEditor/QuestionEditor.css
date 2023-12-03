@@ -1,0 +1,52 @@
+.box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(248.99deg, #efcef1, #d9e9e4);
+  width: 100%; /* Adjusted width for responsiveness */
+  max-width: 710px; /* Maximum width */
+  height: 50px;
+  text-align: left;
+  padding-left: 10px;
+  margin-bottom: 10px; /* Optional: Add space between boxes */
+  box-sizing: border-box; /* Include padding and border in the box's total width and height */
+}
+
+.qno {
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 10%;
+  background-color: #23da2a;
+  color: #000000;
+  padding: 5px 10px; /* Adjust padding for better button alignment */
+}
+
+.qname {
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 40px;
+  flex: 1; /* Allow text to take available space */
+}
+
+.btn-group {
+  display: flex;
+  gap: 10px; /* Adjust the gap between buttons */
+}
+
+/* Media query for mobile devices */
+@media (max-width: 768px) {
+  .box {
+    flex-direction: column; /* Stack elements vertically */
+    align-items: flex-start; /* Align items to the start */
+    height: auto; /* Allow height to adjust based on content */
+  }
+
+  .qname {
+    margin-left: 0; /* Remove left margin for smaller screens */
+    margin-top: 5px; /* Add top margin for better spacing */
+  }
+
+  .btn-group {
+    margin-top: 5px; /* Add top margin for better spacing */
+  }
+}

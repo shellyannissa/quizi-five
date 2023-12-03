@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { AdminHero } from "../../components/AdminHero/AdminHero";
 import "./QuizPage.css";
 import { useParams } from "react-router-dom";
+<<<<<<< HEAD
 import { QuizCard } from "../../components/QuizCard";
 import { QuestionCard } from "../../components/QuestionCard/QuestionCard";
 import DynamicTextComponent from "../../components/DynamicText/DynamicTextComponent";
@@ -11,6 +12,13 @@ var socket;
 
 const QuizPage = ({ quiz }) => {
   const ENDPOINT = "http://localhost:8000";
+=======
+import { FlippingCard } from "../../components/FlippingCard/FlippingCard";
+import { QuestionCard } from "../../components/QuestionCardRuben/QuestionCard";
+
+const QuizPage = ({ quiz }) => {
+  //! NOTE: this list is for rubens question card
+>>>>>>> origin/main
   const questions = [
     {
       question: "Capital Of India?",
@@ -65,6 +73,7 @@ const QuizPage = ({ quiz }) => {
         triggerHandler={triggerHandler}
         clickHandler={clickHandler}
       />
+<<<<<<< HEAD
 
 <div>
       <input
@@ -76,12 +85,19 @@ const QuizPage = ({ quiz }) => {
       <p>{textValue && `You entered: ${textValue}`}</p>
     </div>
       {/* <QuizCard
+=======
+      <FlippingCard
+>>>>>>> origin/main
         title="RoboWars"
         description="Nov 15, 6:00PM"
         imgSrc="https://picsum.photos/330/320"
         percentages={[0.1, 0.3]}
+<<<<<<< HEAD
       /> */}
       {/* <QuestionCard questions={questions} /> */}
+=======
+      />
+>>>>>>> origin/main
     </div>
   );
 };
