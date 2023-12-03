@@ -7,6 +7,7 @@ const {
   deleteQuestion,
   endQuestion,
   updateCrctOption,
+  activeQns,
 } = require("../controllers/questionController");
 
 const router = express.Router();
@@ -17,5 +18,6 @@ router.route("/activate").put(activateQuestion);
 router.route("/delete").delete(deleteQuestion);
 router.route("/end").put(endQuestion);
 router.route("/crct").put(updateCrctOption);
+router.route("/activeqns").patch(activeQns);
 
 module.exports = router;
