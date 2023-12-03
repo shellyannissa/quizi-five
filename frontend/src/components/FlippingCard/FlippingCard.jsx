@@ -1,7 +1,7 @@
 import { useState } from "react";
-import "./QuizCard.css";
 import ReactCardFlip from "react-card-flip";
 import ChartDataLabels from "chartjs-plugin-datalabels";
+import "./FlippingCard.css";
 
 // Graph Stuff
 import { Bar } from "react-chartjs-2";
@@ -15,7 +15,7 @@ import {
   Legend,
   Tooltip,
 } from "chart.js";
-import { QSlider } from "./QSlider/QSlider";
+import { QSlider } from "../QSlider/QSlider";
 
 ChartJS.register(
   CategoryScale,
@@ -27,7 +27,7 @@ ChartJS.register(
   ChartDataLabels
 );
 
-export const QuizCard = (props) => {
+export const FlippingCard = (props) => {
   let optionIDs = ["A", "B", "C", "D", "E"];
 
   let delayed;
@@ -96,7 +96,7 @@ export const QuizCard = (props) => {
   }
 
   return (
-    <div className="quizcard-container">
+    <div className="flipcard-container">
       {/*get rid of quiz-container in css for removing extra border */}
       <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
         <div className="front" onClick={flipCard}>
@@ -112,7 +112,7 @@ export const QuizCard = (props) => {
               Register
             </a>
           </div> */}
-          <QSlider time={10} clickedOption={clickedOption}/>
+          <QSlider time={10} clickedOption={clickedOption} />
         </div>
 
         <div className="graph" onClick={flipCard}>
@@ -127,11 +127,21 @@ export const QuizCard = (props) => {
 
                   // backgroundColor: "rgba(255, 99, 132) ",
                   backgroundColor: [
-                    optionClicked == 0 ? "rgba(255, 99, 132)" : "rgba(132, 99, 255)",
-                    optionClicked == 1 ? "rgba(255, 99, 132)" : "rgba(132, 99, 255)",
-                    optionClicked == 2 ? "rgba(255, 99, 132)" : "rgba(132, 99, 255)",
-                    optionClicked == 3 ? "rgba(255, 99, 132)" : "rgba(132, 99, 255)",
-                    optionClicked == 4 ? "rgba(255, 99, 132)" : "rgba(132, 99, 255)",
+                    optionClicked == 0
+                      ? "rgba(255, 99, 132)"
+                      : "rgba(132, 99, 255)",
+                    optionClicked == 1
+                      ? "rgba(255, 99, 132)"
+                      : "rgba(132, 99, 255)",
+                    optionClicked == 2
+                      ? "rgba(255, 99, 132)"
+                      : "rgba(132, 99, 255)",
+                    optionClicked == 3
+                      ? "rgba(255, 99, 132)"
+                      : "rgba(132, 99, 255)",
+                    optionClicked == 4
+                      ? "rgba(255, 99, 132)"
+                      : "rgba(132, 99, 255)",
                     // "rgba(255, 99, 132)"
                     // "rgba(54, 162, 235)",
                     // "rgba(255, 206, 86)",
