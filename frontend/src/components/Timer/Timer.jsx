@@ -31,7 +31,6 @@ export const Timer = ({ timerValues, index, onTimerComplete }) => {
       onComplete={() => {
         // do your stuff here
         onTimerComplete();
-        console.log(timerValues[index]);
         // return { shouldRepeat: true, delay: 1.5 } // repeat animation in 1.5 seconds
       }}
     >

@@ -1,0 +1,16 @@
+.evaluate {
+  min-width: 200px;
+  min-height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.correct {
+  height: 20rem;
+}
+
+.wrong {
+  height: 10rem;
+  width: 200px;
+}
