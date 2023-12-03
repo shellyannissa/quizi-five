@@ -27,9 +27,8 @@ ChartJS.register(
   ChartDataLabels
 );
 
-export const FlippingCard = ({ question }) => {
+export const FlippingCard = ({ index, question, timerValues }) => {
   let optionIDs = ["A", "B", "C", "D", "E", "F", "G"];
-
   let delayed;
   const option = {
     responsive: true,
@@ -99,7 +98,12 @@ export const FlippingCard = ({ question }) => {
 
   return (
     <div className="flipcard-container">
-      <QSlider question={question} time={10} clickedOption={setClicked} />
+      <QSlider
+        index={index}
+        question={question}
+        clickedOption={setClicked}
+        timerValues={timerValues}
+      />
       {/* <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
         <div className="front" onClick={flipCard}>
           <QSlider time={10} clickedOption={clickedOption} />

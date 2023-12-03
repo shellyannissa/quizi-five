@@ -4,8 +4,10 @@
   align-items: center;
   background-color: white;
   border-radius: 1rem;
-  padding: 1rem;
-  width: 600px;
+  padding: 1rem 1rem 1.4rem 1rem;
+  width: fit-content;
+  gap: 1rem;
+  min-width: 300px;
 }
 
 .timer {
@@ -20,7 +22,7 @@
 .question-sam {
   font-size: large;
   font-weight: 600;
-  width: 90%;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
