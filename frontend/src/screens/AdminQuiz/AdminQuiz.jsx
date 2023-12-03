@@ -2,6 +2,7 @@ import React from "react";
 import { AdminHero } from "../../components/AdminHero/AdminHero";
 import "./AdminQuiz.css";
 import { useParams } from "react-router-dom";
+import QuestionEditor from "../../components/QuestionEditor/QuestionEditor";
 
 const AdminQuiz = ({ quiz }) => {
   const questions = [
@@ -43,6 +44,16 @@ const AdminQuiz = ({ quiz }) => {
         triggerHandler={triggerHandler}
         clickHandler={clickHandler}
       />
+      {questions.map((question, index) => (
+        <QuestionEditor
+          key={index}
+          qno={index + 1}
+          qname={question.question}
+          options={question.options}
+          correctOption={question.correctOption}
+          triggerHandler={clickHandler}
+        />
+      ))}
     </div>
   );
 };
