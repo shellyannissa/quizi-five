@@ -73,6 +73,40 @@ const createQuiz = asyncHandler(async (req, res) => {
   }
 });
 
+const editQuiz = asyncHandler(async (req, res) => {
+  const { quizId, name, image, eventTime, description } = req.body;
+  try {
+    const client = await pool.connect();
+    const status = calculateEventStatus(eventTime);
+
+    const updateQuery = `
+              UPDATE "Quiz"
+              SET name = $1, image = $2, eventTime = $3, description = $4
+              WHERE quizId = $5 RETURNING *;`;
+
+    const updatedQuiz = await client.query(updateQuery, [
+      name,
+      image,
+      eventTime,
+      description,
+      quizId,
+    ]);
+    client.release();
+    console.log(updatedQuiz);
+    if (updatedQuiz.rows.length > 0) {
+      return res.status(201).json({
+        quizId: updatedQuiz.rows[0].quizid,
+      });
+    } else {
+      res.status(400).json({ error: "Quiz not updated" });
+      throw new Error("Quiz not updated");
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 const allQuizzes = asyncHandler(async (req, res) => {
   try {
     await updateAllQuizStatus();
@@ -196,4 +230,5 @@ module.exports = {
   deleteQuiz,
   terminateQuiz,
   quizQuestions,
+  editQuiz,
 };

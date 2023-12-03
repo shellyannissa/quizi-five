@@ -118,8 +118,8 @@ export const AdminHome = () => {
                 time={quiz.time}
                 month={quiz.month}
                 day={quiz.day}
-                clickHandler={() => deleteQuiz(quiz.quizId)}
-                buttonContent="DELETE"
+                // clickHandler={() => deleteQuiz(quiz.quizId)}
+                buttonContent="Edit"
               />
             </div>
           ))}
