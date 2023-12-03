@@ -4,13 +4,35 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--collection-1-secondary);
+  max-width: 300px;
+}
+
+.correct-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 20rem;
+}
+
+.wrong-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 10rem;
+  width: 280px;
 }
 
 .correct {
   height: 20rem;
+  width: 280px;
 }
 
 .wrong {
   height: 10rem;
-  width: 200px;
+  width: 280px;
 }
