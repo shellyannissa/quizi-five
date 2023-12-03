@@ -18,7 +18,6 @@ const QuizForm = ({
   const popUpRef = React.useRef(null);
   const { user } = useUser();
 
-  console.log("quizId inside form", quizId);
   React.useEffect(() => {
     const handleClickOutside = (event) => {
       if (popUpRef.current && !popUpRef.current.contains(event.target)) {
@@ -52,7 +51,6 @@ const QuizForm = ({
     const name = document.getElementById("quiz-name").value;
     const description = document.getElementById("quiz-type").value;
     const quizDate = document.getElementById("quiz-date").value;
-    console.log(quizDate);
     const quizTime = document.getElementById("quiz-time").value;
     const eventTime = quizDate + " " + quizTime;
     // const image = document.getElementById("preview-image").src;
@@ -66,7 +64,6 @@ const QuizForm = ({
       eventTime,
       adminId: "5d0880f8-9700-4f9b-8be4-94129bcc1b19",
     };
-    console.log(body);
     triggerHandler(false);
 
     const registeredResponse = await fetch(
@@ -85,7 +82,6 @@ const QuizForm = ({
     const name = document.getElementById("quiz-name").value;
     const description = document.getElementById("quiz-type").value;
     const quizDate = document.getElementById("quiz-date").value;
-    console.log(quizDate);
     const quizTime = document.getElementById("quiz-time").value;
     const eventTime = quizDate + " " + quizTime;
     // const image = document.getElementById("preview-image").src;
