@@ -1,11 +1,10 @@
 .timer {
-    font-family: "Montserrat";
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 15px;
 }
 
 .value {
-    font-size: 30px;
+  font-size: 30px;
 }
