@@ -47,7 +47,7 @@ export const UserHome = ({ property }) => {
       }
     );
     setRegisteredQuizzes(await registeredResponse.json());
-    console.log("Registered Quizzes",registeredQuizzes);
+    console.log("Registered Quizzes", registeredQuizzes);
   };
 
   const registerHandler = async (quizId) => {
@@ -147,21 +147,27 @@ export const UserHome = ({ property }) => {
           <div className="list-of-quizzes">
             {quizList.map((quiz) => (
               <div>
-                <Button text="Attempt" clickHandler={() => goToQuiz(quiz.quizId)}/>
-              <QuizCard
-                quizId={quiz.quizId}
-                quizType={quiz.quizType}
-                quizName={quiz.quizName}
-                image={quiz.image}
-                time={quiz.time}
-                month={quiz.month}
-                day={quiz.day}
-                buttonContent="Unregister"
-                clickHandler={() => {
-                  unRegisterHandler(quiz.quizId);
-                }}
-              />
-            </div>
+                <Button
+                  text="Attempt"
+                  clickHandler={() => {
+                    console.log("quizId", quiz.quizId);
+                    goToQuiz(quiz.quizId);
+                  }}
+                />
+                <QuizCard
+                  quizId={quiz.quizId}
+                  quizType={quiz.quizType}
+                  quizName={quiz.quizName}
+                  image={quiz.image}
+                  time={quiz.time}
+                  month={quiz.month}
+                  day={quiz.day}
+                  buttonContent="Unregister"
+                  clickHandler={() => {
+                    unRegisterHandler(quiz.quizId);
+                  }}
+                />
+              </div>
             ))}
           </div>
         ) : (

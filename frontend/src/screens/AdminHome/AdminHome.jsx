@@ -85,7 +85,7 @@ export const AdminHome = () => {
     getAllQuizzes();
   };
 
-  const goToQuiz = (quizId) => { 
+  const goToQuiz = (quizId) => {
     navigate(`/admin/${quizId}`);
   };
 
@@ -102,19 +102,27 @@ export const AdminHome = () => {
         <div className="list-of-quizzes">
           {quizList.map((quiz) => (
             <div>
-              <Button text="EDIT" clickHandler={() => goToQuiz(quiz.quizId)} />
-            <QuizCard
-              quizId={quiz.quizId}
-              key={quiz.quizName}
-              quizName={quiz.quizName}
-              image={quiz.image}
-              time={quiz.time}
-              month={quiz.month}
-              day={quiz.day}
-              clickHandler={() => deleteQuiz(quiz.quizId)}
-              buttonContent="DELETE"
-            />
-          </div>))}
+              {/* <Button text="EDIT" clickHandler={() => goToQuiz(quiz.quizId)} /> */}
+              <Button
+                  text="Begin"
+                  clickHandler={() => {
+                    console.log("quizId", quiz.quizId);
+                    goToQuiz(quiz.quizId);
+                  }}
+                />
+              <QuizCard
+                quizId={quiz.quizId}
+                key={quiz.quizName}
+                quizName={quiz.quizName}
+                image={quiz.image}
+                time={quiz.time}
+                month={quiz.month}
+                day={quiz.day}
+                clickHandler={() => deleteQuiz(quiz.quizId)}
+                buttonContent="DELETE"
+              />
+            </div>
+          ))}
         </div>
       </div>
     </div>

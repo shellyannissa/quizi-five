@@ -1,21 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { AdminHero } from "../../components/AdminHero/AdminHero";
 import "./AdminQuiz.css";
 import { useParams } from "react-router-dom";
+import DynamicTextComponent from "../../components/DynamicText/DynamicTextComponent";
+
 
 const AdminQuiz = ({ quiz }) => {
-  const questions = [
-    {
-      question: "Capital Of India?",
-      options: ["Delhi", "Pune", "Calicut", "Italy"],
-      correctOption: 0,
-    },
-    {
-      question: "How are you?",
-      options: ["Fine", "Sad"],
-      correctOption: 1,
-    },
-  ];
+  const ENDPOINT = "http://localhost:8000";
+  const questions = [  ];
 
   const { quizId } = useParams();
   const [searchTerm, setSearchTerm] = React.useState("");
@@ -33,6 +25,8 @@ const AdminQuiz = ({ quiz }) => {
     setSearchTerm(term);
   };
 
+
+
   return (
     <div className="quiz-page">
       <AdminHero
@@ -43,6 +37,7 @@ const AdminQuiz = ({ quiz }) => {
         triggerHandler={triggerHandler}
         clickHandler={clickHandler}
       />
+        <DynamicTextComponent quizId={quizId}/>
     </div>
   );
 };
