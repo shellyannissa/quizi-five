@@ -8,7 +8,32 @@ import io from "socket.io-client";
 import "./QuizPage.css";
 var socket;
 
+// creating a list of timer values
+var timerValues = QuestionList.map((question) => {
+  return question.time;
+});
+
 const QuizPage = ({ quiz }) => {
+  localStorage.clear();
+  const StoredTimerValues = localStorage.getItem("timerValues");
+  if (StoredTimerValues) {
+    timerValues = JSON.parse(StoredTimerValues);
+    console.log("from storage" + timerValues);
+  }
+
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      localStorage.setItem("timerValues", JSON.stringify(timerValues));
+      console.log("from unload" + timerValues);
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
+
   const ENDPOINT = "http://localhost:8000";
   //! NOTE: this list is for rubens question card
   const questions = [
@@ -71,17 +96,13 @@ const QuizPage = ({ quiz }) => {
             <FlippingCard
               key={index}
               question={question}
+              timerValues={timerValues}
+              index={index}
               // percentages={[0.2, 0.3, 0.4, 0.1]}
             />
           );
         })}
       </div>
-      {/* <FlippingCard
-        title="RoboWars"
-        description="Nov 15, 6:00PM"
-        imgSrc="https://picsum.photos/330/320"
-        percentages={[0.2, 0.3, 0.4, 0.1]}
-      /> */}
     </div>
   );
 };

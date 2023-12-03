@@ -16,20 +16,22 @@ const renderTime = ({ remainingTime }) => {
   );
 };
 
-export const Timer = (props) => {
+export const Timer = ({ timerValues, index, onTimerComplete }) => {
   return (
     <CountdownCircleTimer
       isPlaying
-      duration={props.time}
+      duration={timerValues[index]}
       colors={["#00FF00", "#FF6600", "#990000"]}
       colorsTime={[5, 2.5, 0]}
       size={100}
       // onComplete={() => [true, 1000]}
-
+      onUpdate={(elapsedTime) => {
+        timerValues[index] = elapsedTime;
+      }}
       onComplete={() => {
         // do your stuff here
-        props.onTimerComplete();
-        console.log(props.time);
+        onTimerComplete();
+        console.log(timerValues[index]);
         // return { shouldRepeat: true, delay: 1.5 } // repeat animation in 1.5 seconds
       }}
     >
