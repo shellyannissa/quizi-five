@@ -130,6 +130,36 @@ const endQuestion = asyncHandler(async (req, res) => {
   }
 });
 
+const activeQns = asyncHandler(async (req, res) => {
+  try {
+    const { quizId } = req.body;
+
+    const client = await pool.connect();
+    const query = `
+  SELECT questionId, description FROM "Question" WHERE quizId = $1 AND started = true;`;
+    const activeQns = (await client.query(query, [quizId])).rows;
+    let result = [];
+    for (const qn of activeQns) {
+      const qnId = qn.questionid;
+      const question = qn.description;
+      const optionIdQuery = `
+    SELECT optionId, description FROM "Option" WHERE questionId = $1 ;`;
+      const options = (await client.query(optionIdQuery, [qnId])).rows;
+      result.push({
+        questionId: qnId,
+        question: question,
+        options: options,
+      });
+    }
+
+    client.release();
+    res.send(result);
+  } catch (error) {
+    res.status(500).send("Internal Server Error");
+    throw new Error(error.message);
+  }
+});
+
 const updateCrctOption = asyncHandler(async (req, res) => {
   try {
     const { questionId, optionId } = req.body;
@@ -228,4 +258,5 @@ module.exports = {
   deleteQuestion,
   endQuestion,
   updateCrctOption,
+  activeQns,
 };
