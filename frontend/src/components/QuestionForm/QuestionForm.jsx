@@ -3,10 +3,16 @@ import "./QuestionForm.css";
 import { TextInputBar } from "../TextInputBar/TextInputBar";
 import { Button } from "../Button/Button";
 
-const QuestionForm = ({ heading, trigger, triggerHandler }) => {
+const QuestionForm = ({
+  heading,
+  trigger,
+  triggerHandler,
+  quizId,
+  questionId,
+}) => {
   const popUpRef = React.useRef(null);
 
-  const [decription, setDescription] = React.useState("");
+  const [description, setDescription] = React.useState("");
 
   React.useEffect(() => {
     const handleClickOutside = (event) => {
@@ -67,6 +73,26 @@ const QuestionForm = ({ heading, trigger, triggerHandler }) => {
     console.log(defaultOptions);
   };
 
+  const handleCreateQn = async () => {
+    const weightage = document.getElementById("weightage").value;
+
+    const body = {
+      description,
+      quizId,
+      weightage,
+    };
+    const response = await fetch("http://localhost:8000/api/admin/question", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+    console.log(response);
+    triggerHandler(false);
+  };
+
+  const handleEditQn = async () => {};
   return trigger ? (
     <div className="popup">
       <div className="question-form" ref={popUpRef}>
@@ -77,7 +103,7 @@ const QuestionForm = ({ heading, trigger, triggerHandler }) => {
             cols="10"
             type="text"
             placeholder="Enter question description"
-            value={decription}
+            value={description}
             onChange={descripionController}
           />
         </div>
@@ -99,16 +125,21 @@ const QuestionForm = ({ heading, trigger, triggerHandler }) => {
           <div className="edit-q">
             <Button text={"Add Option"} clickHandler={addOption} />
             <div className="time">
-              <span>Time:</span>
-              <TextInputBar placeholder="Time alloted" />
+              <span>Minutes:</span>
+              <TextInputBar inputType="number" placeholder="2" />
+              <span>Seconds:</span>
+              <TextInputBar inputType="number" placeholder="0" />
             </div>
             <div className="weightage">
               <span>Weightage:</span>
-              <TextInputBar placeholder="weightage" />
+              <TextInputBar inputType="number" placeholder="weightage" />
             </div>
           </div>
         </div>
-        <Button text={"Submit"} clickHandler={submitHandler} />
+        <Button
+          text={"Submit"}
+          clickHandler={questionId ? handleCreateQn : handleEditQn}
+        />
       </div>
     </div>
   ) : (
