@@ -39,7 +39,7 @@ export const Options = ({
               onClick={() => clickHandler(i)}
             >
               <div className="answer-letter">{optionId[i]}</div>
-              <div className="answer-text">{option}</div>
+              <div className="answer-text">{option.description}</div>
             </div>
           );
         })}

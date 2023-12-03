@@ -8,6 +8,7 @@ const {
   quizQuestions,
   editQuiz,
   getQnsandOptions,
+  activeQns,
 } = require("../controllers/quizController");
 const { protect } = require("../middleware/authMiddleware");
 
@@ -21,5 +22,6 @@ router.route("/delete").delete(deleteQuiz);
 router.route("/terminate").put(terminateQuiz);
 router.route("/getqns").put(quizQuestions);
 router.route("/qnopns").put(getQnsandOptions);
+router.route("/activeqns").patch(activeQns);
 
 module.exports = router;
