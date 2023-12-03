@@ -4,9 +4,9 @@ import "./AdminQuiz.css";
 import { useParams } from "react-router-dom";
 import QuestionEditor from "../../components/QuestionEditor/QuestionEditor";
 
-const AdminQuiz = ({ quiz }) => {
+const AdminQuiz = () => {
   const ENDPOINT = "http://localhost:8000";
-  const questions = [  ];
+  const [questions, setQuestions] = useState([]);
 
   const { quizId } = useParams();
   const [searchTerm, setSearchTerm] = React.useState("");
@@ -24,7 +24,28 @@ const AdminQuiz = ({ quiz }) => {
     setSearchTerm(term);
   };
 
-
+  const getQuestions = async () => {
+    const body = {
+      quizId,
+    };
+    const response = await fetch("http://localhost:8000/api/quiz/getqns", {
+      method: "PUT",
+      body: JSON.stringify(body),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data);
+      setQuestions(data);
+    } else {
+      console.error("Error:", response.status, response.statusText);
+    }
+  };
+  useEffect(() => {
+    getQuestions();
+  }, []);
 
   return (
     <div className="quiz-page">
@@ -37,14 +58,7 @@ const AdminQuiz = ({ quiz }) => {
         clickHandler={clickHandler}
       />
       {questions.map((question, index) => (
-        <QuestionEditor
-          key={index}
-          qno={index + 1}
-          qname={question.question}
-          options={question.options}
-          correctOption={question.correctOption}
-          triggerHandler={clickHandler}
-        />
+        <QuestionEditor question={question} qno={index + 1} />
       ))}
     </div>
   );
