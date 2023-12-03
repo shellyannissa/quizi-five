@@ -11,11 +11,14 @@ const QuizForm = ({
   quizType,
   quizDate,
   quizTime,
+  quizId,
   trigger,
   triggerHandler,
 }) => {
   const popUpRef = React.useRef(null);
   const { user } = useUser();
+
+  console.log("quizId inside form", quizId);
   React.useEffect(() => {
     const handleClickOutside = (event) => {
       if (popUpRef.current && !popUpRef.current.contains(event.target)) {
@@ -70,6 +73,39 @@ const QuizForm = ({
       "http://localhost:8000/api/quiz/create",
       {
         method: "POST",
+        body: JSON.stringify(body),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+  };
+
+  const handleEditQuiz = async () => {
+    const name = document.getElementById("quiz-name").value;
+    const description = document.getElementById("quiz-type").value;
+    const quizDate = document.getElementById("quiz-date").value;
+    console.log(quizDate);
+    const quizTime = document.getElementById("quiz-time").value;
+    const eventTime = quizDate + " " + quizTime;
+    // const image = document.getElementById("preview-image").src;
+    const image =
+      "https://ischoolconnect.com/blog/wp-content/uploads/2021/12/What-are-some-science-quiz-questions-770x513.jpg";
+
+    const body = {
+      name,
+      description,
+      image,
+      eventTime,
+      quizId: quizId,
+    };
+    console.log(body);
+    triggerHandler(false);
+
+    const registeredResponse = await fetch(
+      "http://localhost:8000/api/quiz/edit",
+      {
+        method: "PUT",
         body: JSON.stringify(body),
         headers: {
           "Content-Type": "application/json",
@@ -143,7 +179,10 @@ const QuizForm = ({
             }
           />
         </div>
-        <Button text="SUBMIT" clickHandler={handleCreateQuiz} />
+        <Button
+          text="SUBMIT"
+          clickHandler={quizId ? handleEditQuiz : handleCreateQuiz}
+        />
       </div>
     </div>
   ) : (

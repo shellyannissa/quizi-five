@@ -46,12 +46,12 @@ const QuizPage = ({ quiz }) => {
     socket = io(ENDPOINT);
     socket.emit("join quiz", quizId);
     console.log("joined from user side");
-    socket.on('receive message', ({ user, message, senderType }) => {
-      console.log(`${senderType === 'admin' ? 'Admin' : 'User'} ${user} says: ${message}`);
+    socket.on("receive message", ({ user, message, senderType }) => {
+      console.log(
+        `${senderType === "admin" ? "Admin" : "User"} ${user} says: ${message}`
+      );
       setTextValue(message);
-  
     });
-
   }, []);
 
   return (
