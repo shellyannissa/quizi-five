@@ -42,10 +42,21 @@ const io = require("socket.io")(server, {
   },
 });
 io.on("connection", (socket) => {
-  console.log("connected to socket.io");
+  console.log("connected to socket.io ");
   socket.on("setup", (userData) => {
-    socket.join(userData._id);
+    // socket.join(userData._id);
+    console.log(userData);
     socket.emit("connected");
+  });
+
+  socket.on("join quiz", (room) => {
+    socket.join(room);
+    console.log("user joined Room :" + room);
+  });
+
+  socket.on("leave quiz", (room) => {
+    socket.leave(room);
+    console.log("user left Room :" + room);
   });
 
   socket.off("setup", () => {
