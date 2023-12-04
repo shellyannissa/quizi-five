@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Button } from "../Button/Button";
 import "./Options.css";
 
-// function Options() {
 export const Options = ({
   options,
   timerComplete,

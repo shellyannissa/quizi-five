@@ -11,11 +11,9 @@ export const QSlider = ({ index, question, timerValues }) => {
 
   const handleTimerComplete = () => {
     setTimerComplete(true);
-    evaluateAnswer();
   };
 
   const evaluateAnswer = () => {
-    console.log("evaluate answer " + clickedOption);
     if (clickedOption == -1) {
       return false;
     }
@@ -25,6 +23,7 @@ export const QSlider = ({ index, question, timerValues }) => {
       return false;
     }
   };
+
   return (
     <div className="app_container">
       {!timerComplete && (
