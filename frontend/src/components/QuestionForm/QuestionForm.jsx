@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import "./QuestionForm.css";
 import { TextInputBar } from "../TextInputBar/TextInputBar";
 import { Button } from "../Button/Button";
-import { useParams } from "react-router-dom";
+
 let optionDscs = {
   A: "",
   B: "",
@@ -18,6 +18,7 @@ const QuestionForm = ({
   triggerHandler,
   questionId,
   quizId,
+  callBack,
 }) => {
   const popUpRef = React.useRef(null);
 
@@ -97,7 +98,24 @@ const QuestionForm = ({
       allottedMin,
       allottedSec,
     };
-
+    const addedQn = {
+      questionid: "",
+      quizid: quizId,
+      weightage: 10,
+      description: description,
+      correctoptionid: null,
+      endinginstant: "",
+      startedinstant: "",
+      started: false,
+      allottedmin: allottedMin,
+      allottedsec: allottedSec,
+    };
+    const activeQn = {
+      questionId: "",
+      correctOpnId: "",
+      question: description,
+      opions: [],
+    };
     const response = await fetch("http://localhost:8000/api/ques/add", {
       method: "POST",
       headers: {
@@ -108,6 +126,8 @@ const QuestionForm = ({
     if (response.ok) {
       const data = await response.json();
       questionId = data.questionId;
+      addedQn["questionid"] = questionId;
+      activeQn["questionId"] = questionId;
     } else {
       console.error("Error:", response.status, response.statusText);
     }
@@ -134,6 +154,11 @@ const QuestionForm = ({
       if (response.ok) {
         const data = await response.json();
         optionId = data.optionId;
+        const op = {
+          optionId: optionId,
+          description: description,
+        };
+        activeQn["opions"].push(op);
       } else {
         console.error("Error:", response.status, response.statusText);
       }
@@ -143,6 +168,7 @@ const QuestionForm = ({
           questionId,
           optionId,
         };
+        activeQn["correctOpnId"] = optionId;
         console.log(body);
         const response = await fetch("http://localhost:8000/api/ques/crct", {
           method: "PUT",
@@ -161,6 +187,7 @@ const QuestionForm = ({
     setDescription("");
     setOptions(defaultOptions);
     triggerHandler(false);
+    callBack(addedQn, activeQn);
   };
 
   const handleTextInputChange = (id, value) => {
