@@ -3,11 +3,14 @@ import { AdminHero } from "../../components/AdminHero/AdminHero";
 import "./AdminQuiz.css";
 import { useParams } from "react-router-dom";
 import QuestionEditor from "../../components/QuestionEditor/QuestionEditor";
+const ENDPOINT = "http://localhost:8000";
+import io from "socket.io-client";
+let socket;
 
 const AdminQuiz = () => {
-  const ENDPOINT = "http://localhost:8000";
   const [questions, setQuestions] = useState([]);
-
+  const user = JSON.parse(localStorage.getItem("user"));
+  const [socketConnected, setSocketConnected] = useState(false);
   const { quizId } = useParams();
   const [searchTerm, setSearchTerm] = React.useState("");
 
@@ -45,8 +48,17 @@ const AdminQuiz = () => {
   };
   useEffect(() => {
     getQuestions();
+    socket = io(ENDPOINT);
+    socket.emit("setup", user);
+    socket.on("connected", () => setSocketConnected(true));
+    socket.emit("join quiz", quizId);
   }, []);
 
+  const sendQuestion = async (newQn, activeQn) => {
+    setQuestions([...questions, newQn]);
+    console.log(activeQn);
+    socket.emit("new question", quizId, activeQn);
+  };
   return (
     <div className="quiz-page">
       <AdminHero
@@ -56,6 +68,7 @@ const AdminQuiz = () => {
         trigger={trigger}
         triggerHandler={triggerHandler}
         clickHandler={clickHandler}
+        callBack={sendQuestion}
       />
       {questions.map((question, index) => (
         <QuestionEditor question={question} qno={index + 1} />

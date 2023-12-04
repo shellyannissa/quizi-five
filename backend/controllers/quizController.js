@@ -130,16 +130,25 @@ const activeQns = asyncHandler(async (req, res) => {
     const client = await pool.connect();
     const query = `
   SELECT questionId, description FROM "Question" WHERE quizId = $1 AND started = true;`;
+
     const activeQns = (await client.query(query, [quizId])).rows;
+
     let result = [];
     for (const qn of activeQns) {
       const qnId = qn.questionid;
       const question = qn.description;
+      const correctOptionId = (
+        await client.query(
+          'SELECT correctOptionId FROM "Question" WHERE questionId = $1 ;',
+          [qnId]
+        )
+      ).rows[0].correctoptionid;
       const optionIdQuery = `
     SELECT optionId, description FROM "Option" WHERE questionId = $1 ;`;
       const options = (await client.query(optionIdQuery, [qnId])).rows;
       result.push({
         questionId: qnId,
+        correctOptionId: correctOptionId,
         question: question,
         options: options,
       });

@@ -17,6 +17,7 @@ export const AdminHero = ({
   trigger,
   triggerHandler,
   clickHandler,
+  callBack,
 }) => {
   if (!image) {
     image = "../../assets/images/quiz-hero.avif";
@@ -63,6 +64,7 @@ export const AdminHero = ({
             trigger={trigger}
             triggerHandler={triggerHandler}
             quizId={useParams().quizId}
+            callBack={callBack}
           />
         )}
       </div>
