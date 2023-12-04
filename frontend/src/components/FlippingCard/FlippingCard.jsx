@@ -27,7 +27,7 @@ ChartJS.register(
   ChartDataLabels
 );
 
-export const FlippingCard = ({ index, question, timerValues }) => {
+export const FlippingCard = ({ quizId, index, question, timerValues }) => {
   let optionIDs = ["A", "B", "C", "D", "E", "F", "G"];
   let delayed;
   const option = {
@@ -88,20 +88,15 @@ export const FlippingCard = ({ index, question, timerValues }) => {
     setIsFlipped(!isFlipped);
   }
 
-  const test = 5;
-  const [optionClicked, setClicked] = useState(0);
-  // function clickedOption(i) {
-  //   setClicked(i);
-  // }
   const chosedOptionColor = "#ff0000";
   const optionColor = "#f5f5f5";
 
   return (
     <div className="flipcard-container">
       <QSlider
+        quizId={quizId}
         index={index}
         question={question}
-        clickedOption={setClicked}
         timerValues={timerValues}
       />
       {/* <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
