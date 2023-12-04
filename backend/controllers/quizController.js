@@ -20,6 +20,22 @@ function calculateEventStatus(eventTime) {
   }
 }
 
+const getQuizDetails = asyncHandler(async (req, res) => {
+  const { quizId } = req.body;
+  try {
+    const client = await pool.connect();
+    const quizDetails = await client.query(
+      'SELECT * FROM "Quiz" WHERE quizId = $1',
+      [quizId]
+    );
+    client.release();
+    res.json(quizDetails.rows[0]);
+  } catch (error) {
+    res.status(500).send("Internal Server Error");
+    throw new Error(error.message);
+  }
+});
+
 const quizQuestions = asyncHandler(async (req, res) => {
   const { quizId } = req.body;
   try {
@@ -275,6 +291,7 @@ const terminateQuiz = asyncHandler(async (req, res) => {
 module.exports = {
   createQuiz,
   allQuizzes,
+  getQuizDetails,
   updateAllQuizStatus,
   deleteQuiz,
   terminateQuiz,

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { AdminHero } from "../../components/AdminHero/AdminHero";
 import { useParams } from "react-router-dom";
 import { FlippingCard } from "../../components/FlippingCard/FlippingCard";
 import { QuestionList } from "../../components/Data/QuizData";
 import { useUser } from "../../context/UserContext";
 import io from "socket.io-client";
 import "./QuizPage.css";
+import { QuizHero } from "../../components/QuizHero/QuizHero";
 var socket;
 
 // creating a list of timer values
@@ -13,13 +13,35 @@ var timerValues = QuestionList.map((question) => {
   return question.time;
 });
 
-const QuizPage = ({ quiz }) => {
+const QuizPage = () => {
   // localStorage.clear();
   // const StoredTimerValues = localStorage.getItem("timerValues");
   // if (StoredTimerValues) {
   //   timerValues = JSON.parse(StoredTimerValues);
   //   console.log("from storage" + timerValues);
   // }
+
+  // fetching quizdetails from backend
+
+  const [quizDetails, setQuizDetails] = useState({});
+
+  const getQuizDetails = async () => {
+    const response = await fetch(`http://localhost:8000/api/quiz/details`, {
+      method: "PUT",
+      body: JSON.stringify({ quizId: quizId }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data);
+      setQuizDetails(data);
+    } else {
+      console.error("Error:", response.status, response.statusText);
+    }
+  };
+
   const { quizId } = useParams();
   const [questions, setQuestions] = useState([]);
   const getQuestions = async () => {
@@ -42,6 +64,7 @@ const QuizPage = ({ quiz }) => {
     }
   };
   useEffect(() => {
+    getQuizDetails();
     getQuestions();
   }, []);
 
@@ -92,14 +115,7 @@ const QuizPage = ({ quiz }) => {
 
   return (
     <div className="quiz-page">
-      <AdminHero
-        searchTerm={searchTerm}
-        handleSearch={handleSearch}
-        isQuestion={true}
-        trigger={trigger}
-        triggerHandler={triggerHandler}
-        clickHandler={clickHandler}
-      />
+      <QuizHero image={quizDetails.image} quizName={quizDetails.name} />
       <div className="question-list">
         {questions.map((question, index) => {
           return (
