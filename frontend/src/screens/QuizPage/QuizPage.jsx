@@ -105,14 +105,13 @@ const QuizPage = () => {
     socket = io(ENDPOINT);
     socket.emit("join quiz", quizId);
     console.log("joined from user side");
-    socket.on("receive message", ({ user, message, senderType }) => {
-      console.log(
-        `${senderType === "admin" ? "Admin" : "User"} ${user} says: ${message}`
-      );
-      setTextValue(message);
+    socket.on("question recieved", (newQnRecieved) => {
+      console.log(newQnRecieved);
+      setQuestions([...questions, newQnRecieved]);
     });
   }, []);
 
+  // useEffect(() => {});
   return (
     <div className="quiz-page">
       <QuizHero image={quizDetails.image} quizName={quizDetails.name} />

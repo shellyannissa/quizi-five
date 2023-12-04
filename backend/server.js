@@ -54,6 +54,13 @@ io.on("connection", (socket) => {
     console.log("user joined Room :" + room);
   });
 
+  socket.on("new question", (quizId, activeQn) => {
+    console.log("new question recieved on server");
+    console.log("quizID", quizId);
+    console.log("activeQn", activeQn);
+    // socket.to(quizId).emit('new question',activeQn);
+  });
+
   socket.on("leave quiz", (room) => {
     socket.leave(room);
     console.log("user left Room :" + room);
