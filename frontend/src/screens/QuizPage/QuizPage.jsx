@@ -68,20 +68,21 @@ const QuizPage = () => {
     getQuestions();
   }, []);
 
-  useEffect(() => {
-    const handleBeforeUnload = () => {
-      localStorage.setItem("timerValues", JSON.stringify(timerValues));
-      console.log("from unload" + timerValues);
-    };
+  // useEffect(() => {
+  //   const handleBeforeUnload = () => {
+  //     localStorage.setItem("timerValues", JSON.stringify(timerValues));
+  //     console.log("from unload" + timerValues);
+  //   };
 
-    window.addEventListener("beforeunload", handleBeforeUnload);
+  //   window.addEventListener("beforeunload", handleBeforeUnload);
 
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener("beforeunload", handleBeforeUnload);
+  //   };
+  // }, []);
 
   const ENDPOINT = "http://localhost:8000";
+
   //! NOTE: this list is for rubens question card
 
   const [searchTerm, setSearchTerm] = React.useState("");
@@ -117,15 +118,18 @@ const QuizPage = () => {
       <QuizHero image={quizDetails.image} quizName={quizDetails.name} />
       <div className="question-list">
         {questions.map((question, index) => {
-          return (
-            <FlippingCard
-              key={index}
-              question={question}
-              timerValues={timerValues}
-              index={index}
-              // percentages={[0.2, 0.3, 0.4, 0.1]}
-            />
-          );
+          if (timerValues[index] >= 0) {
+            return (
+              <FlippingCard
+                quizId={quizId}
+                key={index}
+                question={question}
+                timerValues={timerValues}
+                index={index}
+                // percentages={[0.2, 0.3, 0.4, 0.1]}
+              />
+            );
+          }
         })}
       </div>
     </div>
