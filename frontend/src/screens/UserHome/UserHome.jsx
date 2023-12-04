@@ -47,7 +47,6 @@ export const UserHome = ({ property }) => {
       }
     );
     setRegisteredQuizzes(await registeredResponse.json());
-    console.log("Registered Quizzes",registeredQuizzes);
   };
 
   const registerHandler = async (quizId) => {
@@ -62,8 +61,8 @@ export const UserHome = ({ property }) => {
       }
     );
 
-    getAvailableQuizzes();
-    getRegisteredQuizzes();
+    await getAvailableQuizzes();
+    await getRegisteredQuizzes();
   };
   const unRegisterHandler = async (quizId) => {
     const registeredResponse = await fetch(
@@ -77,8 +76,8 @@ export const UserHome = ({ property }) => {
       }
     );
 
-    getAvailableQuizzes();
-    getRegisteredQuizzes();
+    await getAvailableQuizzes();
+    await getRegisteredQuizzes();
   };
 
   console.log("user", user);
@@ -91,7 +90,7 @@ export const UserHome = ({ property }) => {
       getAvailableQuizzes();
       getRegisteredQuizzes();
     }
-  }, [quizList]);
+  }, [quizList, user]);
 
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -145,16 +144,16 @@ export const UserHome = ({ property }) => {
       <div className={`quiz-list ${state.property}`}>
         {state.property === "registered" ? (
           <div className="list-of-quizzes">
-            {quizList.map((quiz) => (
-              <div>
+            {registeredQuizzes.map((quiz, index) => (
+              <div key={index}>
                 <Button
                   text="Attempt"
                   clickHandler={() => {
-                    console.log("quizId", quiz.quizId);
                     goToQuiz(quiz.quizId);
                   }}
                 />
                 <QuizCard
+                  key={quiz.quizId}
                   quizId={quiz.quizId}
                   quizType={quiz.quizType}
                   quizName={quiz.quizName}
@@ -163,8 +162,8 @@ export const UserHome = ({ property }) => {
                   month={quiz.month}
                   day={quiz.day}
                   buttonContent="Unregister"
-                  clickHandler={() => {
-                    unRegisterHandler(quiz.quizId);
+                  clickHandler={async () => {
+                    await unRegisterHandler(quiz.quizId);
                   }}
                 />
               </div>
@@ -172,8 +171,9 @@ export const UserHome = ({ property }) => {
           </div>
         ) : (
           <div className="list-of-quizzes">
-            {quizList.map((quiz) => (
+            {availableQuizzes.map((quiz) => (
               <QuizCard
+                key={quiz.quizId}
                 quizId={quiz.quizId}
                 quizType={quiz.quizType}
                 quizName={quiz.quizName}
@@ -182,8 +182,8 @@ export const UserHome = ({ property }) => {
                 month={quiz.month}
                 day={quiz.day}
                 buttonContent="Register"
-                clickHandler={() => {
-                  registerHandler(quiz.quizId);
+                clickHandler={async () => {
+                  await registerHandler(quiz.quizId);
                 }}
               />
             ))}
