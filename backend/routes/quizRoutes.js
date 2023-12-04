@@ -2,6 +2,7 @@ const express = require("express");
 const {
   createQuiz,
   allQuizzes,
+  getQuizDetails,
   updateAllQuizStatus,
   deleteQuiz,
   terminateQuiz,
@@ -23,5 +24,6 @@ router.route("/terminate").put(terminateQuiz);
 router.route("/getqns").put(quizQuestions);
 router.route("/qnopns").put(getQnsandOptions);
 router.route("/activeqns").patch(activeQns);
+router.route("/details").put(getQuizDetails);
 
 module.exports = router;
