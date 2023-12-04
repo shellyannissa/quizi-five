@@ -129,7 +129,7 @@ const activeQns = asyncHandler(async (req, res) => {
 
     const client = await pool.connect();
     const query = `
-  SELECT questionId, description FROM "Question" WHERE quizId = $1 AND started = true;`;
+  SELECT questionId, description,allottedMin, allottedSec,endingInstant FROM "Question" WHERE quizId = $1 AND started = true;`;
 
     const activeQns = (await client.query(query, [quizId])).rows;
 
@@ -137,6 +137,9 @@ const activeQns = asyncHandler(async (req, res) => {
     for (const qn of activeQns) {
       const qnId = qn.questionid;
       const question = qn.description;
+      const allottedMin = qn.allottedmin;
+      const allottedSec = qn.allottedsec;
+      const endingInstant = qn.endinginstant;
       const correctOptionId = (
         await client.query(
           'SELECT correctOptionId FROM "Question" WHERE questionId = $1 ;',
@@ -150,6 +153,9 @@ const activeQns = asyncHandler(async (req, res) => {
         questionId: qnId,
         correctOptionId: correctOptionId,
         question: question,
+        allottedMin: allottedMin,
+        allottedSec: allottedSec,
+        endingInstant: endingInstant,
         options: options,
       });
     }
