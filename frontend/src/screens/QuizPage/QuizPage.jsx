@@ -14,15 +14,6 @@ var timerValues = QuestionList.map((question) => {
 });
 
 const QuizPage = () => {
-  // localStorage.clear();
-  // const StoredTimerValues = localStorage.getItem("timerValues");
-  // if (StoredTimerValues) {
-  //   timerValues = JSON.parse(StoredTimerValues);
-  //   console.log("from storage" + timerValues);
-  // }
-
-  // fetching quizdetails from backend
-
   const [quizDetails, setQuizDetails] = useState({});
 
   const getQuizDetails = async () => {
@@ -63,23 +54,24 @@ const QuizPage = () => {
       console.error("Error:", response.status, response.statusText);
     }
   };
+
   useEffect(() => {
     getQuizDetails();
     getQuestions();
   }, []);
 
-  useEffect(() => {
-    const handleBeforeUnload = () => {
-      localStorage.setItem("timerValues", JSON.stringify(timerValues));
-      console.log("from unload" + timerValues);
-    };
+  // useEffect(() => {
+  //   const handleBeforeUnload = () => {
+  //     localStorage.setItem("timerValues", JSON.stringify(timerValues));
+  //     console.log("from unload" + timerValues);
+  //   };
 
-    window.addEventListener("beforeunload", handleBeforeUnload);
+  //   window.addEventListener("beforeunload", handleBeforeUnload);
 
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener("beforeunload", handleBeforeUnload);
+  //   };
+  // }, []);
 
   const ENDPOINT = "http://localhost:8000";
   //! NOTE: this list is for rubens question card
@@ -111,7 +103,14 @@ const QuizPage = () => {
     });
   }, []);
 
-  // useEffect(() => {});
+  useEffect(() => {
+    socket.on("new activeQn", (newActiveQn) => {
+      console.log(questions);
+      console.log([...questions, newActiveQn]);
+      setQuestions([...questions, newActiveQn]);
+    });
+  });
+
   return (
     <div className="quiz-page">
       <QuizHero image={quizDetails.image} quizName={quizDetails.name} />
