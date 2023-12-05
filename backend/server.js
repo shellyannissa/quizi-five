@@ -55,10 +55,8 @@ io.on("connection", (socket) => {
   });
 
   socket.on("new question", (quizId, activeQn) => {
-    console.log("new question recieved on server");
-    console.log("quizID", quizId);
-    console.log("activeQn", activeQn);
-    // socket.to(quizId).emit('new question',activeQn);
+    console.log("message recived on server", quizId, activeQn);
+    socket.to(quizId).emit("new activeQn", activeQn);
   });
 
   socket.on("leave quiz", (room) => {

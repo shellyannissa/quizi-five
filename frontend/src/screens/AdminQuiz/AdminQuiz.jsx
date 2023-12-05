@@ -5,8 +5,10 @@ import { useParams } from "react-router-dom";
 import QuestionEditor from "../../components/QuestionEditor/QuestionEditor";
 const ENDPOINT = "http://localhost:8000";
 import io from "socket.io-client";
+import { Button } from "../../components/Button/Button";
+import CreateButton from "../../components/CreateButton/CreateButton";
 let socket;
-
+let stream = {};
 const AdminQuiz = () => {
   const [questions, setQuestions] = useState([]);
   const user = JSON.parse(localStorage.getItem("user"));
@@ -57,8 +59,15 @@ const AdminQuiz = () => {
   const sendQuestion = async (newQn, activeQn) => {
     setQuestions([...questions, newQn]);
     console.log(activeQn);
-    socket.emit("new question", quizId, activeQn);
+    stream[newQn.questionid] = activeQn;
   };
+
+  const sendActiveQuestion = async (questionId) => {
+    console.log(questionId);
+    console.log(stream[questionId]);
+    socket.emit("new question", quizId, stream[questionId]);
+  };
+
   return (
     <div className="quiz-page">
       <AdminHero
@@ -71,7 +80,11 @@ const AdminQuiz = () => {
         callBack={sendQuestion}
       />
       {questions.map((question, index) => (
-        <QuestionEditor question={question} qno={index + 1} />
+        <QuestionEditor
+          question={question}
+          qno={index + 1}
+          callBack={sendActiveQuestion}
+        />
       ))}
     </div>
   );

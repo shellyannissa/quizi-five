@@ -2,7 +2,7 @@ import React from "react";
 import "./QuestionEditor.css";
 import { Button } from "../Button/Button";
 
-const QuestionEditor = ({ question, qno }) => {
+const QuestionEditor = ({ question, qno, callBack }) => {
   const activateHandler = async (questionId) => {
     const body = {
       questionId,
@@ -15,6 +15,7 @@ const QuestionEditor = ({ question, qno }) => {
       },
     });
     if (response.ok) {
+      callBack(questionId);
     } else {
       console.error("Error:", response.status, response.statusText);
     }

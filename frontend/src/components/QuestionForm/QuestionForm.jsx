@@ -90,7 +90,7 @@ const QuestionForm = ({
     const weightage = document.getElementById("weightage").value | 10;
     const allottedMin = document.getElementById("minutes").value | 2;
     const allottedSec = document.getElementById("seconds").value | 0;
-    let questionId;
+    let questionId = "";
     const body = {
       description,
       quizId,
@@ -99,7 +99,7 @@ const QuestionForm = ({
       allottedSec,
     };
     const addedQn = {
-      questionid: "",
+      questionid: questionId,
       quizid: quizId,
       weightage: 10,
       description: description,
@@ -111,11 +111,12 @@ const QuestionForm = ({
       allottedsec: allottedSec,
     };
     const activeQn = {
-      questionId: "",
-      correctOpnId: "",
+      questionId: questionId,
+      correctOptionId: "",
       question: description,
-      opions: [],
+      options: [],
     };
+
     const response = await fetch("http://localhost:8000/api/ques/add", {
       method: "POST",
       headers: {
@@ -123,12 +124,15 @@ const QuestionForm = ({
       },
       body: JSON.stringify(body),
     });
+
     if (response.ok) {
       const data = await response.json();
       questionId = data.questionId;
+      console.log("questionId", questionId);
       addedQn["questionid"] = questionId;
       activeQn["questionId"] = questionId;
     } else {
+      console.log("response not ok");
       console.error("Error:", response.status, response.statusText);
     }
 
@@ -143,7 +147,6 @@ const QuestionForm = ({
         quizId,
       };
 
-      console.log(body);
       const response = await fetch("http://localhost:8000/api/option/add", {
         method: "POST",
         headers: {
@@ -158,7 +161,7 @@ const QuestionForm = ({
           optionId: optionId,
           description: description,
         };
-        activeQn["opions"].push(op);
+        activeQn["options"].push(op);
       } else {
         console.error("Error:", response.status, response.statusText);
       }
@@ -168,7 +171,7 @@ const QuestionForm = ({
           questionId,
           optionId,
         };
-        activeQn["correctOpnId"] = optionId;
+        activeQn["correctOptionId"] = optionId;
         console.log(body);
         const response = await fetch("http://localhost:8000/api/ques/crct", {
           method: "PUT",
