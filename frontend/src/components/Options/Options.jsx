@@ -1,32 +1,59 @@
 import React from "react";
-import { useState } from "react";
 import { Button } from "../Button/Button";
 import "./Options.css";
+import { useUser } from "../../context/UserContext";
 
-// function Options() {
 export const Options = ({
+  // quizId,
+  // questionId,
   options,
   timerComplete,
   clickedOption,
+  submitted,
   setClickedOption,
+  // isCorrect,
+  // setIsCorrect,
+  // correctOptionId,
+  handleClick,
 }) => {
   const optionId = ["A", "B", "C", "D", "E", "F", "G"];
 
   const clickHandler = (i) => {
-    if (timerComplete) {
+    if (timerComplete || submitted == true) {
       return;
     } else {
       setClickedOption(i + 1);
     }
   };
 
-  const handleClick = () => {
-    if (clickedOption == -1) {
-      return;
-    } else {
-      console.log("submitting answer");
-    }
-  };
+  const { user } = useUser();
+
+  // const handleClick = async () => {
+  //   if (clickedOption === -1 || timerComplete || submitted) {
+  //     console.log("cant submit");
+  //   } else {
+  //     await fetch("http://localhost:8000/api/ans/add", {
+  //       method: "POST",
+  //       body: JSON.stringify({
+  //         uid: user._id,
+  //         quizId: quizId,
+  //         questionId: questionId,
+  //         optionId: options[clickedOption - 1].optionid,
+  //       }),
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+  //     submitted = true;
+  //     console.log("submitted");
+  //     if (options[clickedOption - 1].optionid == correctOptionId) {
+  //       setIsCorrect(true);
+  //     } else {
+  //       setIsCorrect(false);
+  //     }
+  //     console.log("correct is " + isCorrect);
+  //   }
+  // };
 
   return (
     <div className="options-component">
@@ -34,7 +61,7 @@ export const Options = ({
         {options.map((option, i) => {
           return (
             <div
-              className={`answer ${clickedOption == i + 1 ? "checked" : null}`}
+              className={`answer ${clickedOption === i + 1 ? "checked" : null}`}
               key={i}
               onClick={() => clickHandler(i)}
             >
@@ -44,7 +71,7 @@ export const Options = ({
           );
         })}
       </div>
-      <Button text="Submit" onClick={handleClick} />
+      <Button text="Submit" clickHandler={handleClick} />
     </div>
   );
 };

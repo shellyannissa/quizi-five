@@ -8,11 +8,6 @@ import "./QuizPage.css";
 import { QuizHero } from "../../components/QuizHero/QuizHero";
 var socket;
 
-// creating a list of timer values
-var timerValues = QuestionList.map((question) => {
-  return question.time;
-});
-
 const QuizPage = () => {
   const [quizDetails, setQuizDetails] = useState({});
 
@@ -60,6 +55,16 @@ const QuizPage = () => {
     getQuestions();
   }, []);
 
+  // timer values pre-processing
+  var timerValues = questions.map((question) => {
+    // ending - current = time left
+    var endingInstant = new Date(question.endingInstant).getTime();
+    var currentInstant = new Date().getTime();
+    var difference = endingInstant - currentInstant;
+    console.log(difference / 1000);
+    return -difference / 100000;
+  });
+
   // useEffect(() => {
   //   const handleBeforeUnload = () => {
   //     localStorage.setItem("timerValues", JSON.stringify(timerValues));
@@ -74,6 +79,7 @@ const QuizPage = () => {
   // }, []);
 
   const ENDPOINT = "http://localhost:8000";
+
   //! NOTE: this list is for rubens question card
 
   const [searchTerm, setSearchTerm] = React.useState("");
@@ -116,15 +122,18 @@ const QuizPage = () => {
       <QuizHero image={quizDetails.image} quizName={quizDetails.name} />
       <div className="question-list">
         {questions.map((question, index) => {
-          return (
-            <FlippingCard
-              key={index}
-              question={question}
-              timerValues={timerValues}
-              index={index}
-              // percentages={[0.2, 0.3, 0.4, 0.1]}
-            />
-          );
+          if (timerValues[index] >= 0) {
+            return (
+              <FlippingCard
+                quizId={quizId}
+                key={index}
+                question={question}
+                timerValues={timerValues}
+                index={index}
+                // percentages={[0.2, 0.3, 0.4, 0.1]}
+              />
+            );
+          }
         })}
       </div>
     </div>
