@@ -8,11 +8,6 @@ import "./QuizPage.css";
 import { QuizHero } from "../../components/QuizHero/QuizHero";
 var socket;
 
-// creating a list of timer values
-var timerValues = QuestionList.map((question) => {
-  return question.time;
-});
-
 const QuizPage = () => {
   // localStorage.clear();
   // const StoredTimerValues = localStorage.getItem("timerValues");
@@ -67,6 +62,16 @@ const QuizPage = () => {
     getQuizDetails();
     getQuestions();
   }, []);
+
+  // timer values pre-processing
+  var timerValues = questions.map((question) => {
+    // ending - current = time left
+    var endingInstant = new Date(question.endingInstant).getTime();
+    var currentInstant = new Date().getTime();
+    var difference = endingInstant - currentInstant;
+    console.log(difference / 1000);
+    return -difference / 100000;
+  });
 
   // useEffect(() => {
   //   const handleBeforeUnload = () => {
