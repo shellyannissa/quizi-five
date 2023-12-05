@@ -12,16 +12,12 @@
   "dependencies": {
     "@ant-design/react-slick": "^1.0.2",
     "chart.js": "^4.4.0",
-    "chartjs-plugin-datalabels": "^2.2.0",
     "react": "^18.2.0",
     "react-card-flip": "^1.2.2",
     "react-chartjs-2": "^5.2.0",
     "react-countdown-circle-timer": "^3.2.1",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.18.0",
-    "react-slick": "^0.29.0",
-    "save": "^2.9.0",
-    "slick-carousel": "^1.8.1",
     "socket.io-client": "^4.7.2"
   },
   "devDependencies": {
