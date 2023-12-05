@@ -67,7 +67,7 @@ export const QSlider = ({ quizId, index, question, timerValues }) => {
 
   return (
     <div className="app_container">
-      {!timerComplete && (
+      {timerComplete === false ? (
         <div className="question-active">
           <div className="timer">
             <Timer
@@ -95,8 +95,9 @@ export const QSlider = ({ quizId, index, question, timerValues }) => {
             />
           </div>
         </div>
+      ) : (
+        timerComplete === true && <Correct correct={isCorrect} />
       )}
-      {timerComplete && <Correct correct={isCorrect} />}
     </div>
   );
 };
