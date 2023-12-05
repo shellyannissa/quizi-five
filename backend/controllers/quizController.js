@@ -76,7 +76,7 @@ const createQuiz = asyncHandler(async (req, res) => {
     client.release();
     console.log(newQuiz);
     if (newQuiz.rows.length > 0) {
-      return res.status(201).json({
+      return res.send({
         quizId: newQuiz.rows[0].quizid,
       });
     } else {
