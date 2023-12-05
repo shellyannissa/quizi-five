@@ -74,7 +74,7 @@ const createQuiz = asyncHandler(async (req, res) => {
       adminId,
     ]);
     client.release();
-    console.log(newQuiz);
+
     if (newQuiz.rows.length > 0) {
       return res.send({
         quizId: newQuiz.rows[0].quizid,
@@ -193,7 +193,7 @@ const allQuizzes = asyncHandler(async (req, res) => {
         time: `${hours12}:${minutes} ${ampm}`,
         month: month,
         day: day,
-        buttonContent: "Register",
+        description: quiz.description,
       };
     };
 

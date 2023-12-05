@@ -51,14 +51,13 @@ export const AdminHero = ({
         <div className="hero-right">
           <img src={image} alt="poster" />
         </div>
-        {!isQuestion && (
+        {!isQuestion ? (
           <QuizForm
             heading="Enter quiz details"
             trigger={trigger}
             triggerHandler={triggerHandler}
           />
-        )}
-        {isQuestion && (
+        ) : (
           <QuestionForm
             heading="Enter question details"
             trigger={trigger}
