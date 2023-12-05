@@ -9,15 +9,6 @@ import { QuizHero } from "../../components/QuizHero/QuizHero";
 var socket;
 
 const QuizPage = () => {
-  // localStorage.clear();
-  // const StoredTimerValues = localStorage.getItem("timerValues");
-  // if (StoredTimerValues) {
-  //   timerValues = JSON.parse(StoredTimerValues);
-  //   console.log("from storage" + timerValues);
-  // }
-
-  // fetching quizdetails from backend
-
   const [quizDetails, setQuizDetails] = useState({});
 
   const getQuizDetails = async () => {
@@ -58,6 +49,7 @@ const QuizPage = () => {
       console.error("Error:", response.status, response.statusText);
     }
   };
+
   useEffect(() => {
     getQuizDetails();
     getQuestions();
@@ -117,7 +109,14 @@ const QuizPage = () => {
     });
   }, []);
 
-  // useEffect(() => {});
+  useEffect(() => {
+    socket.on("new activeQn", (newActiveQn) => {
+      console.log(questions);
+      console.log([...questions, newActiveQn]);
+      setQuestions([...questions, newActiveQn]);
+    });
+  });
+
   return (
     <div className="quiz-page">
       <QuizHero image={quizDetails.image} quizName={quizDetails.name} />
