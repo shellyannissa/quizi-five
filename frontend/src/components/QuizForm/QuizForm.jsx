@@ -1,8 +1,10 @@
 import React from "react";
 import { Button } from "../Button/Button";
 import { TextInputBar } from "../TextInputBar/TextInputBar";
-import "./QuizForm.css";
 import { useUser } from "../../context/UserContext";
+import { storage } from "../../../shared/firebase_config";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import "./QuizForm.css";
 
 const QuizForm = ({
   heading,
@@ -10,13 +12,40 @@ const QuizForm = ({
   quizName,
   quizType,
   quizDate,
-  quizTime,
+  quizTimeInput,
   quizId,
   trigger,
   triggerHandler,
 }) => {
   const popUpRef = React.useRef(null);
   const { user } = useUser();
+
+  // quiz date preprocessing for changing the format to yyyy-mm-dd
+  if (quizDate) {
+    console.log(quizDate);
+    // split the quizDate into date, month and year and append 0 id date is single digit
+    const dummyDate = quizDate.split("/");
+    if (dummyDate[0].length === 1) {
+      dummyDate[0] = "0" + dummyDate[0];
+    }
+    if (dummyDate[1].length === 1) {
+      dummyDate[1] = "0" + dummyDate[1];
+    }
+
+    quizDate = dummyDate[2] + "-" + dummyDate[0] + "-" + dummyDate[1];
+  }
+
+  // preprocessing the time input
+  if (quizTimeInput) {
+    const dummyTime = quizTimeInput.split(":");
+    if (dummyTime[0].length === 1) {
+      dummyTime[0] = "0" + dummyTime[0];
+    }
+    if (dummyTime[1].length === 1) {
+      dummyTime[1] = "0" + dummyTime[1];
+    }
+    quizTimeInput = dummyTime[0] + ":" + dummyTime[1];
+  }
 
   React.useEffect(() => {
     const handleClickOutside = (event) => {
@@ -47,24 +76,95 @@ const QuizForm = ({
       reader.readAsDataURL(selectedImage);
     }
   };
+
+  // for uploading images to firebase storage
+  const uploadImage = async (image, id) => {
+    console.log("uploading image");
+    console.log(id);
+
+    const storageRef = ref(storage, `quizImages/${id}`);
+    let imageLink = "";
+
+    await uploadBytes(storageRef, image).then(async (snapshot) => {
+      // getting the image url
+      imageLink = await getDownloadURL(snapshot.ref);
+      console.log("Uploaded a blob or file!", imageLink);
+    });
+
+    return imageLink;
+  };
+
+  // handling the form submission invalid cases
+  const notValid = (imageSelected, name, description, quizDate, quizTime) => {
+    if (!imageSelected && !image) {
+      alert("Please select an image");
+      return true;
+    }
+    if (name === "") {
+      alert("Please enter a quiz name");
+      return true;
+    }
+    if (description === "") {
+      alert("Please enter a quiz description");
+      return true;
+    }
+    if (quizDate === "") {
+      alert("Please enter a quiz date");
+      return true;
+    }
+    if (quizTime === "") {
+      alert("Please enter a quiz time");
+      return true;
+    }
+    if (quizTime.length !== 5) {
+      alert("Please enter a valid time in HH:MM format");
+      return true;
+    }
+    if (quizTime[2] !== ":") {
+      alert("Please enter a valid time in HH:MM format");
+      return true;
+    }
+    if (quizTime[0] > 2) {
+      alert("Please enter a valid time in HH:MM format");
+      return true;
+    }
+    if (quizTime[0] === 2 && quizTime[1] > 3) {
+      alert("Please enter a valid time in HH:MM format");
+      return true;
+    }
+    if (quizTime[3] > 5) {
+      alert("Please enter a valid time in HH:MM format");
+      return true;
+    }
+    return false;
+  };
+
   const handleCreateQuiz = async () => {
     const name = document.getElementById("quiz-name").value;
     const description = document.getElementById("quiz-type").value;
     const quizDate = document.getElementById("quiz-date").value;
     const quizTime = document.getElementById("quiz-time").value;
     const eventTime = quizDate + " " + quizTime;
-    // const image = document.getElementById("preview-image").src;
-    const image =
-      "https://media.istockphoto.com/id/1346235765/vector/comic-speech-bubbles-with-text-quiz-neon-icon-vintage-cartoon-illustration-symbol-sticker.jpg?s=612x612&w=0&k=20&c=xA79hbHPU1DGyR3YrILh2Q_b_-JJnxHaDNNpPM3Tbhc=";
 
+    // get the image file
+    const image = document.getElementById("file-input").files[0];
+
+    if (notValid(image, name, description, quizDate, quizTime)) {
+      console.log("not valid");
+      return;
+    }
+
+    const imageFake =
+      "https://ischoolconnect.com/blog/wp-content/uploads/2021/12/What-are-some-science-quiz-questions-770x513.jpg";
+
+    // first we are uploading a fake image
     const body = {
       name,
       description,
-      image,
+      image: imageFake,
       eventTime,
-      adminId: "5d0880f8-9700-4f9b-8be4-94129bcc1b19",
+      adminId: "5d0880f8-9700-4f9b-8be4-94129bcc1b19", //! Note: this is hardcoded for now
     };
-    triggerHandler(false);
 
     const registeredResponse = await fetch(
       "http://localhost:8000/api/quiz/create",
@@ -76,6 +176,36 @@ const QuizForm = ({
         },
       }
     );
+    // popping out the form
+    triggerHandler(false);
+
+    if (registeredResponse.ok) {
+      const createdQuizId = await registeredResponse.json();
+      console.log(createdQuizId);
+
+      // then we are uploading the actual image to firebase storage and getting the imageUrl
+      const imageLink = await uploadImage(image, createdQuizId.quizId);
+
+      console.log("image link for updation " + imageLink);
+      const body = {
+        name,
+        description,
+        image: imageLink,
+        eventTime,
+        quizId: createdQuizId.quizId,
+      };
+
+      const updatedResponse = await fetch(
+        "http://localhost:8000/api/quiz/edit",
+        {
+          method: "PUT",
+          body: JSON.stringify(body),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+    }
   };
 
   const handleEditQuiz = async () => {
@@ -84,18 +214,24 @@ const QuizForm = ({
     const quizDate = document.getElementById("quiz-date").value;
     const quizTime = document.getElementById("quiz-time").value;
     const eventTime = quizDate + " " + quizTime;
-    // const image = document.getElementById("preview-image").src;
-    const image =
-      "https://ischoolconnect.com/blog/wp-content/uploads/2021/12/What-are-some-science-quiz-questions-770x513.jpg";
+    // get the image file
+    const image = document.getElementById("file-input").files[0];
+
+    if (notValid(image, name, description, quizDate, quizTime)) {
+      console.log("not valid");
+      return;
+    }
+
+    // uploading the image to firebase storage
+    const imageLink = await uploadImage(image, quizId);
 
     const body = {
       name,
       description,
-      image,
+      image: imageLink,
       eventTime,
       quizId: quizId,
     };
-    console.log(body);
     triggerHandler(false);
 
     const registeredResponse = await fetch(
@@ -111,6 +247,7 @@ const QuizForm = ({
   };
 
   const currDate = new Date();
+
   return trigger ? (
     <div className="popup">
       <div className="quiz-form" ref={popUpRef}>
@@ -149,30 +286,24 @@ const QuizForm = ({
           <TextInputBar
             id="quiz-name"
             placeholder="Quiz Name"
-            defautlValue={quizName}
+            defaultValue={quizName}
           />
           <TextInputBar
             id="quiz-type"
             placeholder="Quiz Description"
-            defautlValue={quizType}
+            defaultValue={quizType}
           />
           <TextInputBar
             id="quiz-date"
             placeholder="Date of quiz"
             inputType="date"
-            defautlValue={quizDate}
+            defaultValue={quizDate && quizDate.replaceAll("/", "-")}
           />
           <TextInputBar
             id="quiz-time"
-            placeholder="HH:MM:SS"
-            inputType=""
-            defautlValue={
-              currDate.getHours() +
-              ":" +
-              currDate.getMinutes() +
-              ":" +
-              currDate.getSeconds()
-            }
+            placeholder="HH:MM"
+            inputType="text"
+            defaultValue={quizTimeInput ? quizTimeInput : ""}
           />
         </div>
         <Button

@@ -10,9 +10,11 @@ export const QuizCard = ({
   quizType,
   quizName,
   image,
+  quizDate,
   month,
   day,
   time,
+  timeInput,
   buttonContent,
   clickHandler,
 }) => {
@@ -84,9 +86,10 @@ export const QuizCard = ({
           image={image}
           quizId={quizId}
           quizName={quizName}
+          quizDate={quizDate}
           quizType={quizType}
-          quizDate={month}
-          quizTime={time}
+          quizMonth={month}
+          quizTimeInput={timeInput}
         />
       )}
     </div>

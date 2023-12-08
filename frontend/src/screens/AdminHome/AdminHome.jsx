@@ -100,25 +100,27 @@ export const AdminHome = () => {
       />
       <div className={`quiz-list`}>
         <div className="list-of-quizzes">
-          {quizList.map((quiz) => (
-            <div>
+          {quizList.map((quiz, index) => (
+            <div key={index}>
               {/* <Button text="EDIT" clickHandler={() => goToQuiz(quiz.quizId)} /> */}
               <Button
-                  text="Begin"
-                  clickHandler={() => {
-                    console.log("quizId", quiz.quizId);
-                    goToQuiz(quiz.quizId);
-                  }}
-                />
+                text="Begin"
+                clickHandler={() => {
+                  console.log("quizId", quiz.quizId);
+                  goToQuiz(quiz.quizId);
+                }}
+              />
               <QuizCard
                 quizId={quiz.quizId}
                 key={quiz.quizName}
                 quizName={quiz.quizName}
+                quizType={quiz.description}
                 image={quiz.image}
+                quizDate={quiz.date}
                 time={quiz.time}
+                timeInput={quiz.timeInput}
                 month={quiz.month}
                 day={quiz.day}
-                // clickHandler={() => deleteQuiz(quiz.quizId)}
                 buttonContent="Edit"
               />
             </div>

@@ -160,7 +160,10 @@ const adminQuizzes = asyncHandler(async (req, res) => {
     const formatQuizEntry = (quiz) => {
       const datetime = new Date(quiz.eventtime);
       const hours = datetime.getHours();
-      const minutes = datetime.getMinutes();
+      // get minutes with leading zeros
+      const minutes = ("0" + datetime.getMinutes()).slice(-2);
+      // get date in mm/dd/yyyy format
+      const date = datetime.toLocaleDateString("en-US");
       const ampm = hours >= 12 ? "PM" : "AM";
       const hours12 = hours % 12 || 12;
       const month = datetime
@@ -172,10 +175,12 @@ const adminQuizzes = asyncHandler(async (req, res) => {
         quizId: quiz.quizid,
         quizName: quiz.name,
         image: quiz.image,
+        date: date,
         time: `${hours12}:${minutes} ${ampm}`,
+        timeInput: `${hours}:${minutes}`,
         month: month,
         day: day,
-        buttonContent: "Register",
+        description: quiz.description,
       };
     };
 
