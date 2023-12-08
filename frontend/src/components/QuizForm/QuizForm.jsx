@@ -55,7 +55,7 @@ const QuizForm = ({
     const eventTime = quizDate + " " + quizTime;
     // const image = document.getElementById("preview-image").src;
     const image =
-      "https://ischoolconnect.com/blog/wp-content/uploads/2021/12/What-are-some-science-quiz-questions-770x513.jpg";
+      "https://media.istockphoto.com/id/1346235765/vector/comic-speech-bubbles-with-text-quiz-neon-icon-vintage-cartoon-illustration-symbol-sticker.jpg?s=612x612&w=0&k=20&c=xA79hbHPU1DGyR3YrILh2Q_b_-JJnxHaDNNpPM3Tbhc=";
 
     const body = {
       name,
