@@ -7,6 +7,9 @@ import { useNavigate } from "react-router-dom";
 import "./AdminHome.css";
 import { useUser } from "../../context/UserContext";
 import { Button } from "../../components/Button/Button";
+import { db } from "../../../shared/firebase_config";
+
+import { ref, set, get, push, onValue } from "firebase/database";
 
 export const AdminHome = () => {
   const { user, setUser } = useUser();
@@ -14,28 +17,28 @@ export const AdminHome = () => {
 
   const navigate = useNavigate();
 
+  //* realtime firebase function
   const getAllQuizzes = async () => {
-    const availableResponse = await fetch(
-      "http://localhost:8000/api/admin/quizzes",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
+    const quizRef = ref(db, "quiz");
+    onValue(quizRef, (snapshot) => {
+      if (snapshot.exists()) {
+        const quizzes = [];
+        snapshot.forEach((childSnapshot) => {
+          const quiz = childSnapshot.val();
+          quiz.quizId = childSnapshot.key;
+          quizzes.push(quiz);
+        });
+        setQuizList(quizzes);
+      } else {
+        console.log("No data available");
       }
-    );
-    setCreated(await availableResponse.json());
-    setQuizList(created);
+    });
   };
   console.log(created);
 
   useEffect(() => {
     getAllQuizzes();
   }, []);
-
-  useEffect(() => {
-    setQuizList(created);
-  }, [created]);
 
   const [quizList, setQuizList] = useState(created);
 

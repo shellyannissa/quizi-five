@@ -4,6 +4,7 @@ import { Date } from "../Date/Date";
 import QuizForm from "../QuizForm/QuizForm";
 import { useNavigate } from "react-router-dom";
 import "./QuizCard.css";
+import { deleteQuiz } from "../../../../backend/controllers/firebaseController";
 
 export const QuizCard = ({
   quizId,
@@ -30,18 +31,6 @@ export const QuizCard = ({
   const routeToQuizPage = () => {
     navigate(`/quizpage/${quizId}`);
   };
-  const deleteQuiz = async (quizId) => {
-    const registeredResponse = await fetch(
-      "http://localhost:8000/api/quiz/delete",
-      {
-        method: "DELETE",
-        body: JSON.stringify({ quizId: quizId }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-  };
 
   return (
     <div className="quiz-card">
@@ -60,7 +49,9 @@ export const QuizCard = ({
           <div className="time">{time}</div>
           {buttonContent == "Edit" && (
             <img
-              onClick={() => deleteQuiz(quizId)}
+              onClick={() => {
+                deleteQuiz(quizId);
+              }}
               src="../../assets/icons/delete.png"
             ></img>
           )}

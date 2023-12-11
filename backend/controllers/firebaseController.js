@@ -1,15 +1,75 @@
-// import { db } from "../database/firebase";
+import { db } from "../../frontend/shared/firebase_config";
 
-// import { ref, set, push } from "firebase/database";
+import { ref, set, get, push, onValue } from "firebase/database";
 
-// const createUser = async () => {
-//   const userRef = ref(db, "users");
-//   const newRef = push(userRef);
-//   set(newRef, {
-//     userName: "you-know-who",
-//     avatar:
-//       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9UdkG68P9AHESMfKJ-2Ybi9pfnqX1tqx3wQ&usqp=CAU",
-//   });
-// };
+const createUser = async (userName, avatar) => {
+  const userRef = ref(db, "user");
+  const newRef = push(userRef);
+  const userId = newRef.key;
+  if (avatar === undefined) {
+    avatar = "";
+  }
+  set(newRef, {
+    userName,
+    avatar,
+  });
+  const quizRef = ref(db, "quiz");
+  const snapshot = await get(quizRef);
+  if (snapshot.exists()) {
+    snapshot.forEach((childSnapshot) => {
+      const quizId = childSnapshot.key;
+      const regRef = ref(db, `reg/${quizId}`);
+      const newRegRef = push(regRef);
+      const regId = newRegRef.key;
+      set(newRegRef, {
+        userId,
+        points: 0,
+        position: 0,
+      });
+    });
+  } else {
+    console.log("No quizzes to register");
+  }
+  return userId;
+};
 
-// export { createUser };
+const createQuiz = async (quizName, image) => {
+  const quizRef = ref(db, "quiz");
+  const newRef = push(quizRef);
+  const quizId = newRef.key;
+  set(newRef, {
+    quizName,
+    image,
+    status: "upcoming",
+  });
+
+  const userRef = ref(db, "user");
+  const snapshot = await get(userRef);
+  if (snapshot.exists()) {
+    snapshot.forEach((childSnapshot) => {
+      const userId = childSnapshot.key;
+      const regRef = ref(db, `reg/${quizId}`);
+      const newRegRef = push(regRef);
+      const regId = newRegRef.key;
+      set(newRegRef, {
+        userId,
+        points: 0,
+        position: 0,
+      });
+    });
+  } else {
+    console.log("No users to register");
+  }
+  // for each entry user in db/user
+  //   create entry in db/reg/quizId (uid,points = 0, position)
+
+  return quizId;
+};
+const deleteQuiz = async (quizId) => {
+  const quizRef = ref(db, `quiz/${quizId}`);
+  set(quizRef, null);
+  const regRef = ref(db, `reg/${quizId}`);
+  set(regRef, null);
+  return quizId;
+};
+export { createUser, createQuiz, deleteQuiz };
