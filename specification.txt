@@ -1,0 +1,80 @@
+Robowars
+
+Admin side
+
+An on display bar that indicates what is on display to the user
+
+Each question card
+
+The sequence of events 
+Activate -> mark correct option -> Evaluate -> display leaderboard
+
+Activate Button
+- Functional only if there are currently no active questions(sent error message otherwise)
+- The question would then be displayed to all users who has joined the corresponding room
+- The question would also be on display at the admin side to avoid confusion
+- The timer would also be running on both the user and admin side
+- Once timer runs out the question has to be removed from the “on display”
+- The question card corresponding to this question has the button that allows to mark the correct option (would have been available ever since creation would disappear only after the evaluate is pressed)
+- Once timer runs out the button should be replaced with the evaluate button
+
+Mark Correct Option Button
+- Is available ever since creation of question 
+- Once it has been marked button changes to edit correct option 
+- The correct option chosen has to be highlighted at the on display screen at admin side
+- !!! Can mark correct option even after termination of question
+- Should become inaccessible once evaluate is pressed
+- The function for marking and updating correct options is same internally( update operation in database) but frontend logic must ensure that it has been updated at least once. Once the correct option is marked the button content could be changed to “update” also could enable the evaluate functionality from now ( the timer has also got to terminate)
+
+Evaluate Button
+-  on pressing should ensure that the question has terminated and correct option has been marked before invoking the api.
+- On receiving the success message from api response, the button should be replaced with display leaderboard.
+
+Display Leaderboard Button
+- Should be allowed only if there are no active questions.
+- Should perform an api call that returns the marks of current top ten contenders. Should fetch the marks and id of the new top then position holders. Pass these values to each user via a socket and build the leaderboard component. 
+- Should display the shifting leaderboard component “on display”
+- Maybe create a variable for indicating the status of animation animationGoingOn which on setting to true prevents from activating other questions. 
+- The marks of the top ten contenders currently on display is fetched. The animation for distributing marks of the past top placeholders, where the tile length extends rightwards in respect to the marks obtained( same as in mentiquiz) is done. The reshuffling is done( haven’t figured out the specifics of this part 
+
+Leaderboard Component
+- Must be provided data of the format the (id, marks) of past top ten contenders and (id, marks) of the top ten contenders.
+- in the same menti quiz fashion. The length of tile decreases all the way to the left and then extend rightwards proportionate to the new marks. (maybe should find the maximum of the marks obtained, give it maximum extension and specify the length of other tiles with respect to this )
+!! haven't figured out exactly how the shifting of tiles. my guess:-
+- find a mapping with the ids of the past and new standings. It is possible that ids that are present in old top 10 would be missing in the new top 10 and vice versa.
+
+
+
+User side
+
+On pressing the event card will be navigated to corresponding quiz page
+- Also join the corresponding room on navigating to that page
+
+
+Thing on display alternates between two components 
+- A component which contains a question card and also a timer(cool animation sand clock or something else)
+- A static leaderboard (perhaps setup a variable that controls what has to be displayed , toggled each time question arrives and timer ends or if user marks answer)
+
+
+
+
+firebase config
+npm install firebase
+
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyCY7v8bHzt6qvcZzp2g0hAeR-XJf0RejZg",
+  authDomain: "chat-app-4d401.firebaseapp.com",
+  projectId: "chat-app-4d401",
+  storageBucket: "chat-app-4d401.appspot.com",
+  messagingSenderId: "208186499870",
+  appId: "1:208186499870:web:dfa85d667aa0cdcae6df0f"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
