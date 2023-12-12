@@ -93,12 +93,7 @@ export const FlippingCard = ({ quizId, index, question, timerValues }) => {
 
   return (
     <div className="flipcard-container">
-      <QSlider
-        quizId={quizId}
-        index={index}
-        question={question}
-        timerValues={timerValues}
-      />
+      <QSlider quizId={quizId} index={index} question={question} />
       {/* <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
         <div className="front" onClick={flipCard}>
           <QSlider time={10} clickedOption={clickedOption} />

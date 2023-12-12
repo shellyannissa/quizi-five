@@ -70,19 +70,19 @@ export const QSlider = ({ quizId, index, question, timerValues }) => {
       {timerComplete === false ? (
         <div className="question-active">
           <div className="timer">
-            <Timer
+            {/* <Timer
               timerValues={timerValues}
               index={index}
               onTimerComplete={handleTimerComplete}
-            />
+            /> */}
           </div>
           <div className="question-sam">
-            <span id="question-txt">{question.question}</span>
+            <span id="question-txt">{question.description}</span>
           </div>
           <div className="options-sam">
             <Options
               // quizId={quizId}
-              // questionId={question.questionId}
+              qnId={question.qnId}
               submitted={submitted}
               options={question.options}
               timerComplete={timerComplete}

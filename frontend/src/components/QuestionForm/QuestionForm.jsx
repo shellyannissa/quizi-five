@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import "./QuestionForm.css";
 import { TextInputBar } from "../TextInputBar/TextInputBar";
 import { Button } from "../Button/Button";
+import { addQuestion } from "../../../../backend/controllers/firebaseController";
 
 let optionDscs = {
   A: "",
@@ -86,7 +87,39 @@ const QuestionForm = ({
     checkedRadioRef.current = optionName;
   };
 
-  const handleCreateQn = async () => {
+  const handleCreateQn = async (quizId) => {
+    const weightage = document.getElementById("weightage").value | 10;
+    const allottedMin = document.getElementById("minutes").value | 2;
+    const allottedSec = document.getElementById("seconds").value | 0;
+    let ops = [];
+
+    for (let i = 0; i < options.length; i++) {
+      ops.push({
+        idx: i,
+        text: optionDscs[optionNames[i]],
+      });
+    }
+    const endingInstant = null;
+    const correctOpnIdx = 0;
+
+    const body = {
+      quizId,
+      description,
+      weightage,
+      allottedMin,
+      allottedSec,
+      options: ops,
+      endingInstant,
+      correctOpnIdx,
+    };
+    const qnId = addQuestion(body);
+    setOptionCount(2);
+    setDescription("");
+    setOptions(defaultOptions);
+    triggerHandler(false);
+  };
+
+  const handleCreateQn2 = async () => {
     const weightage = document.getElementById("weightage").value | 10;
     const allottedMin = document.getElementById("minutes").value | 2;
     const allottedSec = document.getElementById("seconds").value | 0;
@@ -253,7 +286,14 @@ const QuestionForm = ({
         </div>
         <Button
           text={"Submit"}
-          clickHandler={questionId ? handleEditQn : handleCreateQn}
+          clickHandler={
+            questionId
+              ? handleEditQn
+              : () => {
+                  console.log(quizId);
+                  handleCreateQn(quizId);
+                }
+          }
         />
       </div>
     </div>

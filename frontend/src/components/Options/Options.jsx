@@ -2,10 +2,11 @@ import React from "react";
 import { Button } from "../Button/Button";
 import "./Options.css";
 import { useUser } from "../../context/UserContext";
+import { addAnswer } from "../../../../backend/controllers/firebaseController";
 
 export const Options = ({
   // quizId,
-  // questionId,
+  qnId,
   options,
   timerComplete,
   clickedOption,
@@ -17,15 +18,14 @@ export const Options = ({
   handleClick,
 }) => {
   const optionId = ["A", "B", "C", "D", "E", "F", "G"];
-
   const clickHandler = (i) => {
-    if (timerComplete || submitted == true) {
-      return;
-    } else {
-      setClickedOption(i + 1);
-    }
+    const idx = options[i].idx;
+    const answeredInstant = new Date().toISOString();
+    const uId = "-NlNlSy8pSS5U37eoLrN";
+    addAnswer(qnId, idx, uId, answeredInstant);
+    // setDisplay(false);
   };
-
+  const [display, setDisplay] = React.useState(true);
   const { user } = useUser();
 
   // const handleClick = async () => {
@@ -55,7 +55,7 @@ export const Options = ({
   //   }
   // };
 
-  return (
+  return display ? (
     <div className="options-component">
       <div className="option-container">
         {options.map((option, i) => {
@@ -66,14 +66,14 @@ export const Options = ({
               onClick={() => clickHandler(i)}
             >
               <div className="answer-letter">{optionId[i]}</div>
-              <div className="answer-text">{option.description}</div>
+              <div className="answer-text">{option.text}</div>
             </div>
           );
         })}
       </div>
       <Button text="Submit" clickHandler={handleClick} />
     </div>
-  );
+  ) : null;
 };
 
 export default Options;

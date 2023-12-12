@@ -99,3 +99,62 @@ for entry in leaderboard
     uids.push(entry.uid);
     temp = {}
     
+
+
+
+leaderboard has to be built initially with data of this format
+INPUT: an array of ten objects,
+
+userName, avatar and points have to be displayed at the leaderboard, position is currently unimportant.
+this data has to be stored locally, will be used when building the shifting tiles animation.
+at the user side when the component is built must check if the uId is same as the current userId, then the corresponding tile has to be highlighted
+[
+    {
+        userName:"Dhwani",
+        uId:"N8yh1y3834-1hifa",
+        avatar:"imagelink",
+        points:1020,
+        position:8
+    },
+    {...},
+    ....
+    {...}
+]
+
+when the extend animation is triggered from database, data of this format is sent
+INPUT: an array of objects
+it contains the new points of the people who held the top position before, thus to display the animation of points extending rightwards, each tile has to extend as per the new points now recieved
+
+[
+    {
+        uId:"N8538975orf-84",
+        userName:"Dhwani",
+        points:1090
+    },
+    ...
+    {...}
+]
+
+
+Once this animation is done leaderboard has to be rebuilt with the info about new top position holders
+
+INPUT: an array of objects
+
+[
+    {
+        userName:"Dhwani",
+        uId:"N8yh1y3834-1hifa",
+        avatar:"imagelink",
+        points:1020,
+        position:8
+    },
+    {...},
+    ....
+    {...}
+]
+
+with the stored info about the previous top ten position holders, the shifting tile animation has to be done. Where tiles are made of previous top position holders, these tiles should shift and fall in place to form
+new leaderboard which if built on the input now recieved , current top position holders.
+
+
+note:if it is preferrable, forget about storing the data locally, both the arrays could be sent directly from backend.

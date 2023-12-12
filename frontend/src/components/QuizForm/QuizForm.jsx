@@ -5,7 +5,11 @@ import { useUser } from "../../context/UserContext";
 // import { storage } from "../../../shared/firebase_config";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import "./QuizForm.css";
-import { createQuiz } from "../../../../backend/controllers/firebaseController";
+import {
+  createQuiz,
+  editQuiz,
+  editStatus,
+} from "../../../../backend/controllers/firebaseController";
 
 const QuizForm = ({
   heading,
@@ -312,7 +316,13 @@ const QuizForm = ({
           text="SUBMIT"
           clickHandler={
             quizId
-              ? handleEditQuiz
+              ? () => {
+                  const quizName = document.getElementById("quiz-name").value;
+                  // const quizImage = document.getElementById("file-input").files[0];
+                  const image =
+                    "https://thumbs.dreamstime.com/b/quiz-time-concept-speech-bubble-pencil-yellow-background-quiz-time-concept-speech-bubble-pencil-yellow-background-223092987.jpg";
+                  editQuiz(quizId, quizName, image);
+                }
               : () => {
                   const quizName = document.getElementById("quiz-name").value;
                   createQuiz(

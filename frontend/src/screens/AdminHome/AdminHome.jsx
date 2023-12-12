@@ -9,7 +9,7 @@ import { useUser } from "../../context/UserContext";
 import { Button } from "../../components/Button/Button";
 import { db } from "../../../shared/firebase_config";
 
-import { ref, set, get, push, onValue } from "firebase/database";
+import { ref, onValue } from "firebase/database";
 
 export const AdminHome = () => {
   const { user, setUser } = useUser();
