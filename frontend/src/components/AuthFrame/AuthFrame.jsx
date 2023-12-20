@@ -92,8 +92,9 @@ export const AuthFrame = ({ property }) => {
       <Button
         clickHandler={(e) => {
           const email = document.getElementById("email-id").value;
-          createUser(email).then((userId) => {
-            console.log(userId);
+          createUser(email).then((data) => {
+            console.log(data);
+            setUser(data);
           });
         }}
         text="SUBMIT"

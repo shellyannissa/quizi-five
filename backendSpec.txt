@@ -158,3 +158,7 @@ new leaderboard which if built on the input now recieved , current top position 
 
 
 note:if it is preferrable, forget about storing the data locally, both the arrays could be sent directly from backend.
+
+
+
+Static leaderboard returns data of the format

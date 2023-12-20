@@ -136,6 +136,12 @@ const addQuestion = async (question) => {
   return questionId;
 };
 
+const editQuestion = async (qnId, question) => {
+  const questionRef = ref(db, `ques/${qnId}`);
+  update(questionRef, question);
+  return qnId;
+};
+
 const markCrctOpn = async (qnId, idx) => {
   const questionRef = ref(db, `ques/${qnId}`);
   const updates = {
@@ -368,4 +374,5 @@ export {
   evaluate,
   getLeaderBoard,
   extendPoints,
+  editQuestion,
 };

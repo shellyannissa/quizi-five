@@ -21,7 +21,8 @@ export const Options = ({
   const clickHandler = (i) => {
     const idx = options[i].idx;
     const answeredInstant = new Date().toISOString();
-    const uId = "-NlNlSy8pSS5U37eoLrN";
+    const uId = user.userId;
+
     addAnswer(qnId, idx, uId, answeredInstant);
     // setDisplay(false);
   };
