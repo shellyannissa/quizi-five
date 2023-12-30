@@ -44,9 +44,9 @@
   display: none;
 }
 
-html {
-  width: 100vw;
-  min-height: 100vh;
+* {
+  margin: 0;
+  padding: 0;
 }
 
 body {
@@ -69,12 +69,4 @@ body {
   border-radius: 10px;
   height: 400px;
   width: 400px;
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
 }

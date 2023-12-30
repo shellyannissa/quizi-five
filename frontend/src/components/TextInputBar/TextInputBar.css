@@ -28,6 +28,9 @@
 .overlap-group:focus-within {
   border-color: var(--collection-1-secondary);
 }
+::placeholder {
+  color: rgb(160, 160, 160);
+}
 
 .text-input-bar input {
   display: flex;
@@ -41,13 +44,12 @@
   font-weight: 400;
   line-height: normal;
   width: 90%;
+  font-size: 1.06rem;
 }
 
 .text-input-bar .icon {
-  left: 18px;
-  top: 8px;
   height: 28px;
   width: 28px;
-  margin-left: 1rem;
+  margin-left: 0.7rem;
   margin-right: 0.4rem;
 }

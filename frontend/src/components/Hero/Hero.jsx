@@ -1,14 +1,14 @@
-import React from 'react'
-import { Profile } from '../Profile/Profile'
-import { SearchBar } from '../SearchBar/SearchBar'
-import { HomeSlider } from '../HomeSlider/HomeSlider'
-import './Hero.css'
+import React from "react";
+import { Profile } from "../Profile/Profile";
+import { SearchBar } from "../SearchBar/SearchBar";
+import { HomeSlider } from "../HomeSlider/HomeSlider";
+import "./Hero.css";
 
-export const Hero = ({ property, updateState, searchTerm, handleSearch}) => {
+export const Hero = ({ property, updateState, searchTerm, handleSearch }) => {
   return (
     <div className="hero-section">
       <div className="top-part">
-        <Profile className="profile"/>
+        <Profile className="profile" />
       </div>
       <div className="bottom-part">
         <div className="hero-left">
@@ -18,8 +18,12 @@ export const Hero = ({ property, updateState, searchTerm, handleSearch}) => {
             <span className="for-you">For You</span>
           </p>
           <div className="quiz-type">
-            <HomeSlider property={property} updateState={updateState}/>
-            <SearchBar property={property} searchTerm={searchTerm} handleSearch={handleSearch}/>
+            <HomeSlider property={property} updateState={updateState} />
+            <SearchBar
+              property={property}
+              searchTerm={searchTerm}
+              handleSearch={handleSearch}
+            />
           </div>
         </div>
         <div className="hero-right">
@@ -27,5 +31,5 @@ export const Hero = ({ property, updateState, searchTerm, handleSearch}) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
