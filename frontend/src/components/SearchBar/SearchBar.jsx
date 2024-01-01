@@ -6,8 +6,18 @@ export const SearchBar = ({ property, searchTerm, handleSearch }) => {
   return (
     <div className="search-bar">
       <div className="frame">
-        <img className="vector" alt="search" src="../../assets/icons/search.svg" />
-        <input htmlFor="searchTerm" placeholder="Search For Quizzes" className="hint-text" value={searchTerm} onChange={handleSearch}/>
+        <img
+          className="vector"
+          alt="search"
+          src="../../assets/icons/search.svg"
+        />
+        <input
+          htmlFor="searchTerm"
+          placeholder="Search For Quizzes"
+          className="hint-text"
+          value={searchTerm}
+          onChange={handleSearch}
+        />
       </div>
     </div>
   );
