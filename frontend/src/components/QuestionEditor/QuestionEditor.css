@@ -7,7 +7,8 @@
   max-width: 710px; /* Maximum width */
   height: 50px;
   text-align: left;
-  padding-left: 10px;
+  border-radius: 1rem;
+  padding: 2rem;
   margin-bottom: 10px; /* Optional: Add space between boxes */
   box-sizing: border-box; /* Include padding and border in the box's total width and height */
 }
