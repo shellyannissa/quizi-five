@@ -1,0 +1,164 @@
+1) User create
+create entry of user with username and avatar in db/user/+uid (store locally)
+for each entry  quiz in db/quiz 
+    get quizId
+    create entry in each db/reg/quizId/uid of (points, position)
+
+2) Create quiz
+create entry of (name, image, status = upcoming) in db/quiz/+quizId  
+get quizId
+for each entry user in db/user
+    create entry in db/reg/quizId (uid,points = 0, position)
+
+
+Listeners to be created for db/quiz
+cards rebuilt on any change to the node values
+- each card should navigate to the quizpage only if the status is ongoing
+
+3) Edit quiz
+edit entry (name, image, status) with quizId at db/quiz/quizId
+
+4) delete quiz
+delete entry at db/quiz/quizId
+
+5) Add question
+create entry in db/ques/+qnId of 
+    (desc, allottedMin, allotedSec,options:{idx, text, count},crctOpnIdx, quizId, weightage, endingInstant)
+
+6)Edit question
+    edit entry at the corresponding quizId
+
+7) Mark Correct Option
+set correctOpn as the corresponding index at db/ques/qnId
+
+8) Answer question
+set ansInstant to curr time
+create entry (uId, chosenIdx, ansInstant) at db/ans/qnId/
+
+9) Activate question
+get allottedMin, allottedSec, desc, options from db/ques/qnId
+find endingInstant by adding those to curr time
+set endingInstant at db/ques/qnId.endingInstant
+postContent = {
+    type = 'ques',
+    desc,
+    allottedMin, 
+    allotedSec,
+    seconds,
+    options, 
+}
+set db/display/ as postContent
+
+
+listeners setUp to db/display
+
+10) Evaluate question
+get crctOpnIdx,endingInstant,weightage,quizId, options from db/ques/qnId
+res ={}
+for op in options
+    res[op.idx] = 0
+for each entry ans in db/ans/qnId
+    uid = ans.uid
+    res[ans.idx]++;
+    if ans.chosenIdx = crctOpnIdx
+        marks = (endingInstant - ans.ansInstant) * weightage
+        increment(marks) at db/reg/quizId/uid.points
+for op in options
+    idx = op.idx
+    count = res[idx]
+    create entry count at db/stat/qnId/options.
+    update db/ques/qnId/options count where options.idx = idx
+
+
+
+11) Display Answer and standings
+get desc, options from db/ques/qnId 
+postContent = {
+    type = 'stat',
+    desc,
+    options
+}
+set db/display/ as postContent
+
+get static leaderboard from db/stlead/
+res = {}
+for entry in stlead 
+    get points from db/reg/quizId/uid.points
+    res[entry.uid] = points
+
+postContent = {
+    type = 'extnd',
+    points
+}
+sleep(5)
+
+uids = {}
+get leaderboard from db/reg/quizId/ orderBy(points), limitBy10
+postContent = {}
+for entry in leaderboard
+    uids.push(entry.uid);
+    temp = {}
+    
+
+
+
+leaderboard has to be built initially with data of this format
+INPUT: an array of ten objects,
+
+userName, avatar and points have to be displayed at the leaderboard, position is currently unimportant.
+this data has to be stored locally, will be used when building the shifting tiles animation.
+at the user side when the component is built must check if the uId is same as the current userId, then the corresponding tile has to be highlighted
+[
+    {
+        userName:"Dhwani",
+        uId:"N8yh1y3834-1hifa",
+        avatar:"imagelink",
+        points:1020,
+        position:8
+    },
+    {...},
+    ....
+    {...}
+]
+
+when the extend animation is triggered from database, data of this format is sent
+INPUT: an array of objects
+it contains the new points of the people who held the top position before, thus to display the animation of points extending rightwards, each tile has to extend as per the new points now recieved
+
+[
+    {
+        uId:"N8538975orf-84",
+        userName:"Dhwani",
+        points:1090
+    },
+    ...
+    {...}
+]
+
+
+Once this animation is done leaderboard has to be rebuilt with the info about new top position holders
+
+INPUT: an array of objects
+
+[
+    {
+        userName:"Dhwani",
+        uId:"N8yh1y3834-1hifa",
+        avatar:"imagelink",
+        points:1020,
+        position:8
+    },
+    {...},
+    ....
+    {...}
+]
+
+with the stored info about the previous top ten position holders, the shifting tile animation has to be done. Where tiles are made of previous top position holders, these tiles should shift and fall in place to form
+new leaderboard which if built on the input now recieved , current top position holders.
+
+
+note:if it is preferrable, forget about storing the data locally, both the arrays could be sent directly from backend.
+
+
+
+Static leaderboard returns data of the format

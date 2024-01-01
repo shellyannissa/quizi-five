@@ -1,26 +1,15 @@
 import React from "react";
 import "./QuestionEditor.css";
 import { Button } from "../Button/Button";
+import {
+  activateQuestion,
+  questionStats,
+  evaluate,
+  getLeaderBoard,
+  extendPoints,
+} from "../../../../backend/controllers/firebaseController";
 
 const QuestionEditor = ({ question, qno, callBack }) => {
-  const activateHandler = async (questionId) => {
-    const body = {
-      questionId,
-    };
-    const response = await fetch("http://localhost:8000/api/ques/activate", {
-      method: "PUT",
-      body: JSON.stringify(body),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (response.ok) {
-      callBack(questionId);
-    } else {
-      console.error("Error:", response.status, response.statusText);
-    }
-  };
-
   const triggerHandler = () => {};
   return (
     <div className="box">
@@ -31,11 +20,18 @@ const QuestionEditor = ({ question, qno, callBack }) => {
         <h4>{question.description}</h4>
       </div>
       <div className="btn-group">
-        <Button text="EDIT" clickHandler={triggerHandler} />
+        <Button
+          text="STAT"
+          clickHandler={() => {
+            extendPoints(question.quizId).then((res) => {
+              console.log(res);
+            });
+          }}
+        />
         <Button
           text="ACTIVATE"
           clickHandler={() => {
-            activateHandler(question.questionid);
+            activateQuestion(question.qnId);
           }}
         />
       </div>

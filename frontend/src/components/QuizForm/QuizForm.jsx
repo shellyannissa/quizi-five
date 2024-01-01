@@ -2,9 +2,14 @@ import React from "react";
 import { Button } from "../Button/Button";
 import { TextInputBar } from "../TextInputBar/TextInputBar";
 import { useUser } from "../../context/UserContext";
-import { storage } from "../../../shared/firebase_config";
+// import { storage } from "../../../shared/firebase_config";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import "./QuizForm.css";
+import {
+  createQuiz,
+  editQuiz,
+  editStatus,
+} from "../../../../backend/controllers/firebaseController";
 
 const QuizForm = ({
   heading,
@@ -184,7 +189,8 @@ const QuizForm = ({
       console.log(createdQuizId);
 
       // then we are uploading the actual image to firebase storage and getting the imageUrl
-      const imageLink = await uploadImage(image, createdQuizId.quizId);
+      // const imageLink = await uploadImage(image, createdQuizId.quizId);
+      const imageLink = "";
 
       console.log("image link for updation " + imageLink);
       const body = {
@@ -308,7 +314,25 @@ const QuizForm = ({
         </div>
         <Button
           text="SUBMIT"
-          clickHandler={quizId ? handleEditQuiz : handleCreateQuiz}
+          clickHandler={
+            quizId
+              ? () => {
+                  const quizName = document.getElementById("quiz-name").value;
+                  // const quizImage = document.getElementById("file-input").files[0];
+                  const image =
+                    "https://thumbs.dreamstime.com/b/quiz-time-concept-speech-bubble-pencil-yellow-background-quiz-time-concept-speech-bubble-pencil-yellow-background-223092987.jpg";
+                  editQuiz(quizId, quizName, image);
+                }
+              : () => {
+                  const quizName = document.getElementById("quiz-name").value;
+                  createQuiz(
+                    quizName,
+                    "https://ischoolconnect.com/blog/wp-content/uploads/2021/12/What-are-some-science-quiz-questions-770x513.jpg"
+                  ).then((quizId) => {
+                    console.log(quizId);
+                  });
+                }
+          }
         />
       </div>
     </div>

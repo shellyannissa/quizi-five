@@ -6,6 +6,7 @@ import { AuthSlider } from "../AuthSlider/AuthSlider";
 import { useUser } from "../../context/UserContext";
 import "./AuthFrame.css";
 import { useNavigate } from "react-router-dom";
+import { createUser } from "../../../../backend/controllers/firebaseController";
 
 export const AuthFrame = ({ property }) => {
   const navigate = useNavigate();
@@ -88,7 +89,16 @@ export const AuthFrame = ({ property }) => {
           />
         ) : null}
       </div>
-      <Button clickHandler={handleSubmit} text="SUBMIT" />
+      <Button
+        clickHandler={(e) => {
+          const email = document.getElementById("email-id").value;
+          createUser(email).then((data) => {
+            console.log(data);
+            setUser(data);
+          });
+        }}
+        text="SUBMIT"
+      />
     </div>
   );
 };

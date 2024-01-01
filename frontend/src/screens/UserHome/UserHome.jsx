@@ -8,6 +8,8 @@ import { useUser } from "../../context/UserContext";
 import { Hero } from "../../components/Hero/Hero";
 import "./UserHome.css";
 import { Button } from "../../components/Button/Button";
+import { db } from "../../../shared/firebase_config";
+import { ref, onValue } from "firebase/database";
 
 export const UserHome = ({ property }) => {
   const [state, dispatch] = useReducer(reducer, {
@@ -49,6 +51,23 @@ export const UserHome = ({ property }) => {
     setRegisteredQuizzes(await registeredResponse.json());
   };
 
+  const getAllQuizzes = async () => {
+    const quizRef = ref(db, "quiz");
+    onValue(quizRef, (snapshot) => {
+      if (snapshot.exists()) {
+        const quizzes = [];
+        snapshot.forEach((childSnapshot) => {
+          const quiz = childSnapshot.val();
+          quiz.quizId = childSnapshot.key;
+          quizzes.push(quiz);
+        });
+        setRegisteredQuizzes(quizzes);
+      } else {
+        console.log("No data available");
+      }
+    });
+  };
+
   const registerHandler = async (quizId) => {
     const registeredResponse = await fetch(
       "http://localhost:8000/api/reg/register",
@@ -87,8 +106,9 @@ export const UserHome = ({ property }) => {
   const [quizList, setQuizList] = useState(registeredQuizzes);
   useEffect(() => {
     if (user) {
-      getAvailableQuizzes();
-      getRegisteredQuizzes();
+      // getAvailableQuizzes();
+      // getRegisteredQuizzes();
+      getAllQuizzes();
     }
   }, [quizList, user]);
 
